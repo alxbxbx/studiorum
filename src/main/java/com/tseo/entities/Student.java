@@ -2,24 +2,26 @@ package com.tseo.entities;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Student extends User{
 	
-	private String gendre;
+	private String gender;
 	private Date dateOfBirth;
 	private String address;
 	private String JMBG;
 	private String studentId;
-	private ArrayList<Subject> subjects;
-	private ArrayList<Document> documents;
-	private ArrayList<Payment> payments;
+	private List<Subject> subjects;
+	private List<Document> documents;
+	private List<Payment> payments;
 	
 	
 	public Student(){}
-	public Student(String gendre, Date dateOfBirth, String address, String jMBG, 
-			String studentId, ArrayList<Subject> subjects, ArrayList<Document> documents, ArrayList<Payment> payments) {
+	public Student(String gender, Date dateOfBirth, String address, String jMBG, 
+			String studentId, List<Subject> subjects, List<Document> documents, List<Payment> payments) {
+
 		super();
-		this.gendre = gendre;
+		this.gender = gender;
 		this.dateOfBirth = dateOfBirth;
 		this.address = address;
 		JMBG = jMBG;
@@ -29,12 +31,12 @@ public class Student extends User{
 		this.payments = payments;
 		
 	}
-	
-	public String getGendre() {
-		return gendre;
+
+	public String getGender() {
+		return gender;
 	}
-	public void setGendre(String gendre) {
-		this.gendre = gendre;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	public Date getDateOfBirth() {
 		return dateOfBirth;
@@ -60,24 +62,23 @@ public class Student extends User{
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
-	public ArrayList<Subject> getSubjects() {
+	public List<Subject> getSubjects() {
 		return subjects;
 	}
-	public void setSubjects(ArrayList<Subject> subjects) {
+	public void setSubjects(List<Subject> subjects) {
 		this.subjects = subjects;
 	}
-	public ArrayList<Document> getDocuments() {
+	public List<Document> getDocuments() {
 		return documents;
 	}
-	public void setDocuments(ArrayList<Document> documents) {
+	public void setDocuments(List<Document> documents) {
 		this.documents = documents;
 	}
-	public ArrayList<Payment> getPayments() {
+	public List<Payment> getPayments() {
 		return payments;
 	}
-	public void setPayments(ArrayList<Payment> payments) {
+	public void setPayments(List<Payment> payments) {
 		this.payments = payments;
 	}
-	
 	
 }

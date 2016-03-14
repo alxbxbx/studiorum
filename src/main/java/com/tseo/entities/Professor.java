@@ -5,7 +5,7 @@ import java.util.Date;
 public class Professor extends User{
 	
 	
-	private String gendre;
+	private String gender;
 	private Date dateOfBirth;
 	private String address;
 	private String JMBG;
@@ -13,19 +13,19 @@ public class Professor extends User{
 	
 	
 	public Professor(){}
-	public Professor(String gendre, Date dateOfBirth, String address, String jMBG, String title) {
+	public Professor(String gender, Date dateOfBirth, String address, String jMBG, String title) {
 		super();
-		this.gendre = gendre;
+		this.gender = gender;
 		this.dateOfBirth = dateOfBirth;
 		this.address = address;
 		JMBG = jMBG;
 		this.title = title;
 	}
-	public String getGendre() {
-		return gendre;
+	public String getGender() {
+		return gender;
 	}
-	public void setGendre(String gendre) {
-		this.gendre = gendre;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	public Date getDateOfBirth() {
 		return dateOfBirth;

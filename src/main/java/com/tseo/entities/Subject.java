@@ -1,6 +1,6 @@
 package com.tseo.entities;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Subject {
 	
@@ -8,15 +8,15 @@ public class Subject {
 	private String name;
 	private Integer semester;
 	private String description;
-	private ArrayList<Duty> duties;
-	private ArrayList<ProfessorRole>  professorRole;
+	private List<Duty> duties;
+	private List<ProfessorRole>  professorRole;
 	
 	
 	public Subject(){
 		
 	}
 	
-	public Subject(Integer id, String name, Integer semester, String description, ArrayList<Duty> duties,ArrayList<ProfessorRole>  professorRole) {
+	public Subject(Integer id, String name, Integer semester, String description, List<Duty> duties, List<ProfessorRole>  professorRole) {
 		
 		super();
 		this.id = id;
@@ -60,19 +60,19 @@ public class Subject {
 		this.description = description;
 	}
 
-	public ArrayList<Duty> getDuties() {
+	public List<Duty> getDuties() {
 		return duties;
 	}
 
-	public void setDuties(ArrayList<Duty> duties) {
+	public void setDuties(List<Duty> duties) {
 		this.duties = duties;
 	}
 
-	public ArrayList<ProfessorRole> getProfessorRole() {
+	public List<ProfessorRole> getProfessorRole() {
 		return professorRole;
 	}
 
-	public void setProfessorRole(ArrayList<ProfessorRole> professorRole) {
+	public void setProfessorRole(List<ProfessorRole> professorRole) {
 		this.professorRole = professorRole;
 	}
 	

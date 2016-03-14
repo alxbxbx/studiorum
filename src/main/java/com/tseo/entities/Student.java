@@ -4,26 +4,26 @@ import java.util.Date;
 
 public class Student extends User{
 	
-	private String gendre;
+	private String gender;
 	private Date dateOfBirth;
 	private String address;
 	private String JMBG;
 	private String studentId;
 	
 	public Student(){}
-	public Student(String gendre, Date dateOfBirth, String address, String jMBG, String studentId) {
+	public Student(String gender, Date dateOfBirth, String address, String jMBG, String studentId) {
 		super();
-		this.gendre = gendre;
+		this.gender = gender;
 		this.dateOfBirth = dateOfBirth;
 		this.address = address;
 		JMBG = jMBG;
 		this.studentId = studentId;
 	}
-	public String getGendre() {
-		return gendre;
+	public String getGender() {
+		return gender;
 	}
-	public void setGendre(String gendre) {
-		this.gendre = gendre;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	public Date getDateOfBirth() {
 		return dateOfBirth;

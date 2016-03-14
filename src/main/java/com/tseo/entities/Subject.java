@@ -59,6 +59,22 @@ public class Subject {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public ArrayList<Duty> getDuties() {
+		return duties;
+	}
+
+	public void setDuties(ArrayList<Duty> duties) {
+		this.duties = duties;
+	}
+
+	public ArrayList<ProfessorRole> getProfessorRole() {
+		return professorRole;
+	}
+
+	public void setProfessorRole(ArrayList<ProfessorRole> professorRole) {
+		this.professorRole = professorRole;
+	}
 	
 
 }

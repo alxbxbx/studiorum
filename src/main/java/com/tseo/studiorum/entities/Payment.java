@@ -1,28 +1,39 @@
-package com.tseo.entities;
+package com.tseo.studiorum.entities;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Payment {
 	
+	@Id
+	@GeneratedValue
 	private Integer id;
 	private String purpose;
 	private String bankAcc;
 	private double price;
 	private String to;
-	private String payer;
+	
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+	private Student student;
 	
 	
 	public Payment(){
 		
 	}
 	
-	public Payment(Integer id, String purpose, String bankAcc, double price,
-			String to, String payer) {
+	public Payment(Integer id, String purpose, String bankAcc, double price, String to, Student student) {
 		super();
 		this.id = id;
 		this.purpose = purpose;
 		this.bankAcc = bankAcc;
 		this.price = price;
 		this.to = to;
-		this.payer = payer;
+		this.student = student;
 	}
 
 	public Integer getId() {
@@ -65,13 +76,14 @@ public class Payment {
 		this.to = to;
 	}
 
-	public String getPayer() {
-		return payer;
+	public Student getStudent() {
+		return student;
 	}
 
-	public void setPayer(String payer) {
-		this.payer = payer;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
+	
 	
 
 }

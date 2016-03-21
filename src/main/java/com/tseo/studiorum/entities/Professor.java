@@ -1,7 +1,15 @@
-package com.tseo.entities;
+package com.tseo.studiorum.entities;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Professor extends User{
 	
 	
@@ -11,15 +19,28 @@ public class Professor extends User{
 	private String JMBG;
 	private String title;
 	
+	@OneToMany(mappedBy = "professor", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	private Set<ProfessorRole> roles = new HashSet<ProfessorRole>();
+	
 	
 	public Professor(){}
-	public Professor(String gender, Date dateOfBirth, String address, String jMBG, String title) {
+
+	public Professor(String gender, Date dateOfBirth, String address, String jMBG, String title,
+			Set<ProfessorRole> roles) {
 		super();
 		this.gender = gender;
 		this.dateOfBirth = dateOfBirth;
 		this.address = address;
 		JMBG = jMBG;
 		this.title = title;
+		this.roles = roles;
+	}
+
+	public Set<ProfessorRole> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<ProfessorRole> roles) {
+		this.roles = roles;
 	}
 	public String getGender() {
 		return gender;

@@ -1,4 +1,4 @@
-package com.tseo.studiorum.app;
+package com.tseo.studiorum;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,5 +1,7 @@
 package com.tseo.studiorum.entities;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +18,8 @@ public class Duty {
 	
 	private String typeOfDuty; // usmeni ispit, kolokvijum, test...
 	
+	
+	private Date date;
 	private Integer maxPoints;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
@@ -26,11 +30,12 @@ public class Duty {
 		
 	}
 	
-	
-	public Duty(Integer id, String typeOfDuty, Integer maxPoints, Subject subject) {
+
+	public Duty(Integer id, String typeOfDuty, Date date, Integer maxPoints, Subject subject) {
 		super();
 		this.id = id;
 		this.typeOfDuty = typeOfDuty;
+		this.date = date;
 		this.maxPoints = maxPoints;
 		this.subject = subject;
 	}
@@ -68,6 +73,16 @@ public class Duty {
 
 	public void setSubject(Subject subject) {
 		this.subject = subject;
+	}
+
+
+	public Date getDate() {
+		return date;
+	}
+
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	

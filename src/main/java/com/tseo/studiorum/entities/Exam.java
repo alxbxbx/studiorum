@@ -28,6 +28,8 @@ public class Exam {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private Student student;
 	
+	public Exam(){}
+	
 	public Exam(Integer id, Integer points, Duty duty, Boolean pass, Student student) {
 		super();
 		this.id = id;

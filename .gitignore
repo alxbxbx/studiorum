@@ -5,3 +5,5 @@
 .settings
 
 /src/main/resources/application.properties
+/src/main/webapp/resources/*
+node_modules

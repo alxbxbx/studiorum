@@ -19,17 +19,17 @@ angular
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
+        templateUrl: '/static/views/main.html',
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
       .when('/students', {
-        templateUrl: 'views/students.html',
+        templateUrl: '/static/views/students.html',
         controller: 'StudentsCtrl',
         controllerAs: 'students'
       })
       .when('/courses', {
-        templateUrl: 'views/courses.html',
+        templateUrl: '/static/views/courses.html',
         controller: 'CoursesCtrl',
         controllerAs: 'courses'
       })

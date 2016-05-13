@@ -21,8 +21,8 @@ module.exports = function (grunt) {
 
   // Configurable paths for the application
   var appConfig = {
-    app: require('./bower.json').appPath || 'src',
-    dist: './src/main/webapp/resources'
+    app: './src/main/webapp/resources',
+    dist: './src/main/webapp/static'
   };
 
   var vendorFiles = {

@@ -58,7 +58,7 @@ public class SubjectController {
 		return new ResponseEntity<>(new SubjectDTO(subject), HttpStatus.OK);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<SubjectDTO> updateSubject(@RequestBody SubjectDTO subjectDTO){
 		Subject subject = subjectService.findOne(subjectDTO.getId());
 		

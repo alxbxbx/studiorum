@@ -4,7 +4,6 @@ target/
 .project
 .settings
 src/main/resources/application.properties
-src/main/webapp/resources/*
 node_modules
 bower_components
 src/main/webapp/static/*

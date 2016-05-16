@@ -1,0 +1,41 @@
+<div class="row makeitboxy">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+			<div class="panel-heading">
+			    Subjects
+			    <a href="" ng-click="clickAddUser()" style="float:right" ng-click="" class="btn btn-success btn-xs"
+			       role="button" data-target="#registerModal" data-toggle="modal">
+			        <span class="glyphicon glyphicon-plus"></span> Add Subject
+			    </a>
+			</div>
+			<table class="table table-striped">
+			  <tr>
+			    <th>ID</th>
+			    <th>Description</th>
+			    <th>Name</th>
+			    <th>Semester</th>
+			    <th></th>
+			    <th></th>
+			  </tr>
+			  <tr ng-repeat="subject in subjects">
+			    <td>{{subject.id}}</td>
+			    <td>{{subject.description}}</td>
+			    <td>{{subject.name}}</td>
+			    <td>{{subject.semester}}</td>
+				<td style="width:100px;text-align:right;">
+			        <a href="" class="btn btn-danger btn-xs" role="button" ng-click="clickRemoveUser(user)">
+			            <span class="glyphicon glyphicon-remove"></span> Delete
+			        </a>
+			    </td>
+			    <td style="width:65px;text-align:right;">
+			        <a href="" class="btn btn-primary btn-xs" ng-click="clickEditUser(user)"
+			           data-toggle="modal" data-target="#editUserModal" role="button">
+			            <span class="glyphicon glyphicon-pencil"></span> Edit
+			        </a>
+			    </td>
+			  </tr>
+			</table>
+		</div>
+	</div>
+</div>

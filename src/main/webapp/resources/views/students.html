@@ -21,12 +21,12 @@
                     <th></th>
                 </tr>
                 <tr ng-repeat="student in students">
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.firstName }}</td>
-                    <td>{{ user.lastName }}</td>
-                    <td>{{ user.category.name || "Subscribed to all" }}</td>
-                    <td>{{ user.type }}</td>
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.userName }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.lastName }}</td>
+                    <td>{{ student.category.name || "Subscribed to all" }}</td>
+                    <td>{{ student.type }}</td>
                     <td style="width:100px;text-align:right;">
                         <a href="" class="btn btn-danger btn-xs" role="button" ng-click="clickRemoveUser(user)">
                             <span class="glyphicon glyphicon-remove"></span> Delete

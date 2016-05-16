@@ -93,7 +93,7 @@
                      <span class="input-group-addon" id="user-address-addon">
                          <span class=" glyphicon glyphicon-home"></span>
                      </span>
-                     <input ng-model="user.address" type="text" id="user-password-again" name="address" class="form-control" describedby="user-address-addon" placeholder="Address">
+                     <input ng-model="user.address" type="text" id="user-address" name="address" class="form-control" describedby="user-address-addon" placeholder="Address">
                  </div>
                  
                  <!-- JMBG -->
@@ -102,7 +102,18 @@
                      <span class="input-group-addon" id="user-jmbg-addon">
                          <span class=" glyphicon glyphicon-edit"></span>
                      </span>
-                     <input ng-model="user.jmbg" type="text" id="user-password-again" name="jmbg" class="form-control" describedby="user-jmbg-addon" placeholder="Enter JMBG">
+                     <input ng-model="user.jmbg" type="text" id="user-jmbg" name="jmbg" class="form-control" describedby="user-jmbg-addon" placeholder="Enter JMBG">
+                 </div>
+                 
+                 <!-- Student ID -->
+                 <div ng-if="user.isStudent">
+	                 <label for="user-student-id">Student ID</label>
+	                 <div class="input-group">
+	                     <span class="input-group-addon" id="user-student-id-addon">
+	                         <span class="glyphicon glyphicon-edit"></span>
+	                     </span>
+	                     <input ng-model="user.studentId" type="text" id="user-student-id" name="studentId" class="form-control" describedby="user-student-id-addon" placeholder="Student ID">
+	                 </div>
                  </div>
                  
             </div>

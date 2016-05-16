@@ -17,7 +17,7 @@
                     <th>Address</th>
                     <th>Date of Birth</th>
                     <th>Gender</th>
-                    <th colspan="3"></th>
+                    <th colspan="2"></th>
                 </tr>
                 <tr ng-repeat="student in students">
                     <td>{{ student.id }}</td>
@@ -27,22 +27,14 @@
                     <td>{{ student.dateOfBirth }}</td>
                     <td>{{ student.gender }}</td>
                     <td style="width:100px;text-align:right;">
-                        <a href="" class="btn btn-danger btn-xs" role="button" ng-click="clickRemoveUser(user)">
+                        <a class="btn btn-danger btn-xs" role="button" ng-click="clickDeleteUser(student.id)">
                             <span class="glyphicon glyphicon-remove"></span> Delete
                         </a>
                     </td>
                     <td style="width:65px;text-align:right;">
-                        <a href="" class="btn btn-primary btn-xs" ng-click="clickEditUser(user)"
-                           data-toggle="modal" data-target="#editUserModal" role="button">
+                        <a class="btn btn-primary btn-xs" role="button" ng-click="clickEditUser(student.id)">
                             <span class="glyphicon glyphicon-pencil"></span> Edit
                         </a>
-                    </td>
-                    <td style="width:65px;text-align:right;">
-                        <a href="" class="btn btn-primary btn-xs" ng-click="clickEditPassword(user)"
-                           data-toggle="modal" data-target="#changePasswordModal" role="button">
-                            <span class="glyphicon glyphicon-lock"></span> Change Password
-                        </a>
-                    </td>
                     </td>
                 </tr>
             </table>

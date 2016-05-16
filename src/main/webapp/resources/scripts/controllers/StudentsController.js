@@ -25,14 +25,12 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
 	}
 	
 	$scope.clickEditUser = function (id) {
-		$scope.user = Restangular.one('students', id).get().$object;
-		$scope.user.isStudent = true;
-		
-		// Ovde moramo uraditi konverziju jer <input type="date"> pukne
-		// ako nije pravi Date objekat
-		$scope.user.dateOfBirth = new Date($scope.user.dateOfBirth);
-		
-		$("#addUserModal").modal("show");
+		Restangular.one("students", id).get().then(function(user) {
+		    $scope.user = user;
+		    $scope.user.isStudent = true;
+		    $scope.user.dateOfBirth = new Date($scope.user.dateOfBirth);
+		    $("#addUserModal").modal("show");
+		});
 	}
 	
 	$scope.clickDeleteUser = function () {

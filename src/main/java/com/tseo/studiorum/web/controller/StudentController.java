@@ -55,7 +55,7 @@ public class StudentController {
 		student.setGender(studentDTO.getGender());
 		student.setAddress(studentDTO.getAddress());
 		student.setDateOfBirth(studentDTO.getDateOfBirth());
-		student.setJMBG(student.getJMBG());
+		student.setJMBG(studentDTO.getJMBG());
 		student.setStudentId(studentDTO.getStudentId());
 		student.setName(studentDTO.getName());
 		student.setLastName(studentDTO.getLastName());
@@ -77,7 +77,7 @@ public class StudentController {
 		student.setGender(studentDTO.getGender());
 		student.setAddress(studentDTO.getAddress());
 		student.setDateOfBirth(studentDTO.getDateOfBirth());
-		student.setJMBG(student.getJMBG());
+		student.setJMBG(studentDTO.getJMBG());
 		student.setStudentId(studentDTO.getStudentId());
 		student.setName(studentDTO.getName());
 		student.setLastName(studentDTO.getLastName());

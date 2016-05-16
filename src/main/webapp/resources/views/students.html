@@ -1,36 +1,52 @@
-<div>
-  <h3>Studenti</h3>
-</div>
-<table class="table table-bordered">
-  <tr>
-    <th>indeks</th>
-    <th>ime</th>
-    <th>prezime</th>
-    <th>akcija</th>
-  </tr>
-  <tr ng-repeat="student in students">
-    <td>
-      {{student.cardNumber}}
-    </td>
-    <td>
-      {{student.firstName}}
-    </td>
-    <td>
-      {{student.lastName}}
-    </td>
-    <td>
-      <button type="button" class="btn btn-default" aria-label="Izmena" ng-click="openModal(student)">
-        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-      </button>
-
-      <button type="button" class="btn btn-default" aria-label="Brisanje" ng-click="deleteStudent(student.id)">
-        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-      </button>
-    </td>
-  </tr>
-</table>
-<div class="right">
-  <button type="button" class="btn btn-default" aria-label="Dodavanje" ng-click="openModal()">
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-  </button>
+<div class="row makeitboxy">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Students
+                <a href="" ng-click="clickAddUser()" style="float:right" ng-click="" class="btn btn-success btn-xs"
+                   role="button" data-target="#registerModal" data-toggle="modal">
+                    <span class="glyphicon glyphicon-plus"></span> Add User
+                </a>
+            </div>
+            <table class="table table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Category</th>
+                    <th>Type</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="student in students">
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.firstName }}</td>
+                    <td>{{ user.lastName }}</td>
+                    <td>{{ user.category.name || "Subscribed to all" }}</td>
+                    <td>{{ user.type }}</td>
+                    <td style="width:100px;text-align:right;">
+                        <a href="" class="btn btn-danger btn-xs" role="button" ng-click="clickRemoveUser(user)">
+                            <span class="glyphicon glyphicon-remove"></span> Delete
+                        </a>
+                    </td>
+                    <td style="width:65px;text-align:right;">
+                        <a href="" class="btn btn-primary btn-xs" ng-click="clickEditUser(user)"
+                           data-toggle="modal" data-target="#editUserModal" role="button">
+                            <span class="glyphicon glyphicon-pencil"></span> Edit
+                        </a>
+                    </td>
+                    <td style="width:65px;text-align:right;">
+                        <a href="" class="btn btn-primary btn-xs" ng-click="clickEditPassword(user)"
+                           data-toggle="modal" data-target="#changePasswordModal" role="button">
+                            <span class="glyphicon glyphicon-lock"></span> Change Password
+                        </a>
+                    </td>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>

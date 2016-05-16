@@ -1,15 +1,7 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name studentsClientApp
- * @description
- * # studentsClientApp
- *
- * Main module of the application.
- */
 angular
-  .module('studentsClientApp', [
+  .module('studiorum', [
     'ngResource',
     'ngRoute',
     'restangular',
@@ -18,20 +10,15 @@ angular
   ])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: '/static/views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+    	.when('/', {
+        templateUrl: '/static/views/home.html',
+        controller: 'HomeController',
+        controllerAs: 'homeCtrl'
       })
       .when('/students', {
         templateUrl: '/static/views/students.html',
-        controller: 'StudentsCtrl',
-        controllerAs: 'students'
-      })
-      .when('/courses', {
-        templateUrl: '/static/views/courses.html',
-        controller: 'CoursesCtrl',
-        controllerAs: 'courses'
+        controller: 'StudentsController',
+        controllerAs: 'studentsCtrl'
       })
       .otherwise({
         redirectTo: '/'

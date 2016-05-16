@@ -20,6 +20,11 @@ angular
         controller: 'StudentsController',
         controllerAs: 'studentsCtrl'
       })
+      .when('/subjects', {
+        templateUrl: '/static/views/subjects.html',
+        controller: 'SubjectsController',
+        controllerAs: 'subjectsCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

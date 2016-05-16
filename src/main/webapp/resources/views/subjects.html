@@ -1,12 +1,12 @@
+<div ng-include="'/static/views/modals/subject.html'"></div>
 <div class="row makeitboxy">
     <div class="col-lg-12">
         <div class="panel panel-default">
 			<div class="panel-heading">
 			    Subjects
-			    <a href="" ng-click="clickAddUser()" style="float:right" ng-click="" class="btn btn-success btn-xs"
-			       role="button" data-target="#registerModal" data-toggle="modal">
-			        <span class="glyphicon glyphicon-plus"></span> Add Subject
-			    </a>
+			    <a href="" ng-click="clickCreateSubject()" style="float:right" class="btn btn-success btn-xs" role="button">
+                    <span class="glyphicon glyphicon-plus"></span> Create New
+                </a>
 			</div>
 			<table class="table table-striped">
 			  <tr>
@@ -23,12 +23,12 @@
 			    <td>{{subject.name}}</td>
 			    <td>{{subject.semester}}</td>
 				<td style="width:100px;text-align:right;">
-			        <a href="" class="btn btn-danger btn-xs" role="button" ng-click="clickRemoveUser(user)">
+			        <a href="" class="btn btn-danger btn-xs" role="button" ng-click="clickDeleteSubject(subject.id)">
 			            <span class="glyphicon glyphicon-remove"></span> Delete
 			        </a>
 			    </td>
 			    <td style="width:65px;text-align:right;">
-			        <a href="" class="btn btn-primary btn-xs" ng-click="clickEditUser(user)"
+			        <a href="" class="btn btn-primary btn-xs" ng-click="clickEditSubject(subject.id)"
 			           data-toggle="modal" data-target="#editUserModal" role="button">
 			            <span class="glyphicon glyphicon-pencil"></span> Edit
 			        </a>

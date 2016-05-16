@@ -3,9 +3,7 @@
 angular.module('studiorum').controller('StudentsController', ['$scope', 'Restangular', '$uibModal', '$log', '_', function($scope, Restangular, $uibModal, $log, _) {
 
 	// Initialization
-	
-	$scope.user = {};
-	$scope.user.isStudent = true;
+
 	$scope.baseStudents = Restangular.all('students');
 	
 	Restangular.all("students").getList().then(function(students) {
@@ -21,6 +19,7 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
 	$scope.clickCreateUser = function () {	
 		$scope.user = {};
 		$scope.user.isStudent = true;
+		$scope.user.isStudentCreate = true;
 		$("#addUserModal").modal("show");
 	}
 	
@@ -28,6 +27,7 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
 		Restangular.one("students", id).get().then(function(user) {
 		    $scope.user = user;
 		    $scope.user.isStudent = true;
+		    $scope.user.isStudentEdit = true;
 		    $scope.user.dateOfBirth = new Date($scope.user.dateOfBirth);
 		    $("#addUserModal").modal("show");
 		});

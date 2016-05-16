@@ -52,12 +52,14 @@
                  </div>
 
                  <!-- Password Again -->
-                 <label for="user-password-again">Password Again</label>
-                 <div class="input-group">
-                     <span class="input-group-addon" id="user-password-again-addon">
-                         <span class=" glyphicon glyphicon-lock"></span>
-                     </span>
-                     <input ng-model="user.passwordAgain" type="password" id="user-password-again" name="passwordAgain" class="form-control" describedby="user-password-again-addon" placeholder="Password Again">
+                 <div ng-if="user.isStudentCreate">
+	                 <label for="user-password-again">Password Again</label>
+	                 <div class="input-group">
+	                     <span class="input-group-addon" id="user-password-again-addon">
+	                         <span class=" glyphicon glyphicon-lock"></span>
+	                     </span>
+	                     <input ng-model="user.passwordAgain" type="password" id="user-password-again" name="passwordAgain" class="form-control" describedby="user-password-again-addon" placeholder="Password Again">
+	                 </div>
                  </div>
                  
                  <div class="row">

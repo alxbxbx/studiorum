@@ -1,10 +1,9 @@
-<div ng-include="'/static/views/modals/subject.html'"></div>
 <div class="row makeitboxy">
     <div class="col-lg-12">
         <div class="panel panel-default">
 			<div class="panel-heading">
 			    Subjects
-			    <a href="" ng-click="clickCreateSubject()" style="float:right" class="btn btn-success btn-xs" role="button">
+			    <a href="" ng-click="openModal()" style="float:right" class="btn btn-success btn-xs" role="button">
                     <span class="glyphicon glyphicon-plus"></span> Create New
                 </a>
 			</div>
@@ -28,7 +27,7 @@
 			        </a>
 			    </td>
 			    <td style="width:65px;text-align:right;">
-			        <a href="" class="btn btn-primary btn-xs" ng-click="clickEditSubject(subject.id)"
+			        <a href="" class="btn btn-primary btn-xs" ng-click="openModal(subject)"
 			           data-toggle="modal" data-target="#editUserModal" role="button">
 			            <span class="glyphicon glyphicon-pencil"></span> Edit
 			        </a>

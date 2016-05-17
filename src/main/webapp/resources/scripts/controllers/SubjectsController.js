@@ -9,25 +9,6 @@ angular.module('studiorum').controller('SubjectsController', ['$scope', 'Restang
 	
 	loadListOfSubjects();
 	
-	// On Click Events
-	
-	$scope.clickHideUser = function () {
-		$("#subjectModal_").modal("hide");
-	}
-	
-	$scope.clickCreateSubject = function () {
-		console.log("NOTHING HAPPENED")
-		$scope.subject = {};
-		//$scope.user.isStudentCreate = true;
-		$("#subjectModal_").modal("show");
-	}
-	
-	$scope.clickEditSubject = function (id) {
-		Restangular.one("subjects", id).get().then(function(subject) {
-			$scope.subject = subject;
-		    $("#subjectModal_").modal("show");
-		});
-	}
 	
 	$scope.clickDeleteSubject = function (id) {
 		if (confirm("Are you sure?")) {
@@ -37,23 +18,6 @@ angular.module('studiorum').controller('SubjectsController', ['$scope', 'Restang
 		}
 	}
 	
-	$scope.clickSaveSubject = function () {
-		if ($scope.subject.id) {
-			$scope.baseSubjects.customPUT($scope.subject).then(function() {
-				loadListOfSubjects();
-				$("#subjectModal_").modal("hide");
-			});
-		} else {
-			$scope.baseSubjects.post($scope.subject).then(function() {
-				loadListOfSubjects();
-				$("#subjectModal_").modal("hide");
-			});
-		}
-	}
-	
-	
-	
-	
 	
 	function loadListOfSubjects(){
 		Restangular.all("subjects").getList().then(function(entries) {
@@ -61,5 +25,53 @@ angular.module('studiorum').controller('SubjectsController', ['$scope', 'Restang
 	    });	
 	}
 	
+	
+	
+	$scope.openModal = function(subject) {
+
+      var modalInstance = $uibModal.open({
+        templateUrl: '/static/views/modals/subject.html',
+        controller: SubjectModalCtrl,
+        scope: $scope,
+        resolve: {
+          subject: function() {
+            return subject;
+          }
+        }
+      });
+      modalInstance.result.then(function(value) {
+        $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+      }, function(value) {
+        $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+      });
+    };
+    
+    
+    var SubjectModalCtrl = ['$scope', '$uibModalInstance', 'subject', 'Restangular', '$log', '_',
+       function($scope, $uibModalInstance, subject, Restangular, $log, _) {
+    	$scope.subject = subject;
+    	$scope.ok = function() {
+	      if ($scope.subject.id) {
+	        Restangular.all('subjects').customPUT($scope.subject).then(function (data) {
+	        	loadListOfSubjects();
+	        });
+	      } else {
+	        Restangular.all('subjects').post($scope.subject).then(function (data) {
+	        	loadListOfSubjects();
+	        },
+	          // callback za gresku sa servera
+	          function() {
+	            $log.info('something went wrong!');
+	          });
+	      }
+	      $uibModalInstance.close('ok');
+	    };
+
+        $scope.cancel = function() {
+          $uibModalInstance.dismiss('cancel');
+        };
+    	
+	
+    }];
 
 }]);

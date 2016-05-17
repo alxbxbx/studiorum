@@ -12,6 +12,9 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
 	
 	// On Click Events
 	
+	
+	
+	
 	$scope.clickHideUser = function () {
 		$("#userModal_").modal("hide");
 	}

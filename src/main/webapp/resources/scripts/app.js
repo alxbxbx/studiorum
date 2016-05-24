@@ -25,6 +25,11 @@ angular
         controller: 'SubjectsController',
         controllerAs: 'subjectsCtrl'
       })
+      .when('/students/:id', {
+        templateUrl: '/static/views/oneStudent.html',
+        controller: 'OneStudentController',
+        controllerAs: 'oneStudentCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

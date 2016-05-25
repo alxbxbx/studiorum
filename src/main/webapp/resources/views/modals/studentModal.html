@@ -1,0 +1,48 @@
+<div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span
+               aria-hidden="true">&times;</span></button>
+       <h4 class="modal-title">Edit profile</h4>
+</div>
+<div class="modal-body">
+	<!-- Date of birth -->
+   	<label for="user-date-of-birth">Date of Birth</label>
+    <div class="input-group">
+        <span class="input-group-addon" id="user-date-of-birth-addon">
+            <span class=" glyphicon glyphicon-calendar"></span>
+        </span>
+        <input ng-model="user.dateOfBirth" type="date" id="user-password-again" name="dateOfBirth" class="form-control" describedby="user-date-of-birth-addon" placeholder="Date of Birth">
+    </div>
+    
+    <!-- Address -->
+    <label for="user-address-again">Address</label>
+    <div class="input-group">
+        <span class="input-group-addon" id="user-address-addon">
+            <span class=" glyphicon glyphicon-home"></span>
+        </span>
+        <input ng-model="user.address" type="text" id="user-address" name="address" class="form-control" describedby="user-address-addon" placeholder="Address">
+    </div>
+    
+    <!-- Password -->
+    <label for="user-password">Password</label>
+    <div class="input-group">
+        <span class="input-group-addon" id="user-password-addon">
+            <span class=" glyphicon glyphicon-lock"></span>
+        </span>
+        <input ng-model="user.password" type="password" id="user-password" name="password" class="form-control" describedby="user-password-addon" placeholder="Password">
+    </div>
+
+    <!-- Password Again -->
+    <label for="user-password-again">Password Again</label>
+    <div class="input-group">
+        <span class="input-group-addon" id="user-password-again-addon">
+            <span class=" glyphicon glyphicon-lock"></span>
+        </span>
+        <input ng-model="user.passwordAgain" type="password" id="user-password-again" name="passwordAgain" class="form-control" describedby="user-password-again-addon" placeholder="Password Again">
+    </div>
+
+   
+</div>
+<div class="modal-footer">
+   <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+   <button type="button" class="btn btn-primary" ng-click="ok()">Save</button>
+</div>

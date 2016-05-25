@@ -18,7 +18,7 @@ angular.module('studiorum')
 	$scope.openModal = function(user) {
 
       var modalInstance = $uibModal.open({
-        templateUrl: '/static/views/modals/user.html',
+        templateUrl: '/static/views/modals/studentModal.html',
         controller: StudentModalCtrl,
         scope: $scope,
         resolve: {

@@ -50,7 +50,7 @@ public class ProfessorController {
 		professor.setAddress(professorDTO.getAddress());
 		professor.setRole(professorDTO.getRole());
 		professor.setName(professorDTO.getName());
-		professor.setLastName(professor.getLastName());
+		professor.setLastName(professorDTO.getLastName());
 		professor.setUserName(professorDTO.getUserName());
 		professor.setPassword(professorDTO.getPassword());
 		professor.setGender(professorDTO.getGender());
@@ -70,7 +70,7 @@ public class ProfessorController {
 		professor.setAddress(professorDTO.getAddress());
 		professor.setRole(professorDTO.getRole());
 		professor.setName(professorDTO.getName());
-		professor.setLastName(professor.getLastName());
+		professor.setLastName(professorDTO.getLastName());
 		professor.setUserName(professorDTO.getUserName());
 		professor.setPassword(professorDTO.getPassword());
 		professor.setGender(professorDTO.getGender());

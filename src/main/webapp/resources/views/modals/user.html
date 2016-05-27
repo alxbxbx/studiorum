@@ -5,9 +5,9 @@
                 <button ng-click="cancel()" type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" ng-if="user.isStudent">Add Student</h4>
+                <h4 class="modal-title" ng-if="user.isProfessor">Add Student</h4>
             </div>
             <div class="modal-body">
-
                 <div class="row">
                      <!-- First Name -->
                      <div class="col-lg-6">
@@ -112,6 +112,17 @@
 	                         <span class="glyphicon glyphicon-edit"></span>
 	                     </span>
 	                     <input ng-model="user.studentId" type="text" id="user-student-id" name="studentId" class="form-control" describedby="user-student-id-addon" placeholder="Student ID">
+	                 </div>
+                 </div>
+                 
+                 <!-- Professor title -->
+                 <div ng-if="user.isProfessor">
+	                 <label for="user-professor-id">Student ID</label>
+	                 <div class="input-group">
+	                     <span class="input-group-addon" id="user-student-id-addon">
+	                         <span class="glyphicon glyphicon-edit"></span>
+	                     </span>
+	                     <input ng-model="user.title" type="text" id="user-professor-title" name="professorTitle" class="form-control" describedby="user-professor-title-addon" placeholder="Title">
 	                 </div>
                  </div>
                  

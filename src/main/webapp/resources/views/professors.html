@@ -4,8 +4,8 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Students
-                <a href="" ng-click="clickCreateUser()" style="float:right" class="btn btn-success btn-xs" role="button">
+                Professors
+                <a href="" ng-click="openModal(user)" style="float:right" class="btn btn-success btn-xs" role="button">
                     <span class="glyphicon glyphicon-plus"></span> Create New
                 </a>
             </div>
@@ -19,21 +19,21 @@
                     <th>Gender</th>
                     <th colspan="2"></th>
                 </tr>
-                <tr ng-repeat="student in students">
-                    <td>{{ student.id }}</td>
-                    <td>{{ student.lastName }} {{ student.name }}</td>
-                    <td>{{ student.jmbg }}</td>
-                    <td>{{ student.address }}</td>
-                    <td>{{ student.dateOfBirth | date:'yyyy-MM-dd'}}</td>
-                    <td>{{ student.gender }}</td>
+                <tr ng-repeat="professor in professors">
+                    <td>{{ professor.id }}</td>
+                    <td>{{ professor.lastName }} {{ professor.name }}</td>
+                    <td>{{ professor.jmbg }}</td>
+                    <td>{{ professor.address }}</td>
+                    <td>{{ professor.dateOfBirth | date:'yyyy-MM-dd'}}</td>
+                    <td>{{ professor.gender }}</td>
 
                     <td style="width:100px;text-align:right;">
-                        <a class="btn btn-danger btn-xs" role="button" ng-click="clickDeleteUser(student.id)">
+                        <a class="btn btn-danger btn-xs" role="button" ng-click="clickDeleteProfessor(professor.id)">
                             <span class="glyphicon glyphicon-remove"></span> Delete
                         </a>
                     </td>
                     <td style="width:65px;text-align:right;">
-                        <a class="btn btn-primary btn-xs" role="button" ng-click="clickEditUser(student.id)">
+                        <a class="btn btn-primary btn-xs" role="button" ng-click="openModal(professor)">
                             <span class="glyphicon glyphicon-pencil"></span> Edit
                         </a>
                     </td>

@@ -20,6 +20,11 @@ angular
         controller: 'StudentsController',
         controllerAs: 'studentsCtrl'
       })
+      .when('/professors', {
+        templateUrl: '/static/views/professors.html',
+        controller: 'ProfessorsController',
+        controllerAs: 'professorsCtrl'
+      })
       .when('/subjects', {
         templateUrl: '/static/views/subjects.html',
         controller: 'SubjectsController',

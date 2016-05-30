@@ -5,7 +5,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 Students
-                <a href="" ng-click="clickCreateUser()" style="float:right" class="btn btn-success btn-xs" role="button">
+                <a href="" ng-click="openModal(user)" style="float:right" class="btn btn-success btn-xs" role="button">
                     <span class="glyphicon glyphicon-plus"></span> Create New
                 </a>
             </div>
@@ -33,7 +33,7 @@
                         </a>
                     </td>
                     <td style="width:65px;text-align:right;">
-                        <a class="btn btn-primary btn-xs" role="button" ng-click="clickEditUser(student.id)">
+                        <a class="btn btn-primary btn-xs" role="button" ng-click="openModal(student)">
                             <span class="glyphicon glyphicon-pencil"></span> Edit
                         </a>
                     </td>

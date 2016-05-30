@@ -1,0 +1,50 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Course
+				<a href="" ng-click="" style="float:right" class="btn btn-success btn-xs" role="button">
+                    <span class="glyphicon glyphicon-pencil"></span> Edit
+                </a>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<table class="table table-striped">
+						<tr><th>Name: </th><td>{{ subject.name }}</td></tr>
+						<tr><th>Semester: </th><td>{{ subject.semester }}</td></tr>
+						<tr><th>Description: </th><td>{{ subject.description }}</td></tr>
+					</table>
+				</div>
+			</div>
+			<div class="row simpleDemo">
+				<div class="col-sm-6">
+					<p><b>Students on this course</b></p>
+					<ul dnd-list="subjectStudents">
+				        <li ng-repeat="student in subjectStudents"
+				            dnd-draggable="student"
+				            dnd-moved="subjectStudents.splice($index, 1)"
+				            dnd-effect-allowed="move"
+				            dnd-selected="subjectStudents.selected = student"
+				            ng-class="{'selected': subjectStudents.selected === student}">
+				            {{student.lastName}} {{student.name}} {{ student.studentId }}
+				        </li>
+				    </ul>
+				    <button type="button" class="btn btn-primary" style="float: right" ng-click="">Apply</button>
+				</div>
+				<div class="col-sm-6">
+					<p>All students</p>
+					<ul dnd-list="allStudents">
+				        <li ng-repeat="student in allStudents"
+				            dnd-draggable="student"
+				            dnd-moved="allStudents.splice($index, 1)"
+				            dnd-effect-allowed="move"
+				            dnd-selected="allStudents.selected = student"
+				            ng-class="{'selected': allStudents.selected === student}">
+				            {{student.lastName}} {{student.name}} {{ student.studentId }}
+				        </li>
+				    </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

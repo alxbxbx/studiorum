@@ -6,7 +6,8 @@ angular
     'ngRoute',
     'restangular',
     'ui.bootstrap',
-    'lodash'
+    'lodash',
+    'dndLists'
   ])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
@@ -34,6 +35,11 @@ angular
         templateUrl: '/static/views/oneStudent.html',
         controller: 'OneStudentController',
         controllerAs: 'oneStudentCtrl'
+      })
+      .when('/subjects/:id', {
+        templateUrl: '/static/views/oneSubject.html',
+        controller: 'OneSubjectController',
+        controllerAs: 'oneSubjectCtrl'
       })
       .otherwise({
         redirectTo: '/'

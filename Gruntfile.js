@@ -37,7 +37,9 @@ module.exports = function (grunt) {
       'bower_components/restangular/dist/restangular.js',
       'bower_components/angular-bootstrap/ui-bootstrap.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-      'bower_components/angular-lodash-module/angular-lodash-module.js'      
+      'bower_components/angular-lodash-module/angular-lodash-module.js',
+      'bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js'
+
     ],
     css: [
     ],

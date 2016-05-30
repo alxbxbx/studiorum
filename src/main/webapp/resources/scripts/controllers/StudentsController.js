@@ -6,54 +6,14 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
 	
 	$scope.user = {};
 	$scope.user.isStudent = true;
-	$scope.baseStudents = Restangular.all('students');
 	
 	loadListOfStudents();
 	
 	// On Click Events
-	
-	
-	
-	
-	$scope.clickHideUser = function () {
-		$("#userModal_").modal("hide");
-	}
-	
-	$scope.clickCreateUser = function () {	
-		$scope.user = {};
-		$scope.user.isStudent = true;
-		$scope.user.isStudentCreate = true;
-		$("#userModal_").modal("show");
-	}
-	
-	$scope.clickEditUser = function (id) {
-		Restangular.one("students", id).get().then(function(user) {
-			$scope.user = user;
-		    $scope.user.isStudent = true;
-		    $scope.user.isStudentEdit = true;
-		    $scope.user.dateOfBirth = new Date($scope.user.dateOfBirth);
-		    $("#userModal_").modal("show");
-		});
-	}
-	
 	$scope.clickDeleteUser = function (id) {
 		if (confirm("Are you sure?")) {
 			Restangular.one("students", id).remove().then(function() {
 				loadListOfStudents();
-			});
-		}
-	}
-	
-	$scope.clickSaveUser = function () {
-		if ($scope.user.id) {
-			$scope.baseStudents.customPUT($scope.user).then(function() {
-				loadListOfStudents();
-				$("#userModal_").modal("hide");
-			});
-		} else {
-			$scope.baseStudents.post($scope.user).then(function() {
-				loadListOfStudents();
-				$("#userModal_").modal("hide");
 			});
 		}
 	}
@@ -63,5 +23,53 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
 			$scope.students = students;
 	    });
 	}
+	
+	$scope.openModal = function(user) {
+		user.isStudent = true;
+      var modalInstance = $uibModal.open({
+        templateUrl: '/static/views/modals/uniUser.html',
+        controller: StudentModalCtrl,
+        scope: $scope,
+        resolve: {
+          user: function() {
+            return user;
+          }
+        }
+      });
+      modalInstance.result.then(function(value) {
+        $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+      }, function(value) {
+        $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+      });
+    };
+    
+    
+    var StudentModalCtrl = ['$scope', '$uibModalInstance', 'user', 'Restangular', '$log', '_',
+       function($scope, $uibModalInstance, user, Restangular, $log, _) {
+    	$scope.user = user;
+    	console.log($scope.user);
+    	$scope.ok = function() {
+	      if ($scope.user.id) {
+	        Restangular.all('students').customPUT($scope.user).then(function (data) {
+	        	loadListOfStudents();
+	        });
+	      } else {
+	        Restangular.all('students').post($scope.user).then(function (data) {
+	        	loadListOfStudents();
+	        },
+	          // callback za gresku sa servera
+	          function() {
+	            $log.info('something went wrong!');
+	          });
+	      }
+	      $uibModalInstance.close('ok');
+	    };
+
+        $scope.cancel = function() {
+          $uibModalInstance.dismiss('cancel');
+        };
+    	
+	
+    }];
 
 }]);

@@ -14,6 +14,11 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
+	public User findOneByUsernameAndPassword(String username, String password) {
+		// custom query?
+		return null;
+	}
+	
 	public User findOne(Integer id){
 		return userRepository.findOne(id);
 		

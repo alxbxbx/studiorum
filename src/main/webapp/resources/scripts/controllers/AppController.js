@@ -1,7 +1,45 @@
 'use strict';
 
-angular.module('studiorum').controller('AppController', ['authService', function (authService) {
+angular.module('studiorum').controller('AppController', ['$http', '$scope', 'authService', 'Restangular', '$uibModal', '$log', '_', 
+                                                         function ($http, $scope, authService, Restangular, $uibModal, $log, _) {
 	
+	$scope.user = {};
+	
+	$scope.openModalLogin = function() {
+		var modalInstance = $uibModal.open({
+			templateUrl: '/static/views/modals/login.html',
+			controller: LoginModalController,
+			scope: $scope,
+			resolve: {
+				user: function() {
+					return null;
+				}
+			}
+		});
+		modalInstance.result.then(function(value) {
+			$log.info('Modal finished it\'s job.');
+		}, function(value) {
+			$log.info('Modal dismissed.')
+		});
+	};
+	
+	var LoginModalController = ['$http', '$scope', '$uibModalInstance', 'user', 'Restangular', '$log', '_',
+	                            function($http, $scope, $uibModalInstance, user, Restangular, $log, _) {
+		$scope.user = user;
+		$scope.ok = function() {
+			$http.post('/api/auth/login', ).then(function(data) {
+				console.log(data);
+			}, function(error) {
+				$log.info('Error during loggin in!');
+			});
+			$uibModalInstance.close('ok');
+		};
+		$scope.cancel = function() {
+			$uibModalInstance.dismiss('cancel');
+		};
+	}];
+	
+	/*
 	$scope.token = null;
 	$scope.error = null;
 	$scope.roleOne = false;
@@ -33,5 +71,6 @@ angular.module('studiorum').controller('AppController', ['authService', function
 		$scope.token = null;
 		$http.defaults.headers.common.Authorization = '';
 	}
+	*/
 	
 }]);

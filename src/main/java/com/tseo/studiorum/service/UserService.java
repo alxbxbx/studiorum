@@ -15,8 +15,7 @@ public class UserService {
 	UserRepository userRepository;
 	
 	public User findOneByUsernameAndPassword(String username, String password) {
-		// custom query?
-		return null;
+		return userRepository.findByUsernameAndPassword(username, password);
 	}
 	
 	public User findOne(Integer id){

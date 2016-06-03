@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('studiorum').service('AuthService', function () {
+angular.module('studiorum').service('authService', function () {
 	
 	return {
         login : function(username, password) {

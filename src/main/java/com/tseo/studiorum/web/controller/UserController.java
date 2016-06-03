@@ -24,13 +24,12 @@ public class UserController {
 	UserService userService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<UserDTO>> getUsers(){
+	public ResponseEntity<List<UserDTO>> getUsers(){		
 		List<User> users = userService.findAll();
 		List<UserDTO> usersDTO = new ArrayList<UserDTO>();
 		for(User user : users){
 			usersDTO.add(new UserDTO(user));
 		}
-		
 		return new ResponseEntity<>(usersDTO, HttpStatus.OK);
 	}
 	
@@ -52,7 +51,6 @@ public class UserController {
 		user.setPassword(userDTO.getPassword());
 		user.setRole(userDTO.getRole());
 		user.setUserName(userDTO.getUserName());
-		
 		user = userService.save(user);
 		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
 		
@@ -63,13 +61,11 @@ public class UserController {
 		User user = userService.findOne(userDTO.getId());
 		if(user == null)
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		
 		user.setLastName(userDTO.getLastName());
 		user.setName(userDTO.getName());
 		user.setPassword(userDTO.getPassword());
 		user.setRole(userDTO.getRole());
 		user.setUserName(userDTO.getUserName());
-		
 		user = userService.save(user);
 		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
 		
@@ -84,7 +80,6 @@ public class UserController {
 		}else{
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
 	}
 
 }

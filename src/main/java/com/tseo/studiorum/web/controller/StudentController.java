@@ -46,6 +46,7 @@ public class StudentController {
 		String k = "tew";
 		@SuppressWarnings("unused")
 		String j = "zxcvz";
+		
 		List<Student> students = studentService.findAll();
 		List<StudentDTO> studentsDTO = new ArrayList<StudentDTO>();
 		for(Student student : students){

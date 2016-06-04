@@ -1,26 +1,22 @@
 'use strict';
 
-angular.module('studiorum').service('authService', function () {
+angular.module('studiorum').service('authService', ['$http', function ($http) {
 	
 	return {
         login : function(username, password) {
-        	
-        	var data = {
+        	var payload = {
     			username: username,
     			password: password
         	};
-        	
-            return $http.post('/api/auth/login', data).then(function(response) {
+            return $http.post('/api/auth/login', payload).then(function(response) {
                 return response.data.token;
             });
         },
-
         hasRole : function(role) {
             return $http.get('/api/role/' + role).then(function(response){
-                console.log(response);
                 return response.data;
             });
         }
     };
 
-});
+}]);

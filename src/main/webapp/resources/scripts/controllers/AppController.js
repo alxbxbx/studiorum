@@ -3,6 +3,7 @@
 angular.module('studiorum').controller('AppController', ['$http', '$scope', 'authService', 'Restangular', '$uibModal', '$log', '_', 
                                                          function ($http, $scope, authService, Restangular, $uibModal, $log, _) {
 	
+
 	$scope.token = null;
 	$scope.error = null;
 	$scope.roleStudent = false;

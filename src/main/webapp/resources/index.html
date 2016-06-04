@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="studiorum">
+<html ng-app="studiorum" lang="{{ lang }}">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
@@ -34,6 +34,8 @@
 		<script src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 		<script src="/static/bower_components/angular-lodash-module/angular-lodash-module.js"></script>
 		<script src="/static/bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js"></script>
+		<script src="/static/bower_components/angular-translate/angular-translate.js"></script>
+		<script src="/static/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
 		
 		<script src="/static/scripts/app.js"></script>
 		<script src="/static/scripts/controllers/AppController.js"></script>
@@ -43,6 +45,7 @@
 		<script src="/static/scripts/controllers/OneStudentController.js"></script>	
 		<script src="/static/scripts/controllers/ProfessorsController.js"></script>	
 		<script src="/static/scripts/controllers/OneSubjectController.js"></script>	
+		<script src="/static/scripts/controllers/LanguageSwitchController.js"></script>	
 		<script src="/static/scripts/services/AuthService.js"></script>			
 	</body>
 </html>

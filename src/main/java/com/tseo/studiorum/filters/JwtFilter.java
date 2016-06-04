@@ -22,16 +22,14 @@ public class JwtFilter extends GenericFilterBean {
 		
 		HttpServletRequest request = (HttpServletRequest) req;
 		
-		String authHeader = request.getHeader("Authorization");
+		String token = request.getHeader("Authorization");
 		
-		if (authHeader == null || !authHeader.startsWith("?_USERNAME_? ")) {
+		if (token == null) {
 			throw new ServletException("Missing or invalid Authorization header.");
 		}
 		
-		String token = authHeader.substring(7); // ?_USERNAME_? length + 1 ?
-		
 		try {
-			Claims claims = Jwts.parser().setSigningKey("acafilipfakultettehnickihnauka")
+			Claims claims = Jwts.parser().setSigningKey("filipbekic01")
 					.parseClaimsJws(token).getBody();
 			request.setAttribute("claims", claims);
 		} catch (SignatureException ex) {

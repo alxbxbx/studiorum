@@ -8,12 +8,12 @@ angular.module('studiorum').service('authService', ['$http', function ($http) {
     			username: username,
     			password: password
         	};
-            return $http.post('/api/auth/login', payload).then(function(response) {
+            return $http.post('/auth/login', payload).then(function(response) {
                 return response.data.token;
             });
         },
         hasRole : function(role) {
-            return $http.get('/api/role/' + role).then(function(response){
+            return $http.get('/api/account/roles/' + role).then(function(response){
                 return response.data;
             });
         }

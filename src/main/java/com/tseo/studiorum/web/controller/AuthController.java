@@ -1,13 +1,10 @@
 package com.tseo.studiorum.web.controller;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,26 +15,18 @@ import com.tseo.studiorum.responses.LoginResponse;
 import com.tseo.studiorum.service.UserService;
 import com.tseo.studiorum.web.dto.UserDTO;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
-@RequestMapping(value = "api/auth")
+@RequestMapping(value = "auth")
 public class AuthController {
 
 	@Autowired
 	private UserService userService;
 	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "roles/{role}", method = RequestMethod.GET)
-	public Boolean roles(@PathVariable final String role, final HttpServletRequest request) throws ServletException {
-		final Claims claims = (Claims) request.getAttribute("claims");
-		return ((List<String>) claims.get("roles")).contains(role);
-	}
-	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public LoginResponse login(@RequestBody final UserDTO userDTO) 
+	public LoginResponse login(@RequestBody UserDTO userDTO) 
 		throws ServletException {
 		
 		User user = userService.findOneByUsernameAndPassword(
@@ -48,11 +37,14 @@ public class AuthController {
 			throw new ServletException("Authentification failed, user not found in database.");
 		}
 		
+		// Protect password
+		user.setPassword("");
+		
 		return new LoginResponse(Jwts.builder()
 				.setSubject(user.getUserName())
-				.claim("roles", user.getRole())
+				.claim("userdata", user)
 				.setIssuedAt(new Date())
-				.signWith(SignatureAlgorithm.HS256, "acafilipfakultettehnickihnauka")
+				.signWith(SignatureAlgorithm.HS256, "filipbekic01")
 				.compact());
 	}
 

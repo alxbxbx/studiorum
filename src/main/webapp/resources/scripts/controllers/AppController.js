@@ -6,6 +6,7 @@ angular.module('studiorum').controller('AppController', ['$http', '$scope', 'aut
 
 	$scope.token = null;
 	$scope.error = null;
+	
 	$scope.roleStudent = false;
 	$scope.roleProfessor = false;
 	$scope.roleAdmin = false;
@@ -27,7 +28,7 @@ angular.module('studiorum').controller('AppController', ['$http', '$scope', 'aut
 		modalInstance.result.then(function(value) {
 			$log.info('Modal finished it\'s job.');
 		}, function(value) {
-			$log.info('Modal dismissed.')
+			$log.info('Modal dismissed.');
 		});
 	};
 	
@@ -35,16 +36,11 @@ angular.module('studiorum').controller('AppController', ['$http', '$scope', 'aut
 	                            function($http, $scope, $uibModalInstance, user, Restangular, $log, _) {
 		$scope.user = user;
 		$scope.ok = function() {
-			console.log($scope.user);
-			$http.post('/api/auth/login', $scope.user).then(function(response) {
+			$http.post('/auth/login', $scope.user).then(function(response) {
 				$scope.token = response.data.token;
-				$http.defaults.headers.common.Authorization = $scope.user.userName + ' ' + response.data.token;
+				$http.defaults.headers.common.Authorization = response.data.token;
+				console.log("AUTH TOKEN => " + response.data.token);	
 				$scope.checkRoles();
-				console.log("isStudent => " + $scope.roleStudent);
-				console.log("isProfessor => " + $scope.roleProfessor);
-				console.log("isSsluzba => " + $scope.roleSsluzba);
-				console.log("isAdmin => " + $scope.roleAdmin);
-				console.log("AUTH TOKEN => " + response.data.token);
 			}, function(error) {
 				$scope.error = error;
 				$log.info('Error during loggin in!');
@@ -59,22 +55,30 @@ angular.module('studiorum').controller('AppController', ['$http', '$scope', 'aut
 	$scope.checkRoles = function() {
 		authService.hasRole('admin').then(function(user) {
 			$scope.roleUser = user;
+			console.log("isAdmin => " + $scope.roleAdmin);
 		});
 		authService.hasRole('ssluzba').then(function(ssluzba) {
 			$scope.roleSsluzba = ssluzba;
+			console.log("isSsluzba => " + $scope.roleSsluzba);
 		});
 		authService.hasRole('student').then(function(student) {
 			$scope.roleStudent = student;
+			console.log("isStudent => " + $scope.roleStudent);
 		});
 		authService.hasRole('professor').then(function(professor) {
 			$scope.roleProfessor = professor;
+			console.log("isProfessor => " + $scope.roleProfessor);
 		});
 	}
 	
-	/*$scope.logout = function() {
+	$scope.loggedIn = function() {
+		return $scope.token !== null;
+	}
+	
+	$scope.logout = function() {
 		$scope.userName = '';
 		$scope.token = null;
 		$http.defaults.headers.common.Authorization = '';
-	}*/
+	}
 	
 }]);

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +20,15 @@ import com.tseo.studiorum.entities.Exam;
 import com.tseo.studiorum.entities.Payment;
 import com.tseo.studiorum.entities.Student;
 import com.tseo.studiorum.entities.Subject;
+import com.tseo.studiorum.entities.User;
 import com.tseo.studiorum.service.StudentService;
 import com.tseo.studiorum.web.dto.DocumentDTO;
 import com.tseo.studiorum.web.dto.ExamDTO;
 import com.tseo.studiorum.web.dto.PaymentDTO;
 import com.tseo.studiorum.web.dto.StudentDTO;
 import com.tseo.studiorum.web.dto.SubjectDTO;
+
+import io.jsonwebtoken.Claims;
 
 @RestController
 @RequestMapping(value="api/students")
@@ -32,7 +37,15 @@ public class StudentController {
 	StudentService studentService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<StudentDTO>> getStudents(){
+	public ResponseEntity<List<StudentDTO>> getStudents(HttpServletRequest req){
+		
+		Claims claim = (Claims) req.getAttribute("claims");
+		@SuppressWarnings("unused")
+		User user = (User) claim.get("userdata");
+		@SuppressWarnings("unused")
+		String k = "tew";
+		@SuppressWarnings("unused")
+		String j = "zxcvz";
 		List<Student> students = studentService.findAll();
 		List<StudentDTO> studentsDTO = new ArrayList<StudentDTO>();
 		for(Student student : students){

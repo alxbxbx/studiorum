@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/#/"><span class="glyphicon glyphicon-education" aria-hidden="true"></span> &nbsp;Faculty of Technical Science</a>
+            <a class="navbar-brand" href="/#/"><span class="glyphicon glyphicon-education" aria-hidden="true" translate="FTN"></span> &nbsp;</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav" ng-show="auth">
@@ -16,15 +16,21 @@
             <ul ng-hide="auth" class="nav navbar-nav navbar-right">
                 <li>
                     <a href="" ng-click="openModalLogin()">
-                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-                        Login
+                        <span class="glyphicon glyphicon-log-in" aria-hidden="true" translate="LOGIN"></span>
+                     
                     </a>
                 </li>
                 <li>
                     <a href="" data-toggle="modal" data-target="#registerModal">
-                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-                        Register
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true" translate="REGISTER"></span>
+                       
                     </a>
+                </li>
+                <li>
+                	<div ng-controller="LanguageSwitchController">
+					  <button style="margin-top: 5px" class="btn btn-primary" ng-show="lang == 'en'" ng-click="changeLanguage('ar')" translate="BUTTON_LANG_AR"></button>
+					  <button style="margin-top: 5px" class="btn btn-primary" ng-show="lang == 'ar'" ng-click="changeLanguage('en')" translate="BUTTON_LANG_EN"></button>
+					</div>
                 </li>
             </ul>
             <ul ng-show="auth" class="nav navbar-nav navbar-right">

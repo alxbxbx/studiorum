@@ -7,9 +7,10 @@ angular
     'restangular',
     'ui.bootstrap',
     'lodash',
-    'dndLists'
+    'dndLists',
+    'pascalprecht.translate'
   ])
-  .config(['$routeProvider', function($routeProvider) {
+  .config(['$routeProvider','$translateProvider', function($routeProvider, $translateProvider) {
     $routeProvider
     	.when('/', {
         templateUrl: '/static/views/home.html',
@@ -44,9 +45,16 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+    
+    $translateProvider
+	    .useStaticFilesLoader({
+	      prefix: '/static/translations/',
+	      suffix: '.json'
+	    })
+	    .preferredLanguage('ar');
   }])
   // run se izvrsava pre svega ostalog
-  .run(['Restangular', '$log', function(Restangular, $log) {
+  .run(['Restangular', '$log','$rootScope', function(Restangular, $log, $rootScope) {
     // postavimo base url za Restangular da ne bismo morali da ga
     // navodimo svaki put kada se obracamo back endu
     // poziv vrsimo na http://localhost:8080/api/
@@ -58,4 +66,12 @@ angular
       }
       return true; // greska nije obradjena
     });
+    
+    $rootScope.lang = 'en';
+
+    $rootScope.default_float = 'left';
+    $rootScope.opposite_float = 'right';
+
+    $rootScope.default_direction = 'ltr';
+    $rootScope.opposite_direction = 'rtl';
   }]);

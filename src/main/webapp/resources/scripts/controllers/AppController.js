@@ -3,6 +3,9 @@
 angular.module('studiorum').controller('AppController', ['$http', '$scope', 'authService', 'Restangular', '$uibModal', '$log', '_', 
                                                          function ($http, $scope, authService, Restangular, $uibModal, $log, _) {
 	
+	
+	/*
+	
 	$scope.user = {};
 	
 	$scope.openModalLogin = function() {
@@ -71,6 +74,6 @@ angular.module('studiorum').controller('AppController', ['$http', '$scope', 'aut
 		$scope.token = null;
 		$http.defaults.headers.common.Authorization = '';
 	}
+
 	*/
-	
 }]);

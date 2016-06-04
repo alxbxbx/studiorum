@@ -51,7 +51,7 @@ angular
 	      prefix: '/static/translations/',
 	      suffix: '.json'
 	    })
-	    .preferredLanguage('ar');
+	    .preferredLanguage('en');
   }])
   // run se izvrsava pre svega ostalog
   .run(['Restangular', '$log','$rootScope', function(Restangular, $log, $rootScope) {

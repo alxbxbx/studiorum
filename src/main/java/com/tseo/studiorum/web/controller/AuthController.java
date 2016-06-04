@@ -55,5 +55,5 @@ public class AuthController {
 				.signWith(SignatureAlgorithm.HS256, "acafilipfakultettehnickihnauka")
 				.compact());
 	}
-	
+
 }

@@ -21,6 +21,21 @@
                         <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> &nbsp;&nbsp;{{ 'REGISTER' | translate }}
                     </a>
                 </li>
+                <li ng-if="isLoggedIn()">
+                    <a href="/#/students">
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> &nbsp;&nbsp;Students
+                    </a>
+                </li>
+                <li ng-if="isLoggedIn()">
+                    <a href="/#/professors">
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> &nbsp;&nbsp;Professors
+                    </a>
+                </li>
+                <li ng-if="isLoggedIn()">
+                    <a href="/#/subjects">
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> &nbsp;&nbsp;Subjects
+                    </a>
+                </li>
                 <li ng-if="isLoggedIn()" ng-click="logout()">
                     <a href="">
                         <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> &nbsp;&nbsp;Logout

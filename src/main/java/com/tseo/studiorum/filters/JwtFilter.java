@@ -22,11 +22,13 @@ public class JwtFilter extends GenericFilterBean {
 		
 		HttpServletRequest request = (HttpServletRequest) req;
 		
-		String token = request.getHeader("Authorization");
+		String authHeader = request.getHeader("Authorization");
 		
-		if (token == null) {
-			throw new ServletException("Missing or invalid Authorization header.");
+		 if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+			throw new ServletException("Missing or invalid Authorization header. Also, you are not allowed to directly access /api platform.");
 		}
+		 
+		final String token = authHeader.substring(7);
 		
 		try {
 			Claims claims = Jwts.parser().setSigningKey("filipbekic01")

@@ -1,16 +1,19 @@
 'use strict';
 
-angular
-  .module('studiorum', [
+angular.module('studiorum', [
     'ngResource',
     'ngRoute',
     'restangular',
     'ui.bootstrap',
     'lodash',
     'dndLists',
-    'pascalprecht.translate'
-  ])
-  .config(['$routeProvider','$translateProvider', function($routeProvider, $translateProvider) {
+    'pascalprecht.translate',
+    'angular-jwt'
+  ]).config(['$httpProvider', '$routeProvider', '$translateProvider', 'jwtInterceptorProvider',
+             function($httpProvider, $routeProvider, $translateProvider, jwtInterceptorProvider) {
+	  
+	// Route Configuration
+	  
     $routeProvider
     	.when('/', {
         templateUrl: '/static/views/home.html',
@@ -46,25 +49,32 @@ angular
         redirectTo: '/'
       });
     
+    // Translate Configuration
+	
     $translateProvider
 	    .useStaticFilesLoader({
 	      prefix: '/static/translations/',
 	      suffix: '.json'
 	    })
 	    .preferredLanguage('en');
-  }])
-  // run se izvrsava pre svega ostalog
-  .run(['Restangular', '$log','$rootScope', function(Restangular, $log, $rootScope) {
-    // postavimo base url za Restangular da ne bismo morali da ga
-    // navodimo svaki put kada se obracamo back endu
-    // poziv vrsimo na http://localhost:8080/api/
+    
+    // JWT Configuration
+    
+    jwtInterceptorProvider.tokenGetter = function() {
+        return localStorage.getItem('jwt_token');
+    };
+
+    $httpProvider.interceptors.push('jwtInterceptor');
+    
+  }]).run(['$http', 'Restangular', '$log','$rootScope', function($http, Restangular, $log, $rootScope) {
+	  
     Restangular.setBaseUrl("api");
     Restangular.setErrorInterceptor(function(response) {
       if (response.status === 500) {
-        $log.info("internal server error");
-        return true; // greska je obradjena
+        $log.info("Internal server error.");
+        return true;
       }
-      return true; // greska nije obradjena
+      return true;
     });
     
     $rootScope.lang = 'en';
@@ -74,4 +84,21 @@ angular
 
     $rootScope.default_direction = 'ltr';
     $rootScope.opposite_direction = 'rtl';
+    
+    /**
+     *  JSON Web Token on each page load
+     */
+ 
+    /*// Get token from local storage
+    var jwt_token = localStorage.getItem('jwt_token');
+    
+    // Check if token expired
+    var jwt_token_expired = jwtHelper.isTokenExpired(expToken);
+    
+    // Set Authorization header to each HTTP request
+    $http.defaults.headers.common.Authorization = jwt_token;
+    
+    // Set logged user data in root scope
+    $rootScope.loggedUser = jwtHelper.decodeToken(jwt_token);*/
+    
   }]);

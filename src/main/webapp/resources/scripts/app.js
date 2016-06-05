@@ -1,16 +1,19 @@
 'use strict';
 
-angular
-  .module('studiorum', [
+angular.module('studiorum', [
     'ngResource',
     'ngRoute',
     'restangular',
     'ui.bootstrap',
     'lodash',
     'dndLists',
-    'pascalprecht.translate'
-  ])
-  .config(['$routeProvider','$translateProvider', function($routeProvider, $translateProvider) {
+    'pascalprecht.translate',
+    'angular-jwt'
+  ]).config(['$httpProvider', '$routeProvider', '$translateProvider', 'jwtInterceptorProvider',
+             function($httpProvider, $routeProvider, $translateProvider, jwtInterceptorProvider) {
+	  
+	// Route Configuration
+	  
     $routeProvider
     	.when('/', {
         templateUrl: '/static/views/home.html',
@@ -46,32 +49,44 @@ angular
         redirectTo: '/'
       });
     
-    $translateProvider
-	    .useStaticFilesLoader({
-	      prefix: '/static/translations/',
-	      suffix: '.json'
-	    })
-	    .preferredLanguage('en');
-  }])
-  // run se izvrsava pre svega ostalog
-  .run(['Restangular', '$log','$rootScope', function(Restangular, $log, $rootScope) {
-    // postavimo base url za Restangular da ne bismo morali da ga
-    // navodimo svaki put kada se obracamo back endu
-    // poziv vrsimo na http://localhost:8080/api/
+    // Translate Configuration
+    
+    $translateProvider.useStaticFilesLoader({
+		prefix: '/static/translations/',
+		suffix: '.json'
+	});
+    
+    var languageKey = localStorage.getItem('languageKey');
+    if (languageKey) {
+    	$translateProvider.preferredLanguage(languageKey);
+    } else {
+    	$translateProvider.preferredLanguage('us');
+    }
+    
+    // JWT Configuration
+    
+    jwtInterceptorProvider.tokenGetter = function() {
+        return localStorage.getItem('jwt_token');
+    };
+
+    $httpProvider.interceptors.push('jwtInterceptor');
+    
+  }]).run(['$http', 'Restangular', '$log','$rootScope', function($http, Restangular, $log, $rootScope) {
+	  
     Restangular.setBaseUrl("api");
     Restangular.setErrorInterceptor(function(response) {
       if (response.status === 500) {
-        $log.info("internal server error");
-        return true; // greska je obradjena
+        $log.info("Internal server error.");
+        return true;
       }
-      return true; // greska nije obradjena
+      return true;
     });
     
-    $rootScope.lang = 'en';
-
-    $rootScope.default_float = 'left';
-    $rootScope.opposite_float = 'right';
-
-    $rootScope.default_direction = 'ltr';
-    $rootScope.opposite_direction = 'rtl';
+    var languageKey = localStorage.getItem('languageKey');
+    if (languageKey) {
+    	$rootScope.lang = languageKey;
+    } else {
+    	$rootScope.lang = 'us';
+    }
+   
   }]);

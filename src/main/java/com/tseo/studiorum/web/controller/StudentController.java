@@ -39,13 +39,13 @@ public class StudentController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<StudentDTO>> getStudents(HttpServletRequest req){
 		
-		Claims claim = (Claims) req.getAttribute("claims");
+		/*Claims claim = (Claims) req.getAttribute("claims");
 		@SuppressWarnings("unused")
 		User user = (User) claim.get("userdata");
 		@SuppressWarnings("unused")
 		String k = "tew";
 		@SuppressWarnings("unused")
-		String j = "zxcvz";
+		String j = "zxcvz";*/
 		
 		List<Student> students = studentService.findAll();
 		List<StudentDTO> studentsDTO = new ArrayList<StudentDTO>();

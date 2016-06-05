@@ -1,14 +1,15 @@
 'use strict';
 
-angular.module('studiorum').controller('AppController', ['jwtHelper', '$http', '$scope', '$uibModal', '$log', '_',
+angular.module('studiorum').controller('ApplicationController', ['jwtHelper', '$http', '$scope', '$uibModal', '$log', '_',
                                                          function (jwtHelper, $http, $scope, $uibModal, $log, _) {
 	
 	$scope.user = {};
 	
 	$scope.openModalLogin = function() {
 		var modalInstance = $uibModal.open({
+			animation: false,
 			templateUrl: '/static/views/modals/login.html',
-			controller: LoginModalController,
+			controller: 'LoginModalController',
 			scope: $scope,
 			resolve: {
 				user: function() {
@@ -27,15 +28,15 @@ angular.module('studiorum').controller('AppController', ['jwtHelper', '$http', '
 		
 		var token = localStorage.getItem('jwt_token');
 		if (!token) {
+			$log.info('Token not found.');
 			return false;
 		}
 		
-		var bool = jwtHelper.isTokenExpired(token);
-		if (!bool) {
+		var isTokenExpired = jwtHelper.isTokenExpired(token);
+		if (isTokenExpired) {
+			$log.info('Token expired.');
 			return false;
 		}
-		
-		console.log("Token Expired: " + bool + "(" + token + ")");
 		
 		return true;
 	}

@@ -14,23 +14,25 @@
                 <li><a href="/#/search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> &nbsp;&nbsp;Search</a></li>
             </ul>
             <ul ng-hide="auth" class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="" ng-click="openModalLogin()">
+                <li ng-if="!isLoggedIn()">
+                    <a href="" ng-click="openLoginModal()">
                         <span class="glyphicon glyphicon-log-in" aria-hidden="true" translate="LOGIN"></span>
-                     
                     </a>
                 </li>
-                <li>
-                    <a href="" data-toggle="modal" data-target="#registerModal">
+                <li ng-if="!isLoggedIn()">
+                    <a href="">
                         <span class="glyphicon glyphicon-copy" aria-hidden="true" translate="REGISTER"></span>
-                       
+                    </a>
+                </li>
+                <li ng-if="isLoggedIn()" ng-click="logout()">
+                    <a href="">
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true">Logout</span>
                     </a>
                 </li>
                 <li>
-                	<div ng-controller="LanguageSwitchController">
-					  <button style="margin-top: 5px" class="btn btn-primary" ng-show="lang == 'en'" ng-click="changeLanguage('ar')" translate="BUTTON_LANG_AR"></button>
-					  <button style="margin-top: 5px" class="btn btn-primary" ng-show="lang == 'ar'" ng-click="changeLanguage('en')" translate="BUTTON_LANG_EN"></button>
-					</div>
+                	<a href="" ng-click="openLanguagesModal()">
+                        <img class="flag flag-{{ lang }}"/>
+                    </a>
                 </li>
             </ul>
             <ul ng-show="auth" class="nav navbar-nav navbar-right">

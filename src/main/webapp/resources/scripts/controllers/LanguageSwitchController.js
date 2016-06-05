@@ -3,7 +3,7 @@
 angular.module('studiorum')
 .controller('LanguageSwitchController', ['$scope', '$rootScope', '$translate',
   function($scope, $rootScope, $translate) {
-    $scope.changeLanguage = function(langKey) {
+    /*$scope.changeLanguage = function(langKey) {
       $translate.use(langKey);
     };
 
@@ -17,5 +17,5 @@ angular.module('studiorum')
 
       $rootScope.default_float = language === 'ar' ? 'right' : 'left';
       $rootScope.opposite_float = language === 'ar' ? 'left' : 'right';
-    });
+    });*/
 }]);

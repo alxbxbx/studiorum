@@ -50,13 +50,18 @@ angular.module('studiorum', [
       });
     
     // Translate Configuration
-	
-    $translateProvider
-	    .useStaticFilesLoader({
-	      prefix: '/static/translations/',
-	      suffix: '.json'
-	    })
-	    .preferredLanguage('en');
+    
+    $translateProvider.useStaticFilesLoader({
+		prefix: '/static/translations/',
+		suffix: '.json'
+	});
+    
+    var languageKey = localStorage.getItem('languageKey');
+    if (languageKey) {
+    	$translateProvider.preferredLanguage(languageKey);
+    } else {
+    	$translateProvider.preferredLanguage('us');
+    }
     
     // JWT Configuration
     
@@ -77,28 +82,11 @@ angular.module('studiorum', [
       return true;
     });
     
-    $rootScope.lang = 'en';
-
-    $rootScope.default_float = 'left';
-    $rootScope.opposite_float = 'right';
-
-    $rootScope.default_direction = 'ltr';
-    $rootScope.opposite_direction = 'rtl';
-    
-    /**
-     *  JSON Web Token on each page load
-     */
- 
-    /*// Get token from local storage
-    var jwt_token = localStorage.getItem('jwt_token');
-    
-    // Check if token expired
-    var jwt_token_expired = jwtHelper.isTokenExpired(expToken);
-    
-    // Set Authorization header to each HTTP request
-    $http.defaults.headers.common.Authorization = jwt_token;
-    
-    // Set logged user data in root scope
-    $rootScope.loggedUser = jwtHelper.decodeToken(jwt_token);*/
-    
+    var languageKey = localStorage.getItem('languageKey');
+    if (languageKey) {
+    	$rootScope.lang = languageKey;
+    } else {
+    	$rootScope.lang = 'us';
+    }
+   
   }]);

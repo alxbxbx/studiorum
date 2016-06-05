@@ -5,39 +5,45 @@ angular.module('studiorum').controller('ApplicationController', ['jwtHelper', '$
 	
 	$scope.user = {};
 	
-	$scope.openModalLogin = function() {
+	$scope.openLanguagesModal = function() {
 		var modalInstance = $uibModal.open({
 			animation: false,
-			templateUrl: '/static/views/modals/login.html',
-			controller: 'LoginModalController',
-			scope: $scope,
+			templateUrl: '/static/views/modals/languages.html',
+			controller: 'LanguagesModalController',
 			resolve: {
 				user: function() {
 					return null;
 				}
 			}
 		});
-		modalInstance.result.then(function(value) {
-			$log.info('Modal finished it\'s job.');
-		}, function(value) {
-			$log.info('Modal dismissed.');
+		modalInstance.result.then(function(value) {}, function(value) {});
+	}
+	
+	$scope.openLoginModal = function() {
+		var modalInstance = $uibModal.open({
+			animation: false,
+			templateUrl: '/static/views/modals/login.html',
+			controller: 'LoginModalController',
+			resolve: {
+				user: function() {
+					return null;
+				}
+			}
 		});
+		modalInstance.result.then(function(value) {}, function(value) {});
 	};
 	
 	$scope.isLoggedIn = function() {
-		
 		var token = localStorage.getItem('jwt_token');
 		if (!token) {
 			$log.info('Token not found.');
 			return false;
 		}
-		
 		var isTokenExpired = jwtHelper.isTokenExpired(token);
 		if (isTokenExpired) {
 			$log.info('Token expired.');
 			return false;
 		}
-		
 		return true;
 	}
 	

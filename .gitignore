@@ -8,3 +8,5 @@ node_modules
 bower_components
 src/main/webapp/static/*
 !src/main/webapp/static/.gitkeep
+.idea
+studiorum.iml

@@ -9,7 +9,10 @@
 	"ALX": "Focused on backend using Java with packages such as Spring, Hibernate, JPA and more. Also developed database in MySQL.",
 	"FILIPM":"Focused on backend using Java with packages such as Spring, Hibernate, JPA and more. Also developed database in MySQL.",
 	"DEVELOPED": "This web application is developed by Filip Bekić, Aleksandar Stanković and Filip Marjanović  as college project",
-	"": ""
+	"STUDENTS": "Students",
+	"PROFESSORS": "Professors",
+	"SUBJECTS": "Subjects",
+	"LOGOUT": "Logout"
 
 
 

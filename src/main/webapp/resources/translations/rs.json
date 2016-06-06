@@ -1,0 +1,19 @@
+{
+	"FTN": "Fakultet Tehničkih Nauka",
+	"LOGIN": "Ulogujte se",
+	"REGISTER": "Registrujte se",
+	"BUTTON_LANG_AR": "Arabic",
+	"BUTTON_LANG_EN": "English",
+	"GITHUB": "Github",
+	"FILIPB": "Radio kao frontend programer koristeći tehnologije kao što su JavaScript (Angular i jQuery), HTML i CSS.",
+	"ALX": "Fokusirao se na bekend koristeći Java programski jezik uz pakete kao što su Spring, Hibernate, JPA itd. Takođe razvio bazu u MySQL.",
+	"FILIPM":"Fokusirao se na bekend koristeći Java programski jezik uz pakete kao što su Spring, Hibernate, JPA itd. Takođe razvio bazu u MySQL.",
+	"DEVELOPED": "Ova veb aplikacija je razvijena od strane Filipa Bekića, Aleksandra Stankovića i Filipa Marjanovića  kao fakultetski projekat.",
+	"STUDENTS": "Studenti",
+	"PROFESSORS": "Profesori",
+	"SUBJECTS": "Predmeti",
+	"LOGOUT": "Odjaviti se"
+
+
+
+}

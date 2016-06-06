@@ -86,7 +86,7 @@ angular.module('studiorum', [
     if (languageKey) {
     	$rootScope.lang = languageKey;
     } else {
-    	$rootScope.lang = 'us';
+    	$rootScope.lang = 'rs';
     }
    
   }]);

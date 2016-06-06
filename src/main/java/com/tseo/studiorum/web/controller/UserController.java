@@ -19,12 +19,12 @@ import com.tseo.studiorum.web.dto.UserDTO;
 @RestController
 @RequestMapping(value="api/users")
 public class UserController {
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<UserDTO>> getUsers(){		
+	public ResponseEntity<List<UserDTO>> getUsers(){
 		List<User> users = userService.findAll();
 		List<UserDTO> usersDTO = new ArrayList<UserDTO>();
 		for(User user : users){
@@ -32,7 +32,7 @@ public class UserController {
 		}
 		return new ResponseEntity<>(usersDTO, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value="/{id}",method = RequestMethod.GET)
 	public ResponseEntity<UserDTO> getUser(@PathVariable Integer id){
 		User user = userService.findOne(id);
@@ -40,22 +40,22 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
-		
+
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, consumes="application/json")
 	public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO){
 		User user = new User();
 		user.setLastName(userDTO.getLastName());
 		user.setName(userDTO.getName());
 		user.setPassword(userDTO.getPassword());
-		user.setRole(userDTO.getRole());
+		user.setRole("user");
 		user.setUserName(userDTO.getUserName());
 		user = userService.save(user);
 		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
-		
+
 	}
-	
+
 	@RequestMapping(method = RequestMethod.PUT, consumes="application/json")
 	public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO){
 		User user = userService.findOne(userDTO.getId());
@@ -68,9 +68,9 @@ public class UserController {
 		user.setUserName(userDTO.getUserName());
 		user = userService.save(user);
 		return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
-		
+
 	}
-	
+
 	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteStudent(@PathVariable Integer id){
 		User user = userService.findOne(id);

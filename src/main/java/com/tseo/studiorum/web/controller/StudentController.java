@@ -35,10 +35,10 @@ import io.jsonwebtoken.Claims;
 public class StudentController {
 	@Autowired
 	StudentService studentService;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<StudentDTO>> getStudents(HttpServletRequest req){
-		
+
 		/*Claims claim = (Claims) req.getAttribute("claims");
 		@SuppressWarnings("unused")
 		User user = (User) claim.get("userdata");
@@ -46,7 +46,7 @@ public class StudentController {
 		String k = "tew";
 		@SuppressWarnings("unused")
 		String j = "zxcvz";*/
-		
+
 		List<Student> students = studentService.findAll();
 		List<StudentDTO> studentsDTO = new ArrayList<StudentDTO>();
 		for(Student student : students){
@@ -54,7 +54,7 @@ public class StudentController {
 		}
 		return new ResponseEntity<>(studentsDTO, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
 	public ResponseEntity<StudentDTO> getStudent(@PathVariable Integer id){
 		Student student = studentService.findOne(id);
@@ -62,7 +62,7 @@ public class StudentController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(new StudentDTO(student), HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<StudentDTO> saveStudent(@RequestBody StudentDTO studentDTO){
 		Student student = new Student();
@@ -73,21 +73,21 @@ public class StudentController {
 		student.setStudentId(studentDTO.getStudentId());
 		student.setName(studentDTO.getName());
 		student.setLastName(studentDTO.getLastName());
-		student.setRole(studentDTO.getRole());
+		student.setRole("student");
 		student.setPassword(studentDTO.getPassword());
 		student.setUserName(studentDTO.getUserName());
-		
+
 		student = studentService.save(student);
 		return new ResponseEntity<>(new StudentDTO(student), HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
 	public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO studentDTO){
 		Student student = studentService.findOne(studentDTO.getId());
-		
+
 		if(student == null)
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		
+
 		student.setGender(studentDTO.getGender());
 		student.setAddress(studentDTO.getAddress());
 		student.setDateOfBirth(studentDTO.getDateOfBirth());
@@ -98,11 +98,11 @@ public class StudentController {
 		student.setRole(studentDTO.getRole());
 		student.setPassword(studentDTO.getPassword());
 		student.setUserName(studentDTO.getUserName());
-		
+
 		student = studentService.save(student);
 		return new ResponseEntity<>(new StudentDTO(student), HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteStudent(@PathVariable Integer id){
 		Student student = studentService.findOne(id);
@@ -113,28 +113,28 @@ public class StudentController {
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
-	
+
 	@RequestMapping(value="/{id}/subjects", method = RequestMethod.GET)
 	public ResponseEntity<List<SubjectDTO>> getSubjects(@PathVariable Integer id){
 		Student student = studentService.findOne(id);
 		if(student == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		
+
 		Set<Subject> subjects = student.getSubjects();
 		List<SubjectDTO> subjectsDTO = new ArrayList<SubjectDTO>();
 		for(Subject subject : subjects){
 			subjectsDTO.add(new SubjectDTO(subject));
 		}
 		return new ResponseEntity<>(subjectsDTO, HttpStatus.OK);
-		
+
 	}
-	
+
 	@RequestMapping(value="/{id}/documents", method = RequestMethod.GET)
 	public ResponseEntity<List<DocumentDTO>> getDocuments(@PathVariable Integer id){
 		Student student = studentService.findOne(id);
 		if(student == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		
+
 		Set<Document> documents = student.getDocuments();
 		List<DocumentDTO> documentsDTO = new ArrayList<DocumentDTO>();
 		for(Document document : documents){
@@ -142,22 +142,22 @@ public class StudentController {
 		}
 		return new ResponseEntity<>(documentsDTO, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value="/{id}/payments", method = RequestMethod.GET)
 	public ResponseEntity<List<PaymentDTO>> getPayments(@PathVariable Integer id){
 		Student student = studentService.findOne(id);
 		if(student == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		
+
 		Set<Payment> payments = student.getPayments();
 		List<PaymentDTO> paymentsDTO = new ArrayList<PaymentDTO>();
 		for(Payment payment : payments){
 			paymentsDTO.add(new PaymentDTO(payment));
 		}
 		return new ResponseEntity<>(paymentsDTO, HttpStatus.OK);
-		
+
 	}
-	
+
 	@RequestMapping(value="/{id}/exams", method = RequestMethod.GET)
 	public ResponseEntity<List<ExamDTO>> getExams(@PathVariable Integer id){
 		Student student = studentService.findOne(id);
@@ -169,7 +169,7 @@ public class StudentController {
 			examsDTO.add(new ExamDTO(exam));
 		}
 		return new ResponseEntity<>(examsDTO, HttpStatus.OK);
-		
+
 	}
 
 }

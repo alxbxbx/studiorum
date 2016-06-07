@@ -1,48 +1,11 @@
 'use strict';
 
-<<<<<<< HEAD
-angular.module('studiorum').controller('StudentsController', ['$scope', 'Restangular', '$uibModal', '$log', '_', function($scope, Restangular, $uibModal, $log, _) {
-	
-	// Initialization
-	$scope.maxSize = 7;
-	$scope.bigTotalItems = 1300;
-	$scope.bigCurrentPage = 3;
-	
-	$scope.user = {};
-	$scope.user.isStudent = true;
-	
-	loadListOfStudents();
-	
-	// On Click Events
-	$scope.clickDeleteUser = function (id) {
-		if (confirm("Are you sure?")) {
-			Restangular.one("students", id).remove().then(function() {
-				loadListOfStudents();
-			});
-		}
-	}
-	
-	function loadListOfStudents() {
-		Restangular.all("students").getList().then(function(students) {
-			$scope.students = students;
-	    });
-	}
-	
-	$scope.openModal = function(user) {
-		user.isStudent = true;
-      var modalInstance = $uibModal.open({
-        templateUrl: '/static/views/modals/uniUser.html',
-        controller: StudentModalCtrl,
-        scope: $scope,
-        resolve: {
-          user: function() {
-            return user;
-          }
-=======
 angular.module('studiorum').controller('StudentsController', ['$scope', 'Restangular', '$uibModal', '$log', '_', function ($scope, Restangular, $uibModal, $log, _) {
 
     // Initialization
-
+	$scope.maxSize = 7;
+	$scope.bigTotalItems = 1300;
+	$scope.bigCurrentPage = 3;
     $scope.user = {};
     $scope.user.isStudent = true;
 
@@ -54,7 +17,6 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
             Restangular.one("students", id).remove().then(function () {
                 loadListOfStudents();
             });
->>>>>>> f9e56e460fa4f398856d9c99078d06465658a718
         }
     }
 

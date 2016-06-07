@@ -13,7 +13,7 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <!-- Menu items for role `student` -->
-                <li ng-if="isLoggedIn() && loggedUserData.role == 'user'">
+                <li ng-if="isLoggedIn() && loggedUserData.role == 'student'">
                     <a href="/#/students/{{ loggedUserData.id }}">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span> &nbsp;&nbsp;My Profile
                     </a>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('studiorum')
-    .controller('OneSubjectController', ['$scope', 'Restangular', '$uibModal', '$log', '_', '$routeParams',
+    .controller('SubjectController', ['$scope', 'Restangular', '$uibModal', '$log', '_', '$routeParams',
         function ($scope, Restangular, $uibModal, $log, _, $routeParams) {
 
             $scope.subject = {};

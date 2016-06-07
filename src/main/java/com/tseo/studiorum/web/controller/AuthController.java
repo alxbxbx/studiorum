@@ -1,6 +1,7 @@
 package com.tseo.studiorum.web.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 
@@ -37,12 +38,17 @@ public class AuthController {
             throw new ServletException("Authentification failed, user not found in database.");
         }
 
-        // Protect password
-        user.setPassword("");
+        // Data to be stored in token
+        HashMap<String, String> userdata =  new HashMap<>();
+        userdata.put("id", user.getId().toString());
+        userdata.put("username", user.getUserName());
+        userdata.put("role", user.getRole());
+        userdata.put("first_name", user.getName());
+        userdata.put("last_name", user.getLastName());
 
         return new LoginResponse(Jwts.builder()
                 .setSubject(user.getUserName())
-                .claim("userdata", user)
+                .claim("userdata", userdata)
                 .setIssuedAt(new Date())
                 .signWith(SignatureAlgorithm.HS256, "filipbekic01")
                 .compact());

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('studiorum')
-    .controller('OneStudentController', ['$scope', 'Restangular', '$uibModal', '$log', '_', '$routeParams',
+    .controller('StudentController', ['$scope', 'Restangular', '$uibModal', '$log', '_', '$routeParams',
         function ($scope, Restangular, $uibModal, $log, _, $routeParams) {
 
             $scope.user = {};

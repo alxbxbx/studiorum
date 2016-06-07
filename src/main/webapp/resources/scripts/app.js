@@ -65,7 +65,7 @@ angular.module('studiorum', [
         if (languageKey) {
             $translateProvider.preferredLanguage(languageKey);
         } else {
-            $translateProvider.preferredLanguage('us');
+            $translateProvider.preferredLanguage('rs');
         }
 
         // JWT Configuration

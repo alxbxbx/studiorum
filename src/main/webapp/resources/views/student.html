@@ -1,0 +1,118 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-list"></span> {{ user.name }}'s Details
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img class="img-responsive img-thumbnail" src="/static/images/profile.png"/>
+                        <a href="" style="margin-top:10px;" ng-click="openModal(user)" class="btn btn-primary btn-xs"
+                           role="button">
+                            <span class="glyphicon glyphicon-pencil"></span> Edit profile data
+                        </a>
+                    </div>
+                    <div class="col-lg-9">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Name:</th>
+                                <td>{{ user.lastName }} {{ user.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Username:</th>
+                                <td>{{ user.userName }}</td>
+                            </tr>
+                            <tr>
+                                <th>Gender:</th>
+                                <td>{{ user.gender }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date of birth:</th>
+                                <td>{{ user.dateOfBirth | date:'yyyy-MM-dd'}}</td>
+                            </tr>
+                            <tr>
+                                <th>Address:</th>
+                                <td>{{ user.address }}</td>
+                            </tr>
+                            <tr>
+                                <th>Jmbg:</th>
+                                <td>{{ user.jmbg }}</td>
+                            </tr>
+                            <tr>
+                                <th>Id:</th>
+                                <td>{{ user.studentId }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-hdd"></span> Documents
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href="" style="margin-bottom:10px;" ng-click="openModal(user)" class="btn btn-success btn-xs"
+                           role="button">
+                            <span class="glyphicon glyphicon-upload"></span> Upload New File
+                        </a>
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Name</th>
+                                <th colspan="2">Size</th>
+                            </tr>
+                            <tr>
+                                <td>some_file.pdf</td>
+                                <td>1.33MB</td>
+                                <td style="text-align:right">
+                                    <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>more files.jpg</td>
+                                <td>5.19MB</td>
+                                <td style="text-align:right">
+                                    <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Desktop.zip</td>
+                                <td>53.39MB</td>
+                                <td style="text-align:right">
+                                    <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></a>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-calendar"></span> Subjects
+            </div>
+            <div class="panel-body">
+                <p>Current duties and exams. We should write explaination what does signs mean and stuff like that right here...</p>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item">Cras justo odio <span style="float:right;color:#00A000" class="glyphicon glyphicon-ok-sign"></span></li>
+                <li class="list-group-item">Dapibus ac facilisis in <span style="float:right;color:#A00000" class="glyphicon glyphicon-remove-sign"></span></li>
+                <li class="list-group-item">Morbi leo risus <span style="float:right;color:#ba9d37" class="glyphicon glyphicon-question-sign"></span></li>
+                <li class="list-group-item">Porta ac consectetur ac <span style="float:right;color:#00A000" class="glyphicon glyphicon-ok-sign"></span></li>
+                <li class="list-group-item">Vestibulum at eros <span style="float:right;color:#00A000" class="glyphicon glyphicon-ok-sign"></span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>

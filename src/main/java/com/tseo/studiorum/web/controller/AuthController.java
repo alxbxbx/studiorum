@@ -1,6 +1,7 @@
 package com.tseo.studiorum.web.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 
@@ -22,30 +23,35 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @RequestMapping(value = "auth")
 public class AuthController {
 
-	@Autowired
-	private UserService userService;
-	
-	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public LoginResponse login(@RequestBody UserDTO userDTO) 
-		throws ServletException {
-		
-		User user = userService.findOneByUsernameAndPassword(
-				userDTO.getUserName(), 
-				userDTO.getPassword());
-		
-		if (user == null) {
-			throw new ServletException("Authentification failed, user not found in database.");
-		}
-		
-		// Protect password
-		user.setPassword("");
-		
-		return new LoginResponse(Jwts.builder()
-				.setSubject(user.getUserName())
-				.claim("userdata", user)
-				.setIssuedAt(new Date())
-				.signWith(SignatureAlgorithm.HS256, "filipbekic01")
-				.compact());
-	}
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public LoginResponse login(@RequestBody UserDTO userDTO)
+            throws ServletException {
+
+        User user = userService.findOneByUsernameAndPassword(
+                userDTO.getUserName(),
+                userDTO.getPassword());
+
+        if (user == null) {
+            throw new ServletException("Authentification failed, user not found in database.");
+        }
+
+        // Data to be stored in token
+        HashMap<String, String> userdata =  new HashMap<>();
+        userdata.put("id", user.getId().toString());
+        userdata.put("username", user.getUserName());
+        userdata.put("role", user.getRole());
+        userdata.put("first_name", user.getName());
+        userdata.put("last_name", user.getLastName());
+
+        return new LoginResponse(Jwts.builder()
+                .setSubject(user.getUserName())
+                .claim("userdata", userdata)
+                .setIssuedAt(new Date())
+                .signWith(SignatureAlgorithm.HS256, "filipbekic01")
+                .compact());
+    }
 
 }

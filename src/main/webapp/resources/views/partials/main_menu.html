@@ -10,17 +10,16 @@
             <a class="navbar-brand" href="/#/"><span class="glyphicon glyphicon-education" aria-hidden="true"></span> &nbsp;{{ 'FTN' | translate }}</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul ng-hide="auth" class="nav navbar-nav navbar-right">
-                <li ng-if="!isLoggedIn()">
-                    <a href="" ng-click="openLoginModal()">
-                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> &nbsp;&nbsp;{{ 'LOGIN' | translate }}
+            <ul class="nav navbar-nav navbar-right">
+
+                <!-- Menu items for role `student` -->
+                <li ng-if="isLoggedIn() && loggedUserData.role == 'student'">
+                    <a href="/#/students/{{ loggedUserData.id }}">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> &nbsp;&nbsp;My Profile
                     </a>
                 </li>
-                <li ng-if="!isLoggedIn()">
-                    <a href="">
-                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> &nbsp;&nbsp;{{ 'REGISTER' | translate }}
-                    </a>
-                </li>
+
+                <!--
                 <li ng-if="isLoggedIn()">
                     <a href="/#/students">
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> &nbsp;&nbsp;{{ 'STUDENTS' | translate }}
@@ -41,11 +40,30 @@
                         <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> &nbsp;&nbsp;{{ 'LOGOUT' | translate }}
                     </a>
                 </li>
+                -->
+
+                <!-- Menu items for all roles -->
+                <li ng-if="!isLoggedIn()">
+                    <a href="" ng-click="openLoginModal()">
+                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> &nbsp;&nbsp;{{ 'LOGIN' | translate }}
+                    </a>
+                </li>
+                <li ng-if="!isLoggedIn()">
+                    <a href="">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> &nbsp;&nbsp;{{ 'REGISTER' | translate }}
+                    </a>
+                </li>
+                <li ng-if="isLoggedIn()" ng-click="logout()">
+                    <a href="">
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> &nbsp;&nbsp;{{ 'LOGOUT' | translate }}
+                    </a>
+                </li>
                 <li>
                 	<a href="" ng-click="openLanguagesModal()">
                         <img class="flag flag-{{ lang }}"/>
                     </a>
                 </li>
+
             </ul>
         </div>
     </div>

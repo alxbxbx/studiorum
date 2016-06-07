@@ -3,6 +3,9 @@
 angular.module('studiorum').controller('StudentsController', ['$scope', 'Restangular', '$uibModal', '$log', '_', function($scope, Restangular, $uibModal, $log, _) {
 	
 	// Initialization
+	$scope.maxSize = 7;
+	$scope.bigTotalItems = 1300;
+	$scope.bigCurrentPage = 3;
 	
 	$scope.user = {};
 	$scope.user.isStudent = true;

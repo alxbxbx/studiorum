@@ -29,7 +29,7 @@ public class FakerController {
 
     Faker faker = new Faker();
 
-    for (int i = 0; i < 25; i++) {
+    for (int i = 0; i < 250; i++) {
       User user = new User();
       user.setLastName(faker.name().lastName());
       user.setName(faker.name().firstName());
@@ -39,7 +39,7 @@ public class FakerController {
       user = userService.save(user);
     }
 
-    for (int i = 0; i < 25; i++) {
+    for (int i = 0; i < 250; i++) {
       Student student = new Student();
       student.setGender("male");
       student.setAddress(faker.address().streetAddress() + ", " + faker.address().city());

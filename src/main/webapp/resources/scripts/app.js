@@ -36,14 +36,19 @@ angular.module('studiorum', [
                 controllerAs: 'subjectsCtrl'
             })
             .when('/students/:id', {
-                templateUrl: '/static/views/oneStudent.html',
-                controller: 'OneStudentController',
-                controllerAs: 'oneStudentCtrl'
+                templateUrl: '/static/views/student.html',
+                controller: 'StudentController',
+                controllerAs: 'studentCtrl'
             })
             .when('/subjects/:id', {
-                templateUrl: '/static/views/oneSubject.html',
-                controller: 'OneSubjectController',
-                controllerAs: 'oneSubjectCtrl'
+                templateUrl: '/static/views/subject.html',
+                controller: 'SubjectController',
+                controllerAs: 'subjectCtrl'
+            })
+            .when('/about', {
+                templateUrl: '/static/views/about.html',
+                controller: 'AboutController',
+                controllerAs: 'aboutCtrl'
             })
             .otherwise({
                 redirectTo: '/'
@@ -71,9 +76,13 @@ angular.module('studiorum', [
 
         $httpProvider.interceptors.push('jwtInterceptor');
 
-    }]).run(['$http', 'Restangular', '$log', '$rootScope', function ($http, Restangular, $log, $rootScope) {
+    }]).run(['$http', 'Restangular', '$log', '$rootScope', 'jwtHelper', function ($http, Restangular, $log, $rootScope, jwtHelper) {
+
+    var token = localStorage.getItem('jwt_token');
+    var languageKey = localStorage.getItem('languageKey');
 
     Restangular.setBaseUrl("api");
+
     Restangular.setErrorInterceptor(function (response) {
         if (response.status === 500) {
             $log.info("Internal server error.");
@@ -82,7 +91,12 @@ angular.module('studiorum', [
         return true;
     });
 
-    var languageKey = localStorage.getItem('languageKey');
+    if (token) {
+        var payload = jwtHelper.decodeToken(token);
+        $rootScope.loggedUserData = payload.userdata;
+        console.log($rootScope.loggedUserData);
+    }
+
     if (languageKey) {
         $rootScope.lang = languageKey;
     } else {

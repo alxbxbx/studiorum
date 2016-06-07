@@ -22,30 +22,30 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @RequestMapping(value = "auth")
 public class AuthController {
 
-	@Autowired
-	private UserService userService;
-	
-	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public LoginResponse login(@RequestBody UserDTO userDTO) 
-		throws ServletException {
-		
-		User user = userService.findOneByUsernameAndPassword(
-				userDTO.getUserName(), 
-				userDTO.getPassword());
-		
-		if (user == null) {
-			throw new ServletException("Authentification failed, user not found in database.");
-		}
-		
-		// Protect password
-		user.setPassword("");
-		
-		return new LoginResponse(Jwts.builder()
-				.setSubject(user.getUserName())
-				.claim("userdata", user)
-				.setIssuedAt(new Date())
-				.signWith(SignatureAlgorithm.HS256, "filipbekic01")
-				.compact());
-	}
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public LoginResponse login(@RequestBody UserDTO userDTO)
+            throws ServletException {
+
+        User user = userService.findOneByUsernameAndPassword(
+                userDTO.getUserName(),
+                userDTO.getPassword());
+
+        if (user == null) {
+            throw new ServletException("Authentification failed, user not found in database.");
+        }
+
+        // Protect password
+        user.setPassword("");
+
+        return new LoginResponse(Jwts.builder()
+                .setSubject(user.getUserName())
+                .claim("userdata", user)
+                .setIssuedAt(new Date())
+                .signWith(SignatureAlgorithm.HS256, "filipbekic01")
+                .compact());
+    }
 
 }

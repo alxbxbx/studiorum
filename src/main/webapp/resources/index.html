@@ -14,9 +14,9 @@
 		<link rel="stylesheet" type="text/css" href="/static/css/flags.css">
 	</head>
 	<body ng-controller="ApplicationController">
-		
+
 		<div ng-include="'/static/views/partials/main_menu.html'"></div>
-		
+
 		<div class="container">
 
 			<div ng-view></div>
@@ -24,7 +24,7 @@
             <div ng-include="'/static/views/partials/footer.html'"></div>
 
     	</div>
-		
+
 		<script src="/static/bower_components/jquery/dist/jquery.js"></script>
 		<script src="/static/bower_components/angular/angular.js"></script>
 		<script src="/static/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
@@ -38,18 +38,19 @@
 		<script src="/static/bower_components/angular-translate/angular-translate.js"></script>
 		<script src="/static/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
 		<script src="/static/bower_components/angular-jwt/dist/angular-jwt.js"></script>
-		
+
 		<script src="/static/scripts/app.js"></script>
 		<script src="/static/scripts/controllers/ApplicationController.js"></script>
 		<script src="/static/scripts/controllers/HomeController.js"></script>
 		<script src="/static/scripts/controllers/StudentsController.js"></script>
 		<script src="/static/scripts/controllers/SubjectsController.js"></script>
-		<script src="/static/scripts/controllers/OneStudentController.js"></script>	
-		<script src="/static/scripts/controllers/ProfessorsController.js"></script>	
-		<script src="/static/scripts/controllers/OneSubjectController.js"></script>	
-		<script src="/static/scripts/controllers/LanguageSwitchController.js"></script>	
-		<script src="/static/scripts/controllers/modals/LoginModalController.js"></script>	
-		<script src="/static/scripts/controllers/modals/LanguagesModalController.js"></script>	
-		<script src="/static/scripts/services/AuthService.js"></script>			
+		<script src="/static/scripts/controllers/StudentController.js"></script>
+		<script src="/static/scripts/controllers/ProfessorsController.js"></script>
+		<script src="/static/scripts/controllers/SubjectController.js"></script>
+		<script src="/static/scripts/controllers/SubjectController.js"></script>
+        <script src="/static/scripts/controllers/AboutController.js"></script>
+		<script src="/static/scripts/controllers/modals/LoginModalController.js"></script>
+		<script src="/static/scripts/controllers/modals/LanguagesModalController.js"></script>
+		<script src="/static/scripts/services/AuthService.js"></script>
 	</body>
 </html>

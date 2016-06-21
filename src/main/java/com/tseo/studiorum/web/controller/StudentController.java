@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +22,6 @@ import com.tseo.studiorum.entities.Exam;
 import com.tseo.studiorum.entities.Payment;
 import com.tseo.studiorum.entities.Student;
 import com.tseo.studiorum.entities.Subject;
-import com.tseo.studiorum.entities.User;
 import com.tseo.studiorum.service.StudentService;
 import com.tseo.studiorum.web.dto.DocumentDTO;
 import com.tseo.studiorum.web.dto.ExamDTO;
@@ -28,7 +29,6 @@ import com.tseo.studiorum.web.dto.PaymentDTO;
 import com.tseo.studiorum.web.dto.StudentDTO;
 import com.tseo.studiorum.web.dto.SubjectDTO;
 
-import io.jsonwebtoken.Claims;
 
 @RestController
 @RequestMapping(value="api/students")
@@ -37,7 +37,7 @@ public class StudentController {
 	StudentService studentService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<StudentDTO>> getStudents(HttpServletRequest req){
+	public ResponseEntity<List<StudentDTO>> getStudents(HttpServletRequest req, Pageable page){
 
 		/*Claims claim = (Claims) req.getAttribute("claims");
 		@SuppressWarnings("unused")
@@ -46,8 +46,9 @@ public class StudentController {
 		String k = "tew";
 		@SuppressWarnings("unused")
 		String j = "zxcvz";*/
-
-		List<Student> students = studentService.findAll();
+		
+		//List<Student> students = studentService.findAll();
+		Page<Student> students = studentService.findAll(page);
 		List<StudentDTO> studentsDTO = new ArrayList<StudentDTO>();
 		for(Student student : students){
 			studentsDTO.add(new StudentDTO(student));
@@ -61,6 +62,13 @@ public class StudentController {
 		if(student == null)
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(new StudentDTO(student), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/count", method = RequestMethod.GET)
+	public ResponseEntity<Integer> getCount(){
+		int count = studentService.findAll().size();
+
+		return new ResponseEntity<>(count, HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")

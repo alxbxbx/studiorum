@@ -3,13 +3,29 @@
 angular.module('studiorum').controller('StudentsController', ['$scope', 'Restangular', '$uibModal', '$log', '_', function ($scope, Restangular, $uibModal, $log, _) {
 
     // Initialization
-	$scope.maxSize = 7;
-	$scope.bigTotalItems = 1300;
-	$scope.bigCurrentPage = 3;
+	$scope.maxSize = 5;
+	
+	//Max page
+	$scope.bigTotalItems = 0;
+	
+	//Check in local storage for page number first
+	var pageNumber = localStorage.getItem('pageNumber');
+	$scope.bigCurrentPage = 1;
+	if(typeof pageNumber == "undefined"){
+		localStorage.setItem('pageNumber', 0);
+	}else{
+		$scope.bigCurrentPage = eval(pageNumber) + 1;
+	}
+	
+	
     $scope.user = {};
     $scope.user.isStudent = true;
-
-    loadListOfStudents();
+    
+    //Load list of students on current page
+    loadListOfStudents($scope.bigCurrentPage - 1);
+    
+    //Load count of all students
+    loadStudentsCount();
 
     // On Click Events
     $scope.clickDeleteUser = function (id) {
@@ -19,11 +35,25 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
             });
         }
     }
+    
+    function loadStudentsCount(){
+    	Restangular.one("students/count", "").get().then(function(count){
+    		$scope.count = (count / 20) * 10;
+    		$scope.bigTotalItems = $scope.count;
+    	});
+    }
 
-    function loadListOfStudents() {
-        Restangular.all("students").getList().then(function (students) {
+    function loadListOfStudents(pageNumber) {
+        Restangular.all("students").customGETLIST('', {
+            page: pageNumber, 
+            size: "20"
+        }).then(function (students) {
             $scope.students = students;
         });
+    }
+    $scope.pageChanged = function(){
+    	localStorage.setItem('pageNumber', $scope.bigCurrentPage - 1);
+    	loadListOfStudents($scope.bigCurrentPage - 1);
     }
 
     $scope.openModal = function (user) {

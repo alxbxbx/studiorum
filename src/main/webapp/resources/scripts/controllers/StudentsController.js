@@ -6,18 +6,19 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
 	$scope.maxSize = 5;
 	
 	//Max page
-	$scope.bigTotalItems = 0;
+	$scope.bigTotalItems = null;
 	
 	//Check in local storage for page number first
 	var pageNumber = localStorage.getItem('pageNumber');
-	$scope.bigCurrentPage = 1;
+	var currentPage = null;
 	if(typeof pageNumber == "undefined"){
 		localStorage.setItem('pageNumber', 0);
+		currentPage = 1;
 	}else{
-		$scope.bigCurrentPage = eval(pageNumber) + 1;
+		currentPage = eval(pageNumber) + 1;
 	}
-	
-	
+	$scope.bigCurrentPage = currentPage;
+
     $scope.user = {};
     $scope.user.isStudent = true;
     
@@ -31,16 +32,27 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
     $scope.clickDeleteUser = function (id) {
         if (confirm("Are you sure?")) {
             Restangular.one("students", id).remove().then(function () {
-                loadListOfStudents();
+                loadListOfStudents($scope.bigCurrentPage - 1);
             });
         }
     }
     
     function loadStudentsCount(){
+    	//helper variable so we have actual page remembered
+    	var hesoyam = $scope.bigCurrentPage;
     	Restangular.one("students/count", "").get().then(function(count){
     		$scope.count = (count / 20) * 10;
     		$scope.bigTotalItems = $scope.count;
+    		
+    		$scope.bigCurrentPage = hesoyam;
+    		//We have to reload students on current page because when loadStudentsCount() method is finished
+    		//$scope.pageChanged is triggered because $scope.bigTotalItems is changed, and it automatically sets
+    		//$scope.bigCurrentPage to 1, so we needed to prevent that so our current page is always
+    		//page where we were before browser reloaded
+    		$scope.pageChanged();
+    		
     	});
+    	
     }
 
     function loadListOfStudents(pageNumber) {
@@ -79,15 +91,14 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
     var StudentModalCtrl = ['$scope', '$uibModalInstance', 'user', 'Restangular', '$log', '_',
         function ($scope, $uibModalInstance, user, Restangular, $log, _) {
             $scope.user = user;
-            console.log($scope.user);
             $scope.ok = function () {
                 if ($scope.user.id) {
                     Restangular.all('students').customPUT($scope.user).then(function (data) {
-                        loadListOfStudents();
+                        loadListOfStudents($scope.bigCurrentPage - 1);
                     });
                 } else {
                     Restangular.all('students').post($scope.user).then(function (data) {
-                            loadListOfStudents();
+                            loadListOfStudents($scope.bigCurrentPage - 1);
                         },
                         // callback za gresku sa servera
                         function () {

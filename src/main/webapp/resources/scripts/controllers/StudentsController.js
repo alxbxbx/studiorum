@@ -4,20 +4,20 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
 
     // Initialization
 	$scope.maxSize = 5;
+	$scope.searchText = "";
 	
 	//Max page
 	$scope.bigTotalItems = null;
 	
 	//Check in local storage for page number first
 	var pageNumber = localStorage.getItem('pageNumber');
-	var currentPage = null;
+
+	$scope.bigCurrentPage = 1;
 	if(typeof pageNumber == "undefined"){
 		localStorage.setItem('pageNumber', 0);
-		currentPage = 1;
 	}else{
-		currentPage = eval(pageNumber) + 1;
+		$scope.bigCurrentPage = eval(pageNumber) + 1;
 	}
-	$scope.bigCurrentPage = currentPage;
 
     $scope.user = {};
     $scope.user.isStudent = true;
@@ -50,9 +50,7 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
     		//$scope.bigCurrentPage to 1, so we needed to prevent that so our current page is always
     		//page where we were before browser reloaded
     		$scope.pageChanged();
-    		
     	});
-    	
     }
 
     function loadListOfStudents(pageNumber) {
@@ -67,7 +65,13 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
     	localStorage.setItem('pageNumber', $scope.bigCurrentPage - 1);
     	loadListOfStudents($scope.bigCurrentPage - 1);
     }
-
+    
+    $scope.search = function(){
+    	if($scope.searchText.length > 2){
+    	
+    	}
+    }
+    
     $scope.openModal = function (user) {
         user.isStudent = true;
         var modalInstance = $uibModal.open({

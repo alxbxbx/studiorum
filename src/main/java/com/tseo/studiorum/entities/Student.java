@@ -8,9 +8,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
+@NamedQuery(name = "Student.findByFirstLastName", query = "from Student s where s.name LIKE CONCAT('%', :searchText, '%')" +
+"or s.lastName LIKE CONCAT('%', :searchText, '%')"
+		)
 public class Student extends User {
 
     private String gender;

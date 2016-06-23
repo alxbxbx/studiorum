@@ -55,6 +55,16 @@ public class StudentController {
 		}
 		return new ResponseEntity<>(studentsDTO, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/search", method = RequestMethod.GET)
+	public ResponseEntity<List<StudentDTO>> getSearchResults(HttpServletRequest req, Pageable page, String searchText){
+		Page<Student> students = studentService.findByFirstLastName(page, searchText);
+		List<StudentDTO> studentsDTO = new ArrayList<StudentDTO>();
+		for(Student student : students){
+			studentsDTO.add(new StudentDTO(student));
+		}
+		return new ResponseEntity<>(studentsDTO, HttpStatus.OK);
+	}
 
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
 	public ResponseEntity<StudentDTO> getStudent(@PathVariable Integer id){
@@ -68,6 +78,12 @@ public class StudentController {
 	public ResponseEntity<Integer> getCount(){
 		int count = studentService.findAll().size();
 
+		return new ResponseEntity<>(count, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/searchCount", method = RequestMethod.GET)
+	public ResponseEntity<Integer> getSearchCount(String searchText){
+		int count = studentService.searchCount(searchText);
 		return new ResponseEntity<>(count, HttpStatus.OK);
 	}
 

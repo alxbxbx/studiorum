@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,16 @@ public class StudentService {
 	
 	public Page<Student> findAll(Pageable page){
 		return studentRepository.findAll(page);
+	}
+	
+	public Page<Student> findByFirstLastName(Pageable page, String searchText){
+		List<Student> allStudents = studentRepository.findByFirstLastName(searchText);
+		Page<Student> students = new PageImpl<>(allStudents, page, allStudents.size());
+		return students;
+	}
+	
+	public Integer searchCount(String searchText){
+		return studentRepository.findByFirstLastName(searchText).size();
 	}
 	
 	public Student save(Student student){

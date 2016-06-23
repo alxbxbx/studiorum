@@ -5,6 +5,7 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
     // Initialization
 	$scope.maxSize = 5;
 	$scope.searchText = "";
+	var isSearch = false;
 	
 	//Max page
 	$scope.bigTotalItems = null;
@@ -27,6 +28,8 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
     
     //Load count of all students
     loadStudentsCount();
+    
+    loadSearchResults();
 
     // On Click Events
     $scope.clickDeleteUser = function (id) {
@@ -61,14 +64,54 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
             $scope.students = students;
         });
     }
+    function loadSearchResults(searchText, page) {
+        Restangular.all("students/search").customGETLIST('', {
+            page: page, 
+            size: "20",
+            searchText: searchText
+        }).then(function (students) {
+        	$scope.students = students;
+        });
+    }
+    function loadSearchResultsCount(){
+    	//helper variable so we have actual page remembered
+    	var hesoyam = $scope.bigCurrentPage;
+    	Restangular.one("students/searchCount", "").get().then(function(count){
+    		$scope.count = (count / 20) * 10;
+    		$scope.bigTotalItems = $scope.count;
+    		
+    		$scope.bigCurrentPage = hesoyam;
+    		//We have to reload students on current page because when loadSearchResultsCount() method is finished
+    		//$scope.pageChanged is triggered because $scope.bigTotalItems is changed, and it automatically sets
+    		//$scope.bigCurrentPage to 1, so we needed to prevent that so our current page is always
+    		//page where we were before browser reloaded
+    		$scope.pageChanged();
+    	});
+    }
     $scope.pageChanged = function(){
-    	localStorage.setItem('pageNumber', $scope.bigCurrentPage - 1);
-    	loadListOfStudents($scope.bigCurrentPage - 1);
+    	if(isSearch == false){
+    		localStorage.setItem('pageNumber', $scope.bigCurrentPage - 1);
+        	loadListOfStudents($scope.bigCurrentPage - 1);
+    	}else{
+    		var page = eval($scope.bigCurrentPage) - 1;
+    		loadSearchResults($scope.searchText, page);
+    	}
+    	
     }
     
     $scope.search = function(){
+    	isSearch = true;
     	if($scope.searchText.length > 2){
-    	
+    		loadSearchResults($scope.searchText);
+    		$scope.bigCurrentPage = 1;
+    		loadSearchResultsCount();
+    	}
+    	if($scope.searchText.length == 0){
+    		isSearch = false;
+    		var page = localStorage.getItem('pageNumber');
+    		loadListOfStudents(page);
+    		$scope.bigCurrentPage = eval(page) + 1;
+    		loadStudentsCount();
     	}
     }
     

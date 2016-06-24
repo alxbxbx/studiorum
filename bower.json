@@ -10,7 +10,7 @@
     "restangular": "~1.5.1",
     "angular-bootstrap": "~1.1.0",
     "angular-lodash-module": "~1.2.0",
-    "angular-drag-and-drop-lists": "~1.4.0",
+    "angular-drag-and-drop-lists": "^1.4.0",
     "angular-translate": "^2.11.0",
     "angular-translate-loader-static-files": "^2.11.0",
     "angular-jwt": "0.0.9",

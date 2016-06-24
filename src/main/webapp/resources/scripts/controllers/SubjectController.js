@@ -5,28 +5,37 @@ angular.module('studiorum')
         function ($scope, Restangular, $uibModal, $log, _, $routeParams) {
 
             $scope.subject = {};
-            $scope.subjectStudents = [];
-            $scope.allStudents = [];
+            $scope.dnd = {
+                selectedStudent: null,
+                listOfAllStudents: [],
+                listOfAttendingStudents: []
+            };
 
 
-            getSubject();
-            getStudents();
-
-            function getSubject() {
+            $scope.getSubject = function () {
                 Restangular.one("subjects", $routeParams.id).get().then(function (subject) {
                     $scope.subject = subject;
                 });
-            }
+            };
 
-            function getStudents() {
+            $scope.getStudents = function () {
                 Restangular.all("students").getList().then(function (entries) {
-                    $scope.allStudents = entries;
+                    $scope.dnd.listOfAllStudents = entries;
                 });
-                /*
-                 Restangular.all("subjects", $routeParams.id, "students").getList.then(function(entries){
-                 $scope.subjectStudents = entries;
-                 }); */
-            }
+                Restangular.one("subjects", $routeParams.id).all("students").getList().then(function (entries) {
+                    $scope.dnd.listOfAttendingStudents = entries;
+                });
+            };
 
+            $scope.save = function () {
+                var ids = [];
+                for (var i = 0, len = $scope.dnd.listOfAttendingStudents.length; i < len; i++) {
+                    ids.push($scope.dnd.listOfAttendingStudents[i].id);
+                }
+                Restangular.one("subjects", $routeParams.id).one("students").post(ids.join(','));
+            };
+
+            $scope.getSubject();
+            $scope.getStudents();
 
         }]);

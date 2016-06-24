@@ -18,8 +18,8 @@ public class DocumentService {
         return documentRepository.findOne(id);
     }
 
-    public List<Document> findAllByStudentId(Integer studentId) {
-        List<Document> documents = documentRepository.findAllByStudentId(studentId);
+    public List<Document> findByStudentId(Integer studentId) {
+        List<Document> documents = documentRepository.findByStudentId(studentId);
         return documents;
     }
 
@@ -34,4 +34,5 @@ public class DocumentService {
     public void remove(Integer id) {
         documentRepository.delete(id);
     }
+    
 }

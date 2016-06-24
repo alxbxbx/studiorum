@@ -23,11 +23,9 @@ public class StudentFileController {
     @Autowired
     StudentService studentService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<Document>> getAllDocuments(@PathVariable Integer studentId) {
-        List<Document> documents = documentService.findAllByStudentId(studentId);
-        String x = "123";
-        String y = "456";
+        List<Document> documents = documentService.findByStudentId(studentId);
         return new ResponseEntity<>(documents, HttpStatus.OK);
     }
 

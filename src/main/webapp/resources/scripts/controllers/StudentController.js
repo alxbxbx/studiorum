@@ -6,6 +6,7 @@ angular.module('studiorum')
 
             // Initialization
             $scope.user = {};
+            $scope.loading = false;
             $scope.user.isStudent = true;
 
             $scope.getFiles = function () {
@@ -23,17 +24,17 @@ angular.module('studiorum')
             $scope.uploadFile = function (file) {
                 $scope.file = file;
                 if (file) {
+                    $scope.loading = true;
                     Upload.upload({
                         url: '/api/students/' + $scope.user.id + '/files',
                         data: {file: file}
                     }).then(function (response) {
                         $timeout(function () {
                             $scope.getFiles();
+                            $scope.loading = false;
                         });
                     }, function (response) {
-                        /*if (response.status > 0) {
-                         $scope.errorMsg = response.status + ': ' + response.data;
-                         }*/
+                        $scope.loading = false;
                     }, function (evt) {
                         $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                     });

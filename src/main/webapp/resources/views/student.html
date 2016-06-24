@@ -57,7 +57,9 @@
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-hdd"></span> Documents
                 <a href="" style="float:right" ngf-select="uploadFile($file)" accept="*/*" class="btn btn-success btn-xs" role="button">
-                    <span class="glyphicon glyphicon-upload"></span> Upload New File
+                    <i class="fa fa-spinner fa-spin fa-fw" ng-if="loading"></i>
+                    <i class="fa fa-edit fa-fw" ng-if="!loading"></i>
+                    Upload New File
                 </a>
             </div>
             <div class="panel-body">

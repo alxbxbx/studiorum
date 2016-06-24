@@ -1,5 +1,7 @@
 package com.tseo.studiorum.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -50,6 +52,7 @@ public class Document {
         this.path = path;
     }
 
+    @JsonIgnore
     public Student getStudent() {
         return student;
     }

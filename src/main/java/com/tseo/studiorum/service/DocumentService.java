@@ -8,8 +8,13 @@ import org.springframework.stereotype.Service;
 import com.tseo.studiorum.entities.Document;
 import com.tseo.studiorum.repository.DocumentRepository;
 
+import javax.persistence.EntityManager;
+
 @Service
 public class DocumentService {
+
+    @Autowired
+    EntityManager em;
 
     @Autowired
     DocumentRepository documentRepository;
@@ -19,7 +24,9 @@ public class DocumentService {
     }
 
     public List<Document> findByStudentId(Integer studentId) {
-        List<Document> documents = documentRepository.findByStudentId(studentId);
+        List documents = em.createQuery("FROM Document document WHERE document.student.id = :studentId")
+            .setParameter("studentId", studentId)
+            .getResultList();
         return documents;
     }
 
@@ -34,5 +41,5 @@ public class DocumentService {
     public void remove(Integer id) {
         documentRepository.delete(id);
     }
-    
+
 }

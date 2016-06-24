@@ -3,7 +3,6 @@ package com.tseo.studiorum.entities;
 import javax.persistence.*;
 
 @Entity
-@NamedQuery(name = "Document.findAllByStudentId", query = "SELECT d FROM Document d WHERE d.student.id = :studentId")
 public class Document {
 
     @Id

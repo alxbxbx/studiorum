@@ -70,7 +70,7 @@
                                 <th colspan="2">Document Name</th>
                             </tr>
                             <tr ng-repeat="file in files">
-                                <td><a href="{{ file.path }}">{{ file.name }}</a></td>
+                                <td><a href="" ng-click="downloadFile(file.id)">{{ file.name }}</a></td>
                                 <td style="text-align:right">
                                     <a class="btn btn-danger btn-xs" ng-click="removeFile(file.id)"><span class="glyphicon glyphicon-trash"></span></a>
                                 </td>

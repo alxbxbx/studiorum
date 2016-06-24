@@ -1,8 +1,10 @@
 package com.tseo.studiorum.web.controller;
 
+import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 import com.tseo.studiorum.entities.Document;
 import com.tseo.studiorum.service.DocumentService;
 import com.tseo.studiorum.service.StudentService;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -26,6 +27,25 @@ public class StudentFileController {
 
     @Autowired
     StudentService studentService;
+
+    @RequestMapping(value = "{fileId}", method = RequestMethod.GET)
+    public ResponseEntity<Document> getAllDocuments(HttpServletResponse response, @PathVariable Integer studentId, @PathVariable Integer fileId) {
+
+        Document document = null;
+        try {
+            document = documentService.findOne(fileId);
+            response.setContentType("application/octet-stream");
+            response.setHeader("Content-Description", "File Transfer");
+            response.setHeader("Content-Disposition", "attachment; filename=" + document.getName());
+            File file = new File(this.storage + document.getPath());
+            InputStream is = new FileInputStream(file);
+            IOUtils.copy(is, response.getOutputStream());
+            response.flushBuffer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(document, HttpStatus.OK);
+    }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<Document>> getAllDocuments(@PathVariable Integer studentId) {
@@ -51,6 +71,7 @@ public class StudentFileController {
 
         try {
             String fileName = tempFile.getOriginalFilename();
+            fileName = System.currentTimeMillis() + "_" + fileName;
             byte[] bytes = tempFile.getBytes();
             buffStream = new BufferedOutputStream(new FileOutputStream(new File(this.storage + fileName)));
             buffStream.write(bytes);

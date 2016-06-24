@@ -27,6 +27,13 @@ angular.module('studiorum')
                 });
             };
 
+            $scope.downloadFile = function (fileId) {
+                Restangular.one('students', $routeParams.id).one('files', fileId).get().then(function (result) {
+                    // Fix this
+                    window.location.href = result;
+                });
+            };
+
             $scope.uploadFile = function (file) {
                 $scope.file = file;
                 if (file) {

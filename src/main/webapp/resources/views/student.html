@@ -3,15 +3,15 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-list"></span> {{ user.name }}'s Details
+                <a href="" style="float:right" ng-click="openModal(user)" class="btn btn-primary btn-xs"
+                   role="button">
+                    <span class="glyphicon glyphicon-pencil"></span> Edit profile data
+                </a>
             </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-3">
                         <img class="img-responsive img-thumbnail" src="/static/images/profile.png"/>
-                        <a href="" style="margin-top:10px;" ng-click="openModal(user)" class="btn btn-primary btn-xs"
-                           role="button">
-                            <span class="glyphicon glyphicon-pencil"></span> Edit profile data
-                        </a>
                     </div>
                     <div class="col-lg-9">
                         <table class="table table-striped">
@@ -56,42 +56,25 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-hdd"></span> Documents
+                <a href="" style="float:right" ngf-select="uploadFile($file)" accept="*/*" class="btn btn-success btn-xs" role="button">
+                    <span class="glyphicon glyphicon-upload"></span> Upload New File
+                </a>
             </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-12">
-                        <a href="" style="margin-bottom:10px;" ng-click="openModal(user)" class="btn btn-success btn-xs"
-                           role="button">
-                            <span class="glyphicon glyphicon-upload"></span> Upload New File
-                        </a>
                         <table class="table table-striped">
                             <tr>
                                 <th>Name</th>
                                 <th colspan="2">Size</th>
                             </tr>
-                            <tr>
-                                <td>some_file.pdf</td>
-                                <td>1.33MB</td>
-                                <td style="text-align:right">
-                                    <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>more files.jpg</td>
-                                <td>5.19MB</td>
-                                <td style="text-align:right">
-                                    <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Desktop.zip</td>
-                                <td>53.39MB</td>
+                            <tr ng-repeat="file in files">
+                                <td><a href="{{ file.filePath }}">{{ file.fileName }}</a></td>
                                 <td style="text-align:right">
                                     <a class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></a>
                                 </td>
                             </tr>
                         </table>
-
                     </div>
                 </div>
             </div>

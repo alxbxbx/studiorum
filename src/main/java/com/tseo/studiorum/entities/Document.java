@@ -1,28 +1,24 @@
 package com.tseo.studiorum.entities;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
+@NamedQuery(name = "Document.findAllByStudentId", query = "SELECT d FROM Document d WHERE d.student.id = :studentId")
 public class Document {
-	
+
 	@Id
 	@GeneratedValue
 	private Integer id;
 	private String name;
 	private String path;
-	
+
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private Student student;
-	
+
 	public Document(){
-		
+
 	}
-	
+
 	public Document(Integer id, String name, String path, Student student) {
 		super();
 		this.id = id;
@@ -66,7 +62,7 @@ public class Document {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	
-	
-	
+
+
+
 }

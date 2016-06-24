@@ -13,8 +13,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 @NamedQuery(name = "Student.findByFirstLastName", query = "from Student s where s.name LIKE CONCAT('%', :searchText, '%')" +
-"or s.lastName LIKE CONCAT('%', :searchText, '%')"
-		)
+    "or s.lastName LIKE CONCAT('%', :searchText, '%')")
 public class Student extends User {
 
     private String gender;
@@ -29,8 +28,8 @@ public class Student extends User {
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     private Set<Document> documents = new HashSet<Document>();
 
-	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	private Set<Payment> payments = new HashSet<Payment>();
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    private Set<Payment> payments = new HashSet<Payment>();
 
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     private Set<Exam> exams = new HashSet<Exam>();

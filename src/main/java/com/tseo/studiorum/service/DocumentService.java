@@ -10,22 +10,28 @@ import com.tseo.studiorum.repository.DocumentRepository;
 
 @Service
 public class DocumentService {
-	@Autowired
-	DocumentRepository documentRepository;
-	
-	public Document findOne(Integer id){
-		return documentRepository.findOne(id);
-	}
-	
-	public List<Document> findAll(){
-		return documentRepository.findAll();
-	}
-	
-	public Document save(Document document){
-		return documentRepository.save(document);
-	}
-	
-	public void remove(Integer id){
-		documentRepository.delete(id);
-	}
+
+    @Autowired
+    DocumentRepository documentRepository;
+
+    public Document findOne(Integer id) {
+        return documentRepository.findOne(id);
+    }
+
+    public List<Document> findAllByStudentId(Integer studentId) {
+        List<Document> documents = documentRepository.findAllByStudentId(studentId);
+        return documents;
+    }
+
+    public List<Document> findAll() {
+        return documentRepository.findAll();
+    }
+
+    public Document save(Document document) {
+        return documentRepository.save(document);
+    }
+
+    public void remove(Integer id) {
+        documentRepository.delete(id);
+    }
 }

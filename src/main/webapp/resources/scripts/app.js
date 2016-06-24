@@ -3,6 +3,7 @@
 angular.module('studiorum', [
     'ngResource',
     'ngRoute',
+    'ngFileUpload',
     'restangular',
     'ui.bootstrap',
     'lodash',

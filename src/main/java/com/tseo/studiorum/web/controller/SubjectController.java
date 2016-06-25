@@ -1,6 +1,7 @@
 package com.tseo.studiorum.web.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -132,11 +133,37 @@ public class SubjectController {
     @RequestMapping(value = "/{id}/students/{ids}", method = RequestMethod.POST)
     public void saveStudents(@PathVariable Integer subjectId, @PathVariable String studentIds) {
         String[] ids = studentIds.split(",");
-        for (String id : ids) {
-            Subject subject = subjectService.findOne(subjectId);
-            for (Student student : subject.getStudents()) {
-                
-            }
+        Subject subject = subjectService.findOne(subjectId);
+        
+        //Taking students currently on subject
+        Set<Student> studentsOnCourse = subject.getStudents();
+        
+        //Removing this course from students' courses
+        for(Student student : studentsOnCourse){
+        	student.getSubjects().remove(subject);
+        	studentService.save(student);
         }
+        
+        //Initializing new set of students
+        Set<Student> newStudents = new HashSet<Student>();
+        
+        
+        for (String id : ids) {
+        	Student student = studentService.findOne(Integer.parseInt(id));
+        	
+        	//Adding subject to every student that should have this one
+        	student.getSubjects().add(subject);
+        	//We added new subject, so it would be nice to save changes
+        	studentService.save(student);
+        	//Adding student to set of new students
+        	newStudents.add(student);
+        }
+        
+        //New set of students for this subject
+        subject.setStudents(newStudents);
+        
+        //Saving subject
+        subjectService.save(subject);
+        
     }
 }

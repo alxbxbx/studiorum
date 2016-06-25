@@ -32,7 +32,10 @@ angular.module('studiorum')
                 for (var i = 0, len = $scope.dnd.listOfAttendingStudents.length; i < len; i++) {
                     ids.push($scope.dnd.listOfAttendingStudents[i].id);
                 }
-                Restangular.one("subjects", $routeParams.id).post("/students", ids.join(','));
+                var payload = {
+                    studentIds: ids.join(',')
+                };
+                Restangular.one("subjects", $routeParams.id).post("students", payload);
             };
 
             $scope.getSubject();

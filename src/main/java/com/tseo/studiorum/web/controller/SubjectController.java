@@ -9,11 +9,7 @@ import com.tseo.studiorum.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.tseo.studiorum.entities.Duty;
 import com.tseo.studiorum.entities.ProfessorRole;
@@ -130,8 +126,8 @@ public class SubjectController {
         return new ResponseEntity<>(studentsDTO, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/students/{ids}", method = RequestMethod.POST)
-    public void saveStudents(@PathVariable Integer subjectId, @PathVariable String studentIds) {
+    @RequestMapping(value = "/{id}/students}", method = RequestMethod.POST)
+    public void saveStudents(@PathVariable Integer subjectId, @RequestParam("studentIds") String studentIds) {
         String[] ids = studentIds.split(",");
         Subject subject = subjectService.findOne(subjectId);
 

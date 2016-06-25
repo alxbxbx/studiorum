@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.mysql.fabric.Response;
-import com.sun.deploy.net.HttpResponse;
 import com.tseo.studiorum.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

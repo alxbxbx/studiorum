@@ -134,36 +134,35 @@ public class SubjectController {
     public void saveStudents(@PathVariable Integer subjectId, @PathVariable String studentIds) {
         String[] ids = studentIds.split(",");
         Subject subject = subjectService.findOne(subjectId);
-        
+
         //Taking students currently on subject
         Set<Student> studentsOnCourse = subject.getStudents();
-        
+
         //Removing this course from students' courses
-        for(Student student : studentsOnCourse){
-        	student.getSubjects().remove(subject);
-        	studentService.save(student);
+        for (Student student : studentsOnCourse) {
+            student.getSubjects().remove(subject);
+            studentService.save(student);
         }
-        
+
         //Initializing new set of students
         Set<Student> newStudents = new HashSet<Student>();
-        
-        
+
         for (String id : ids) {
-        	Student student = studentService.findOne(Integer.parseInt(id));
-        	
-        	//Adding subject to every student that should have this one
-        	student.getSubjects().add(subject);
-        	//We added new subject, so it would be nice to save changes
-        	studentService.save(student);
-        	//Adding student to set of new students
-        	newStudents.add(student);
+            Student student = studentService.findOne(Integer.parseInt(id));
+
+            //Adding subject to every student that should have this one
+            student.getSubjects().add(subject);
+            //We added new subject, so it would be nice to save changes
+            studentService.save(student);
+            //Adding student to set of new students
+            newStudents.add(student);
         }
-        
+
         //New set of students for this subject
         subject.setStudents(newStudents);
-        
+
         //Saving subject
         subjectService.save(subject);
-        
+
     }
 }

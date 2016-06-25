@@ -137,7 +137,7 @@ public class SubjectController {
         for (String id : ids) {
             Subject subject = subjectService.findOne(subjectId);
             for (Student student : subject.getStudents()) {
-                
+
             }
         }
     }

@@ -126,7 +126,7 @@ public class SubjectController {
         return new ResponseEntity<>(studentsDTO, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/students}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{subjectId}/students}", method = RequestMethod.POST)
     public void saveStudents(@PathVariable Integer subjectId, @RequestParam("studentIds") String studentIds) {
         String[] ids = studentIds.split(",");
         Subject subject = subjectService.findOne(subjectId);

@@ -9,12 +9,14 @@ h2, h2 small {
 }
 
 ul.dragAndDrop {
+    min-height: 10px;
+    border: 1px solid rgba(128, 128, 128, .5);
     list-style: none;
     padding: 0;
     li {
         border: 1px solid rgba(128, 128, 128, .3);
         padding: 5px 8px;
-        margin-bottom: 5px;
+        margin: 5px;
     }
 }
 

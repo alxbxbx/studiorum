@@ -35,7 +35,7 @@ angular.module('studiorum')
                 var payload = {
                     studentIds: ids.join(',')
                 };
-                Restangular.one("subjects", $routeParams.id).post("students", payload);
+                Restangular.one("subjects", $routeParams.id).customPOST(payload, "students");
             };
 
             $scope.getSubject();

@@ -126,8 +126,11 @@ public class SubjectController {
         return new ResponseEntity<>(studentsDTO, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{subjectId}/students}", method = RequestMethod.POST)
-    public void saveStudents(@PathVariable Integer subjectId, @RequestParam("studentIds") String studentIds) {
+    @RequestMapping(value = "/{subjectId}/students", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Void> saveStudents(@PathVariable Integer subjectId, @RequestBody String studentIds) {
+    	if(studentIds == null){
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	}
         String[] ids = studentIds.split(",");
         Subject subject = subjectService.findOne(subjectId);
 
@@ -159,6 +162,8 @@ public class SubjectController {
 
         //Saving subject
         subjectService.save(subject);
+        
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
 }

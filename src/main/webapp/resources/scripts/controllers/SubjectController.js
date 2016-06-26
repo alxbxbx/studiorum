@@ -46,10 +46,15 @@ angular.module('studiorum')
                 for (var i = 0, len = $scope.dnd.listOfAttendingStudents.length; i < len; i++) {
                     ids.push($scope.dnd.listOfAttendingStudents[i].id);
                 }
-                var payload = {
-                    studentIds: ids.join(',')
-                };
-                Restangular.one("subjects", $routeParams.id).customPOST(payload, "students");
+                var allIds = ids.join(',');
+                
+                var path = "subjects/" + $routeParams.id + "/students";
+                Restangular.all(path).post(allIds).then(function (data) {
+                	console.log("Success");
+                }, function(response){
+                	console.log(response);
+                });
+                
             };
             
             $scope.search = function(){

@@ -95,7 +95,6 @@ angular.module('studiorum', [
     if (token) {
         var payload = jwtHelper.decodeToken(token);
         $rootScope.loggedUserData = payload.userdata;
-        console.log($rootScope.loggedUserData);
     }
 
     if (languageKey) {

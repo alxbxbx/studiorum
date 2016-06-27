@@ -39,9 +39,11 @@ angular.module('studiorum').service('authService', ['$http', 'jwtHelper', '$root
 
         service.hasRole = function (roles) {
             var valid = false;
-            for (var i = 0; i < roles.length; i++) {
-                if (roles[i] == loggedUserData.role) {
-                    valid = true;
+            if (service.isLoggedIn()) {
+                for (var i = 0; i < roles.length; i++) {
+                    if (roles[i] == $rootScope.loggedUserData.role) {
+                        valid = true;
+                    }
                 }
             }
             return valid;

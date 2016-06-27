@@ -22,6 +22,7 @@ public class Professor extends User {
     private Set<ProfessorRole> roles = new HashSet<ProfessorRole>();
 
     public Professor() {
+
     }
 
     public Professor(String gender, Date dateOfBirth, String address, String jMBG, String title,

@@ -49,7 +49,7 @@ public class ProfessorController {
     public ResponseEntity<ProfessorDTO> saveProfessor(@RequestBody ProfessorDTO professorDTO) {
         Professor professor = new Professor();
         professor.setAddress(professorDTO.getAddress());
-        professor.setRole(professorDTO.getRole());
+        professor.setRole("professor");
         professor.setName(professorDTO.getName());
         professor.setLastName(professorDTO.getLastName());
         professor.setUserName(professorDTO.getUserName());
@@ -69,7 +69,6 @@ public class ProfessorController {
         if (professor == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         professor.setAddress(professorDTO.getAddress());
-        professor.setRole("professor");
         professor.setName(professorDTO.getName());
         professor.setLastName(professorDTO.getLastName());
         professor.setUserName(professorDTO.getUserName());

@@ -1,8 +1,11 @@
 package com.tseo.studiorum.web.controller;
 
 import com.github.javafaker.Faker;
+import com.tseo.studiorum.entities.Professor;
 import com.tseo.studiorum.entities.Student;
+import com.tseo.studiorum.entities.Subject;
 import com.tseo.studiorum.entities.User;
+import com.tseo.studiorum.service.ProfessorService;
 import com.tseo.studiorum.service.StudentService;
 import com.tseo.studiorum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,9 @@ public class FakerController {
     UserService userService;
 
     @Autowired
+    ProfessorService professorService;
+
+    @Autowired
     StudentService studentService;
 
     @RequestMapping(method = RequestMethod.GET)
@@ -29,6 +35,7 @@ public class FakerController {
 
         Faker faker = new Faker();
 
+
         for (int i = 0; i < 250; i++) {
             User user = new User();
             user.setLastName(faker.name().lastName());
@@ -36,7 +43,7 @@ public class FakerController {
             user.setPassword("user" + i);
             user.setRole("user");
             user.setUserName("user" + i);
-            user = userService.save(user);
+            userService.save(user);
         }
 
         for (int i = 0; i < 250; i++) {
@@ -52,6 +59,21 @@ public class FakerController {
             student.setPassword("student" + i);
             student.setUserName("student" + i);
             studentService.save(student);
+        }
+
+        for (int i = 0; i < 50; i++) {
+            Professor professor = new Professor();
+            professor.setGender("male");
+            professor.setAddress(faker.address().streetAddress() + ", " + faker.address().city());
+            professor.setDateOfBirth(new Date());
+            professor.setJMBG(faker.idNumber().valid());
+            professor.setName(faker.name().firstName());
+            professor.setLastName(faker.name().lastName());
+            professor.setRole("professor");
+            professor.setPassword("professor" + i);
+            professor.setUserName("professor" + i);
+            professor.setRoles(null);
+            professorService.save(professor);
         }
 
     }

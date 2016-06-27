@@ -8,10 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.tseo.studiorum.filters.JwtFilter;
-import org.springframework.core.annotation.Order;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @EnableAutoConfiguration
 @ComponentScan
@@ -26,7 +22,7 @@ public class StudiorumApplication {
         return registrationBean;
     }
 
-	public static void main( String[] args){
-		SpringApplication.run(StudiorumApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(StudiorumApplication.class, args);
+    }
 }

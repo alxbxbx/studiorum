@@ -66,5 +66,4 @@ public class ProfessorRole {
         this.id = id;
     }
 
-
 }

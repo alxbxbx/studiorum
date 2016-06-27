@@ -10,24 +10,24 @@ import com.tseo.studiorum.repository.ProfessorRepository;
 
 @Service
 public class ProfessorService {
-	
-	@Autowired
-	ProfessorRepository professorRepository;
-	
-	public Professor findOne(Integer id){
-		return professorRepository.findOne(id);
-	}
-	
-	public List<Professor> findAll(){
-		return professorRepository.findAll();
-	}
-	
-	public Professor save(Professor professor){
-		return professorRepository.save(professor);
-	}
-	
-	public void remove(Integer id){
-		professorRepository.delete(id);
-	}
+
+    @Autowired
+    ProfessorRepository professorRepository;
+
+    public Professor findOne(Integer id) {
+        return professorRepository.findOne(id);
+    }
+
+    public List<Professor> findAll() {
+        return professorRepository.findAll();
+    }
+
+    public Professor save(Professor professor) {
+        return professorRepository.save(professor);
+    }
+
+    public void remove(Integer id) {
+        professorRepository.delete(id);
+    }
 
 }

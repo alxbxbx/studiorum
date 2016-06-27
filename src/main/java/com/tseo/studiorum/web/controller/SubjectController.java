@@ -129,9 +129,9 @@ public class SubjectController {
 
     @RequestMapping(value = "/{subjectId}/students", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> saveStudents(@PathVariable Integer subjectId, @RequestBody String studentIds) {
-    	if(studentIds == null){
-    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	}
+        if (studentIds == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         String[] ids = studentIds.split(",");
         Subject subject = subjectService.findOne(subjectId);
 

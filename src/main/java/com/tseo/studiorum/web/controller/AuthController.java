@@ -28,18 +28,18 @@ public class AuthController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public LoginResponse login(@RequestBody UserDTO userDTO)
-            throws ServletException {
+        throws ServletException {
 
         User user = userService.findOneByUsernameAndPassword(
-                userDTO.getUserName(),
-                userDTO.getPassword());
+            userDTO.getUserName(),
+            userDTO.getPassword());
 
         if (user == null) {
             throw new ServletException("Authentification failed, user not found in database.");
         }
 
         // Data to be stored in token
-        HashMap<String, String> userdata =  new HashMap<>();
+        HashMap<String, String> userdata = new HashMap<>();
         userdata.put("id", user.getId().toString());
         userdata.put("username", user.getUserName());
         userdata.put("role", user.getRole());
@@ -47,11 +47,11 @@ public class AuthController {
         userdata.put("last_name", user.getLastName());
 
         return new LoginResponse(Jwts.builder()
-                .setSubject(user.getUserName())
-                .claim("userdata", userdata)
-                .setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256, "filipbekic01")
-                .compact());
+            .setSubject(user.getUserName())
+            .claim("userdata", userdata)
+            .setIssuedAt(new Date())
+            .signWith(SignatureAlgorithm.HS256, "filipbekic01")
+            .compact());
     }
 
 }

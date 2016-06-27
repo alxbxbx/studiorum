@@ -11,24 +11,24 @@ import com.tseo.studiorum.repository.SubjectRepository;
 @Service
 public class SubjectService {
 
-	@Autowired
-	SubjectRepository subjectRepository;
-	
-	public Subject findOne(Integer id){
-		return subjectRepository.findOne(id);
-		
-	}
-	
-	public List<Subject> findAll(){
-		return subjectRepository.findAll();
-	}
-	
-	public Subject save(Subject subject){
-		return subjectRepository.save(subject);
-	}
-	
-	public void remove(Integer id){
-		subjectRepository.delete(id);
-	}
-	
+    @Autowired
+    SubjectRepository subjectRepository;
+
+    public Subject findOne(Integer id) {
+        return subjectRepository.findOne(id);
+
+    }
+
+    public List<Subject> findAll() {
+        return subjectRepository.findAll();
+    }
+
+    public Subject save(Subject subject) {
+        return subjectRepository.save(subject);
+    }
+
+    public void remove(Integer id) {
+        subjectRepository.delete(id);
+    }
+
 }

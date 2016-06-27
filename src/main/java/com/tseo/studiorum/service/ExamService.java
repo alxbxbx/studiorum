@@ -10,23 +10,24 @@ import com.tseo.studiorum.repository.ExamRepository;
 
 @Service
 public class ExamService {
-	
-	@Autowired
-	ExamRepository examRepository;
-	
-	public Exam findOne(Integer id){
-		return examRepository.findOne(id);
-	}
-	
-	public List<Exam> findAll(){
-		return examRepository.findAll();
-	}
-	
-	public Exam save(Exam exam){
-		return examRepository.save(exam);
-	}
-	
-	public void remove(Integer id){
-		examRepository.delete(id);
-	}
+
+    @Autowired
+    ExamRepository examRepository;
+
+    public Exam findOne(Integer id) {
+        return examRepository.findOne(id);
+    }
+
+    public List<Exam> findAll() {
+        return examRepository.findAll();
+    }
+
+    public Exam save(Exam exam) {
+        return examRepository.save(exam);
+    }
+
+    public void remove(Integer id) {
+        examRepository.delete(id);
+    }
+
 }

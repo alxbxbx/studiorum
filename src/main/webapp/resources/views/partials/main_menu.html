@@ -15,7 +15,7 @@
                 <!-- Menu items for role `student` -->
                 <li ng-if="isLoggedIn() && loggedUserData.role == 'student'">
                     <a href="/#/students/{{ loggedUserData.id }}">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> &nbsp;&nbsp;My Profile
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> &nbsp;&nbsp; {{ loggedUserData.username }}
                     </a>
                 </li>
 

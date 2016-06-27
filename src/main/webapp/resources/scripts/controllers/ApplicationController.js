@@ -37,8 +37,8 @@ angular.module('studiorum').controller('ApplicationController', ['$rootScope', '
             });
         };
 
-        $scope.isLoggedIn = authService.isLoggedIn();
+        $scope.isLoggedIn = authService.isLoggedIn;
 
-        $scope.logout = authService.logout();
+        $scope.logout = authService.logout;
 
     }]);

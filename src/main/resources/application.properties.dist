@@ -1,3 +1,5 @@
+storage=C:\\path\\to\\storage\\
+
 spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 spring.datasource.url=jdbc:mysql://localhost:3306/studiorum
 spring.datasource.username=root

@@ -5,14 +5,8 @@ angular.module('studiorum').service('authService', ['$http', 'jwtHelper', '$root
 
         var service = {};
 
-        service.login = function (username, password) {
-            var payload = {
-                username: username,
-                password: password
-            };
-            return $http.post('/auth/login', payload).then(function (response) {
-                return response.data.token;
-            });
+        service.login = function (user) {
+            return $http.post('/auth/login', user);
         };
 
         service.logout = function () {

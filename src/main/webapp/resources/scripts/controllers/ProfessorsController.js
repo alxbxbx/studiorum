@@ -10,13 +10,7 @@ angular.module('studiorum').controller('ProfessorsController', ['$scope', 'Resta
     loadListOfProfessors();
 
 
-    $scope.clickDeleteProfessor = function (id) {
-        if (confirm("Are you sure?")) {
-            Restangular.one("professors", id).remove().then(function () {
-                loadListOfProfessors();
-            });
-        }
-    }
+    
 
 
     function loadListOfProfessors() {
@@ -49,7 +43,6 @@ angular.module('studiorum').controller('ProfessorsController', ['$scope', 'Resta
     var ProfessorModalCtrl = ['$scope', '$uibModalInstance', 'user', 'Restangular', '$log', '_',
         function ($scope, $uibModalInstance, user, Restangular, $log, _) {
             $scope.user = user;
-            console.log($scope.user);
             $scope.ok = function () {
                 if ($scope.user.id) {
                     Restangular.all('professors').customPUT($scope.user).then(function (data) {
@@ -73,5 +66,36 @@ angular.module('studiorum').controller('ProfessorsController', ['$scope', 'Resta
 
 
         }];
+    
+    $scope.clickDeleteProfessor = function (id) {
+        var modalInstance = $uibModal.open({
+            templateUrl: '/static/views/modals/delete.html',
+            controller: ProfessorDeleteCtrl,
+            scope: $scope,
+            resolve: {
+                id: function () {
+                    return id;
+                }
+            }
+        });
+        modalInstance.result.then(function (value) {
+            $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+        }, function (value) {
+            $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+        });
+    }
+    
+    var ProfessorDeleteCtrl = ['$scope', '$uibModalInstance', 'id', 'Restangular', '$log', '_',
+	  function ($scope, $uibModalInstance, id, Restangular, $log, _) {
+	      $scope.ok = function () {
+	    	  Restangular.one("professors", id).remove().then(function () {
+	                loadListOfProfessors();
+	            });
+	          $uibModalInstance.close('ok');
+	      };
+	      $scope.cancel = function () {
+	          $uibModalInstance.dismiss('cancel');
+	      };
+	  }];
 
 }]);

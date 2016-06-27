@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.tseo.studiorum.annotations.Permission;
+import com.tseo.studiorum.service.ProfessorRoleService;
 import com.tseo.studiorum.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +31,9 @@ public class SubjectController {
 
     @Autowired
     SubjectService subjectService;
+    
+    @Autowired
+    ProfessorRoleService prService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<SubjectDTO>> getSubjects() {
@@ -79,6 +82,17 @@ public class SubjectController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteSubject(@PathVariable Integer id) {
         Subject subject = subjectService.findOne(id);
+        //Because of foreign keys we need to delete this subject from every student attending on it
+        for (Student student : subject.getStudents()){
+        	student.getSubjects().remove(subject);
+        }
+        //Because of foreign keys we need to delete ProfessorRole before we relete subject
+        for (ProfessorRole pr : subject.getProfessorRole()){
+        	//Because of foreign keys we need to remove ProfessorRole from Professors' list of ProfessorRoles
+        	pr.getProfessor().getRoles().remove(pr);
+        	//Delete ProfessorRole
+        	prService.remove(pr.getId());
+        }
         if (subject == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {

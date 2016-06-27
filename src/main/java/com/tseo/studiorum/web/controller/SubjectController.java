@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.tseo.studiorum.annotations.Permission;
 import com.tseo.studiorum.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -162,7 +163,7 @@ public class SubjectController {
 
         //Saving subject
         subjectService.save(subject);
-        
+
         return new ResponseEntity<>(HttpStatus.OK);
 
     }

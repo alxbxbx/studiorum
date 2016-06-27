@@ -5,6 +5,8 @@ import com.tseo.studiorum.service.DocumentService;
 import com.tseo.studiorum.service.StudentService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +19,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/students/{studentId}/files")
+@PropertySource({ "classpath:application.properties" })
 public class StudentFileController {
 
-    private String storage = "C:\\Users\\Alxbxbx\\Desktop\\";
+    @Autowired
+    Environment env;
 
     @Autowired
     DocumentService documentService;
@@ -36,7 +40,7 @@ public class StudentFileController {
             response.setContentType("application/octet-stream");
             response.setHeader("Content-Description", "File Transfer");
             response.setHeader("Content-Disposition", "attachment; filename=" + document.getName());
-            File file = new File(this.storage + document.getPath());
+            File file = new File(env.getProperty("storage") + document.getPath());
             InputStream is = new FileInputStream(file);
             IOUtils.copy(is, response.getOutputStream());
             response.flushBuffer();
@@ -55,7 +59,7 @@ public class StudentFileController {
     @RequestMapping(value = "{fileId}", method = RequestMethod.DELETE)
     public ResponseEntity<HttpStatus> deleteDocument(@PathVariable Integer fileId) {
         Document document = documentService.findOne(fileId);
-        File file = new File(this.storage + document.getName());
+        File file = new File(env.getProperty("storage") + document.getName());
         file.delete();
         documentService.remove(fileId);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -72,7 +76,7 @@ public class StudentFileController {
             String fileName = tempFile.getOriginalFilename();
             fileName = System.currentTimeMillis() + "_" + fileName;
             byte[] bytes = tempFile.getBytes();
-            buffStream = new BufferedOutputStream(new FileOutputStream(new File(this.storage + fileName)));
+            buffStream = new BufferedOutputStream(new FileOutputStream(new File(env.getProperty("storage") + fileName)));
             buffStream.write(bytes);
             buffStream.close();
             document.setName(fileName);

@@ -109,7 +109,6 @@ public class StudentController {
         student.setStudentId(studentDTO.getStudentId());
         student.setName(studentDTO.getName());
         student.setLastName(studentDTO.getLastName());
-        student.setRole(studentDTO.getRole());
         student.setPassword(studentDTO.getPassword());
         student.setUserName(studentDTO.getUserName());
 

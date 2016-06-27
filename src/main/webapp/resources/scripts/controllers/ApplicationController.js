@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('studiorum').controller('ApplicationController', ['$rootScope', 'jwtHelper', '$http', '$scope', '$uibModal', '$log', '_',
-    function ($rootScope, jwtHelper, $http, $scope, $uibModal, $log, _) {
+angular.module('studiorum').controller('ApplicationController', ['$rootScope', '$http', '$scope', '$uibModal', '$log', '_', 'authService',
+    function ($rootScope, $http, $scope, $uibModal, $log, _, authService) {
 
         $scope.user = {};
 
@@ -37,26 +37,10 @@ angular.module('studiorum').controller('ApplicationController', ['$rootScope', '
             });
         };
 
-        $scope.isLoggedIn = function () {
-            var token = localStorage.getItem('jwt_token');
-            if (!token) {
-                $log.info('Token not found.');
-                return false;
-            }
-            var isTokenExpired = jwtHelper.isTokenExpired(token);
-            if (isTokenExpired) {
-                $log.info('Token expired.');
-                return false;
-            }
-            var payload = jwtHelper.decodeToken(token);
-            $rootScope.loggedUserData = payload.userdata;
-            return true;
-        }
+        $scope.isLoggedIn = authService.isLoggedIn;
 
-        $scope.logout = function () {
-            $http.defaults.headers.common.Authorization = '';
-            localStorage.removeItem('jwt_token');
-            $rootScope.loggedUserData = null;
-        }
+        $scope.hasRole = authService.hasRole;
+
+        $scope.logout = authService.logout;
 
     }]);

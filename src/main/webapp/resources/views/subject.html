@@ -42,8 +42,10 @@
     <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <!-- <i class="fa fa-times fa-fw"></i> Not Attending Students -->
-                <i class="fa fa-search fa-fw"></i> <input ng-change="search()" ng-model="searchText" type="search" style="width:90%" placeholder="Search for users..."/>
+                <div class="input-group" style="margin-bottom: 0px;">
+                    <span class="input-group-addon" id="sizing-addon3x"><i class="fa fa-search fa-fw"></i></span>
+                    <input ng-change="search()" type="text" ng-model="searchText" class="form-control" placeholder="Search for student..." aria-describedby="sizing-addon3x">
+                </div>
             </div>
             <div class="panel-body">
                 <ul class="dragAndDrop" dnd-list="dnd.listOfAllStudents">

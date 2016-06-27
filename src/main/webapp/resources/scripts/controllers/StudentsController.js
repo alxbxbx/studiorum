@@ -32,13 +32,7 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
     loadSearchResults();
 
     // On Click Events
-    $scope.clickDeleteUser = function (id) {
-        if (confirm("Are you sure?")) {
-            Restangular.one("students", id).remove().then(function () {
-                loadListOfStudents($scope.bigCurrentPage - 1);
-            });
-        }
-    }
+    
     
     function loadStudentsCount(){
     	//helper variable so we have actual page remembered
@@ -161,5 +155,36 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
 
 
         }];
+    
+    $scope.clickDeleteUser = function (id) {
+        var modalInstance = $uibModal.open({
+            templateUrl: '/static/views/modals/delete.html',
+            controller: StudentDeleteCtrl,
+            scope: $scope,
+            resolve: {
+                id: function () {
+                    return id;
+                }
+            }
+        });
+        modalInstance.result.then(function (value) {
+            $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+        }, function (value) {
+            $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+        });
+    }
+    var StudentDeleteCtrl = ['$scope', '$uibModalInstance', 'id', 'Restangular', '$log', '_',
+	    function ($scope, $uibModalInstance, id, Restangular, $log, _) {
+	        $scope.ok = function () {
+	        	Restangular.one("students", id).remove().then(function () {
+	                loadListOfStudents($scope.bigCurrentPage - 1);
+	            });
+	            $uibModalInstance.close('ok');
+	        };
+	        $scope.cancel = function () {
+	            $uibModalInstance.dismiss('cancel');
+	        };
+	
+	}];
 
 }]);

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tseo.studiorum.entities.Professor;
 import com.tseo.studiorum.entities.ProfessorRole;
+import com.tseo.studiorum.service.ProfessorRoleService;
 import com.tseo.studiorum.service.ProfessorService;
 import com.tseo.studiorum.web.dto.ProfessorDTO;
 import com.tseo.studiorum.web.dto.ProfessorRoleDTO;
@@ -25,6 +26,9 @@ public class ProfessorController {
 
     @Autowired
     ProfessorService professorService;
+    
+    @Autowired
+    ProfessorRoleService prService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<ProfessorDTO>> getProfessors() {
@@ -85,6 +89,10 @@ public class ProfessorController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteProfessor(@PathVariable Integer id) {
         Professor professor = professorService.findOne(id);
+        for(ProfessorRole pr: professor.getRoles()){
+        	pr.setProfessor(null);
+        	prService.remove(pr.getId());
+        }
         if (professor == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {

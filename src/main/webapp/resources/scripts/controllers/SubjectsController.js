@@ -10,13 +10,7 @@ angular.module('studiorum').controller('SubjectsController', ['$scope', 'Restang
     loadListOfSubjects();
 
 
-    $scope.clickDeleteSubject = function (id) {
-        if (confirm("Are you sure?")) {
-            Restangular.one("subjects", id).remove().then(function () {
-                loadListOfSubjects();
-            });
-        }
-    }
+    
 
 
     function loadListOfSubjects() {
@@ -63,6 +57,39 @@ angular.module('studiorum').controller('SubjectsController', ['$scope', 'Restang
                             $log.info('something went wrong!');
                         });
                 }
+                $uibModalInstance.close('ok');
+            };
+
+            $scope.cancel = function () {
+                $uibModalInstance.dismiss('cancel');
+            };
+
+
+        }];
+    
+    $scope.clickDeleteSubject = function (id) {
+        var modalInstance = $uibModal.open({
+            templateUrl: '/static/views/modals/delete.html',
+            controller: SubjectDeleteCtrl,
+            scope: $scope,
+            resolve: {
+                id: function () {
+                    return id;
+                }
+            }
+        });
+        modalInstance.result.then(function (value) {
+            $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+        }, function (value) {
+            $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+        });
+    }
+    var SubjectDeleteCtrl = ['$scope', '$uibModalInstance', 'id', 'Restangular', '$log', '_',
+        function ($scope, $uibModalInstance, id, Restangular, $log, _) {
+            $scope.ok = function () {
+            	Restangular.one("subjects", id).remove().then(function () {
+                    loadListOfSubjects();
+                });
                 $uibModalInstance.close('ok');
             };
 

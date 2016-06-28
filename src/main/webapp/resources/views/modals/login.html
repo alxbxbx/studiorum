@@ -1,12 +1,12 @@
 <div class="modal-header">
        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span
                aria-hidden="true">&times;</span></button>
-       <h4 class="modal-title">Login</h4>
+       <h4 class="modal-title" translate="LOGIN"></h4>
 </div>
 <div class="modal-body">
 
 	<!-- Username -->
-   	<label for="user-username">Username</label>
+   	<label for="user-username" translate="USERNAME"></label>
     <div class="input-group">
         <span class="input-group-addon" id="user-username-addon">
             <span class=" glyphicon glyphicon-user"></span>
@@ -15,7 +15,7 @@
     </div>
 
     <!-- Password -->
-    <label for="user-password">Password</label>
+    <label for="user-password" translate="PASS"></label>
     <div class="input-group">
         <span class="input-group-addon" id="user-password-addon">
             <span class=" glyphicon glyphicon-lock"></span>
@@ -27,6 +27,6 @@
 
 </div>
 <div class="modal-footer">
-   <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
-   <button type="button" class="btn btn-primary" ng-click="ok()">Login</button>
+   <button type="button" class="btn btn-default" ng-click="cancel()">{{ 'CLOSE' | translate }}</button>
+   <button type="button" class="btn btn-primary" ng-click="ok()">{{ 'SAVE' | translate }}</button>
 </div>

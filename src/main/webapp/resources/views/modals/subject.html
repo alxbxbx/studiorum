@@ -2,11 +2,11 @@
 <div class="modal-header">
        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span
                aria-hidden="true">&times;</span></button>
-       <h4 class="modal-title">Add Subject</h4>
+       <h4 class="modal-title" translate="ADDNEWSUBJECT"></h4>
 </div>
 <div class="modal-body">
    	<!-- Name -->
-        <label for="subject-name">Name</label>
+        <label for="subject-name" translate="NAME"></label>
         <div class="input-group">
             <span class="input-group-addon" id="user-address-addon">
                 <span class=" glyphicon glyphicon-edit"></span>
@@ -15,7 +15,7 @@
         </div>
    	
    	<!-- Semester -->
-   	<label for="subject-semester">Semester</label>
+   	<label for="subject-semester" translate="SEMESTER"></label>
        <div class="input-group">
            <span class="input-group-addon" id="user-gender-addon">
                <span class="glyphicon glyphicon-link"></span>
@@ -28,7 +28,7 @@
       	</div>
       	
       	<!-- Description -->
-        <label for="subject-description">Description</label>
+        <label for="subject-description" translate="DESCRIPTOR"></label>
         <div class="input-group">
             <span class="input-group-addon" id="user-jmbg-addon">
                 <span class=" glyphicon glyphicon-edit"></span>
@@ -38,6 +38,6 @@
    
 </div>
 <div class="modal-footer">
-   <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
-   <button type="button" class="btn btn-primary" ng-click="ok()">Save</button>
+   <button type="button" class="btn btn-default" ng-click="cancel()">{{ 'CLOSE' | translate }}</button>
+   <button type="button" class="btn btn-primary" ng-click="ok()">{{ 'SAVE' | translate }}</button>
 </div>

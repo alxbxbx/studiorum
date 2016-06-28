@@ -1,15 +1,15 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span
         aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title" ng-if="user.isProfessor">Add Professor</h4>
-    <h4 class="modal-title" ng-if="user.isStudent">Add Student</h4>
+    <h4 class="modal-title" ng-if="user.isProfessor" translate="ADDPROFESSOR"></h4>
+    <h4 class="modal-title" ng-if="user.isStudent" translate="ADDSTUDENT"></h4>
 </div>
 <div class="modal-body">
 
     <div class="row">
         <!-- First Name -->
         <div class="col-lg-6">
-            <label>First Name</label>
+            <label translate="FIRSTNAME"></label>
             <div class="input-group">
                 <span class="input-group-addon" id="user-first-name-addon">
                     <span class=" glyphicon glyphicon-edit"></span>
@@ -20,7 +20,7 @@
 
         <!-- Last Name -->
         <div class="col-lg-6">
-            <label>Last Name</label>
+            <label translate="LASTNAME"></label>
             <div class="input-group">
                <span class="input-group-addon" id="user-last-name-addon">
                    <span class=" glyphicon glyphicon-edit"></span>
@@ -31,7 +31,7 @@
     </div>
 
     <!-- Username -->
-    <label>Username</label>
+    <label translate="USERNAME"></label>
     <div class="input-group">
        <span class="input-group-addon">
            <span class=" glyphicon glyphicon-user"></span>
@@ -40,7 +40,7 @@
     </div>
 
     <!-- Password -->
-    <label>Password</label>
+    <label translate="PASS"></label>
     <div class="input-group">
        <span class="input-group-addon">
            <span class=" glyphicon glyphicon-lock"></span>
@@ -49,7 +49,7 @@
     </div>
 
     <!-- Password Again -->
-    <label>Password Again</label>
+    <label translate="PASSAGAIN"></label>
     <div class="input-group">
        <span class="input-group-addon">
            <span class=" glyphicon glyphicon-lock"></span>
@@ -60,7 +60,7 @@
     <div class="row">
         <!-- Date of Birth -->
         <div class="col-lg-6">
-            <label>Date of Birth</label>
+            <label translate="DATEOFBIRTH"></label>
             <div class="input-group">
 		        <span class="input-group-addon">
 		            <span class=" glyphicon glyphicon-calendar"></span>
@@ -70,22 +70,22 @@
         </div>
         <!-- Gender -->
         <div class="col-lg-6">
-            <label>Gender</label>
+            <label translate="GENDER"></label>
             <div class="input-group">
 		        <span class="input-group-addon">
 		            <span class="glyphicon glyphicon-link"></span>
 		        </span>
                 <select ng-model="user.gender" id="user-date-of-birth" name="dateOfBirth" class="form-control"
                         describedby="user-gender-addon">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
+                    <option value="male"> {{ 'MALE' | translate }} </option>
+                    <option value="female"> {{ 'FEMALE' | translate }} </option>
                 </select>
             </div>
         </div>
     </div>
 
     <!-- Address -->
-    <label>Address</label>
+    <label translate="ADRESS"></label>
     <div class="input-group">
       <span class="input-group-addon">
           <span class=" glyphicon glyphicon-home"></span>
@@ -94,7 +94,7 @@
     </div>
 
     <!-- JMBG -->
-    <label>JMBG</label>
+    <label translate="UNIQUEID"></label>
     <div class="input-group">
       <span class="input-group-addon">
           <span class=" glyphicon glyphicon-edit"></span>
@@ -104,7 +104,7 @@
 
     <!-- Student ID -->
     <div ng-if="user.isStudent">
-        <label>Student ID</label>
+        <label translate="STUDENTID"></label>
         <div class="input-group">
 	      <span class="input-group-addon">
 	          <span class="glyphicon glyphicon-edit"></span>
@@ -115,7 +115,7 @@
 
     <!-- Professor title -->
     <div ng-if="user.isProfessor">
-        <label>Title</label>
+        <label translate="PROFTITLE"></label>
         <div class="input-group">
             <span class="input-group-addon" id="user-student-id-addon">
                 <span class="glyphicon glyphicon-edit"></span>
@@ -126,6 +126,6 @@
 
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
-    <button type="button" class="btn btn-primary" ng-click="ok()">Save</button>
+    <button type="button" class="btn btn-default" ng-click="cancel()">{{ 'CLOSE' | translate }}</button>
+    <button type="button" class="btn btn-primary" ng-click="ok()">{{ 'SAVE' | translate }}</button>
 </div>

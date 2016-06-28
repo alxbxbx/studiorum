@@ -1,12 +1,12 @@
 <div class="modal-header">
        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span
                aria-hidden="true">&times;</span></button>
-       <h4 class="modal-title">Confirmation</h4>
+       <h4 class="modal-title" translate="CONFIRM"></h4>
 </div>
 <div class="modal-body">
-	<h4 class="modal-title">Are you sure you want to delete?</h4>
+	<h4 class="modal-title" translate="ARESUREDEL"></h4>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
-    <button type="button" class="btn btn-primary" ng-click="ok()">Delete</button>
+    <button type="button" class="btn btn-default" ng-click="cancel()">{{ 'CLOSE' | translate }}</button>
+    <button type="button" class="btn btn-primary" ng-click="ok()">{{ 'SAVE' | translate }}</button>
 </div>

@@ -2,17 +2,17 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
 			<div class="panel-heading">
-			    Subjects
+			    {{ 'SUBJECTS' | translate }}
 			    <a href="" ng-click="openModal()" style="float:right" class="btn btn-success btn-xs" role="button">
-                    <span class="glyphicon glyphicon-plus"></span> Create New
+                    <span class="glyphicon glyphicon-plus"></span> {{ 'CREATENEW' | translate }}
                 </a>
 			</div>
 			<table class="table table-striped">
 			  <tr>
-			    <th>ID</th>
-			    <th>Description</th>
-			    <th>Name</th>
-			    <th>Semester</th>
+			    <th translate="ID"></th>
+			    <th translate="DESCR"></th>
+			    <th translate="NAME"></th>
+			    <th translate="SEMESTER"></th>
 			    <th></th>
 			    <th></th>
 			  </tr>
@@ -23,13 +23,13 @@
 			    <td>{{subject.semester}}</td>
 				<td style="width:100px;text-align:right;">
 			        <a href="" class="btn btn-danger btn-xs" role="button" ng-click="clickDeleteSubject(subject.id)">
-			            <span class="glyphicon glyphicon-remove"></span> Delete
+			            <span class="glyphicon glyphicon-remove"></span> {{ 'DELETE' | translate }}
 			        </a>
 			    </td>
 			    <td style="width:65px;text-align:right;">
 			        <a href="" class="btn btn-primary btn-xs" ng-click="openModal(subject)"
 			           data-toggle="modal" data-target="#editUserModal" role="button">
-			            <span class="glyphicon glyphicon-pencil"></span> Edit
+			            <span class="glyphicon glyphicon-pencil"></span> {{ 'EDIT' | translate }}
 			        </a>
 			    </td>
 			  </tr>

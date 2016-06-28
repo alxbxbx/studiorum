@@ -4,19 +4,19 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Professors
+                {{ 'PROF' | translate }}
                 <a href="" ng-click="openModal(user)" style="float:right" class="btn btn-success btn-xs" role="button">
-                    <span class="glyphicon glyphicon-plus"></span> Create New
+                    <span class="glyphicon glyphicon-plus"></span> {{ 'CREATENEW' | translate }}
                 </a>
             </div>
             <table class="table table-striped">
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>JMBG</th>
-                    <th>Address</th>
-                    <th>Date of Birth</th>
-                    <th>Gender</th>
+                    <th translate="ID"></th>
+                    <th translate="NAME"></th>
+                    <th translate="UNIQUEID"></th>
+                    <th translate="ADRESS"></th>
+                    <th translate="DATEOFBIRTH"></th>
+                    <th translate="GENDER"></th>
                     <th colspan="2"></th>
                 </tr>
                 <tr ng-repeat="professor in professors">
@@ -29,12 +29,12 @@
 
                     <td style="width:100px;text-align:right;">
                         <a class="btn btn-danger btn-xs" role="button" ng-click="clickDeleteProfessor(professor.id)">
-                            <span class="glyphicon glyphicon-remove"></span> Delete
+                            <span class="glyphicon glyphicon-remove"></span> {{ 'DELETE' | translate }}
                         </a>
                     </td>
                     <td style="width:65px;text-align:right;">
                         <a class="btn btn-primary btn-xs" role="button" ng-click="openModal(professor)">
-                            <span class="glyphicon glyphicon-pencil"></span> Edit
+                            <span class="glyphicon glyphicon-pencil"></span> {{ 'EDIT' | translate }}
                         </a>
                     </td>
                 </tr>

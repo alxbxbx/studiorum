@@ -13,5 +13,7 @@
 	"STUDENTS": "الطلاب",
 	"PROFESSORS": "أساتذة",
 	"SUBJECTS": "المواضيع",
-	"LOGOUT": "خروج"
+	"LOGOUT": "خروج",
+	"ADDNEWUSER": "إضافة مستخدم جديد"
+	
 }

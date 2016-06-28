@@ -2,10 +2,10 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="glyphicon glyphicon-list"></span> {{ user.name }}'s Details
+                <span class="glyphicon glyphicon-list"></span> {{ user.name }}'s {{ 'DETAILS' | translate }}
                 <a href="" style="float:right" ng-click="openModal(user)" class="btn btn-primary btn-xs"
                    role="button">
-                    <span class="glyphicon glyphicon-pencil"></span> Edit profile data
+                    <span class="glyphicon glyphicon-pencil"></span> {{ 'EDITPROFILEDATA' | translate }}
                 </a>
             </div>
             <div class="panel-body">
@@ -16,31 +16,31 @@
                     <div class="col-lg-9">
                         <table class="table table-striped">
                             <tr>
-                                <th>Name:</th>
+                                <th>{{ 'NAME' | translate }}:</th>
                                 <td>{{ user.lastName }} {{ user.name }}</td>
                             </tr>
                             <tr>
-                                <th>Username:</th>
+                                <th>{{ 'USERNAME' | translate }}:</th>
                                 <td>{{ user.userName }}</td>
                             </tr>
                             <tr>
-                                <th>Gender:</th>
+                                <th>{{ 'GENDER' | translate }}:</th>
                                 <td>{{ user.gender }}</td>
                             </tr>
                             <tr>
-                                <th>Date of birth:</th>
+                                <th>{{ 'DATEOFBIRTH' | translate }}:</th>
                                 <td>{{ user.dateOfBirth | date:'yyyy-MM-dd'}}</td>
                             </tr>
                             <tr>
-                                <th>Address:</th>
+                                <th>{{ 'ADRESS' | translate }}:</th>
                                 <td>{{ user.address }}</td>
                             </tr>
                             <tr>
-                                <th>Jmbg:</th>
+                                <th>{{ 'UNIQUEID' | translate }}:</th>
                                 <td>{{ user.jmbg }}</td>
                             </tr>
                             <tr>
-                                <th>Id:</th>
+                                <th>{{ 'STUDENTID' | translate }}:</th>
                                 <td>{{ user.studentId }}</td>
                             </tr>
                         </table>
@@ -55,11 +55,11 @@
     <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="glyphicon glyphicon-hdd"></span> Documents
+                <span class="glyphicon glyphicon-hdd"></span> {{ 'DOCUMENTS' | translate }}
                 <a href="" style="float:right" ngf-select="uploadFile($file)" accept="*/*" class="btn btn-success btn-xs" role="button">
                     <i class="fa fa-spinner fa-spin fa-fw" ng-if="loading"></i>
                     <i class="fa fa-edit fa-fw" ng-if="!loading"></i>
-                    Upload New File
+                    {{ 'UPLOADNEWFILE' | translate }}
                 </a>
             </div>
             <div class="panel-body">
@@ -67,7 +67,7 @@
                     <div class="col-lg-12">
                         <table class="table table-striped">
                             <tr>
-                                <th colspan="2">Document Name</th>
+                                <th colspan="2">{{ 'DOCNAME' | translate }}</th>
                             </tr>
                             <tr ng-repeat="file in files">
                                 <td><a href="" ng-click="downloadFile(file.id)">{{ file.name }}</a></td>
@@ -84,10 +84,10 @@
     <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="glyphicon glyphicon-calendar"></span> Subjects
+                <span class="glyphicon glyphicon-calendar"></span> {{ 'SUBJECTS' | translate }}
             </div>
             <div class="panel-body">
-                <p>Current duties and exams. We should write explaination what does signs mean and stuff like that right here...</p>
+                <p translate="STUDENTSEXAMS"></p>
             </div>
             <ul class="list-group">
                 <li class="list-group-item">Cras justo odio <span style="float:right;color:#00A000" class="glyphicon glyphicon-ok-sign"></span></li>

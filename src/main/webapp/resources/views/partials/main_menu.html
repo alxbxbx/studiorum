@@ -40,7 +40,7 @@
                 </li>
                 <li ng-if="hasRole(['user'])">
                     <a href="">
-                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> &nbsp;&nbsp;Add New User
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> &nbsp;&nbsp;{{ 'ADDNEWUSER' | translate }}
                     </a>
                 </li>
                 <li ng-if="isLoggedIn()" ng-click="logout()">

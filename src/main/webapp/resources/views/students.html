@@ -27,7 +27,7 @@
                 </tr>
                 <tr ng-repeat="student in students">
                     <td>{{ student.id }}</td>
-                    <td>{{ student.lastName }} {{ student.name }}</td>
+                    <td ng-click="goTo(student.id)" class="oneStudent">{{ student.lastName }} {{ student.name }}</td>
                     <td>{{ student.jmbg }}</td>
                     <td>{{ student.address }}</td>
                     <td>{{ student.dateOfBirth | date:'yyyy-MM-dd'}}</td>

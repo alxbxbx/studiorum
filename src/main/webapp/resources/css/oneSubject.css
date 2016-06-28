@@ -35,3 +35,7 @@
 .studentSearchInput{
 	margin-bottom: 5px;
 }
+.oneStudent:hover{
+	cursor: pointer;
+	color: blue;
+}

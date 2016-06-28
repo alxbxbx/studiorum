@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('studiorum').controller('StudentsController', ['$scope', 'Restangular', '$uibModal', '$log', '_', function ($scope, Restangular, $uibModal, $log, _) {
+angular.module('studiorum').controller('StudentsController', ['$scope', 'Restangular', '$uibModal', '$log', '_', '$location', function ($scope, Restangular, $uibModal, $log, _, $location) {
 
     // Initialization
 	$scope.maxSize = 5;
@@ -186,5 +186,9 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
 	        };
 	
 	}];
+    
+    $scope.goTo = function (id){
+    	$location.path("/students/" + id);
+    }
 
 }]);

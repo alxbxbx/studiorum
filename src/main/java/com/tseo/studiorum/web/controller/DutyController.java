@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tseo.studiorum.annotations.Permission;
 import com.tseo.studiorum.entities.Duty;
 import com.tseo.studiorum.entities.Subject;
 import com.tseo.studiorum.service.DutyService;
@@ -27,7 +28,8 @@ public class DutyController {
 
     @Autowired
     SubjectService subjectService;
-
+    
+    @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<DutyDTO>> getDuties() {
         List<Duty> duties = dutyService.findAll();
@@ -37,7 +39,8 @@ public class DutyController {
         }
         return new ResponseEntity<>(dutiesDTO, HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<DutyDTO> getDuty(@PathVariable Integer id) {
         Duty duty = dutyService.findOne(id);
@@ -45,7 +48,8 @@ public class DutyController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(new DutyDTO(duty), HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<DutyDTO> saveDuty(@RequestBody DutyDTO dutyDTO) {
         if (dutyDTO.getSubjectDTO() == null)
@@ -61,7 +65,8 @@ public class DutyController {
         duty = dutyService.save(duty);
         return new ResponseEntity<>(new DutyDTO(duty), HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<DutyDTO> updateDuty(@RequestBody DutyDTO dutyDTO) {
         Duty duty = dutyService.findOne(dutyDTO.getId());
@@ -73,7 +78,8 @@ public class DutyController {
         duty = dutyService.save(duty);
         return new ResponseEntity<>(new DutyDTO(duty), HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteDuty(@PathVariable Integer id) {
         Duty duty = dutyService.findOne(id);

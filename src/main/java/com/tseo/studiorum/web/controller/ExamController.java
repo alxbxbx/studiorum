@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.tseo.studiorum.web.dto.ExamDTO;
+import com.tseo.studiorum.annotations.Permission;
 import com.tseo.studiorum.entities.Duty;
 import com.tseo.studiorum.entities.Exam;
 import com.tseo.studiorum.entities.Student;
@@ -31,7 +32,8 @@ public class ExamController {
 
     @Autowired
     StudentService studentService;
-
+    	
+    @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<ExamDTO>> getExams() {
         List<Exam> exams = examService.findAll();
@@ -41,7 +43,8 @@ public class ExamController {
         }
         return new ResponseEntity<>(examsDTO, HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ExamDTO> getExam(@PathVariable Integer id) {
         Exam exam = examService.findOne(id);
@@ -49,7 +52,8 @@ public class ExamController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(new ExamDTO(exam), HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ExamDTO> saveExam(@RequestBody ExamDTO examDTO) {
         if (examDTO.getDutyDTO() == null || examDTO.getStudentDTO() == null)
@@ -66,7 +70,8 @@ public class ExamController {
         exam = examService.save(exam);
         return new ResponseEntity<>(new ExamDTO(exam), HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<ExamDTO> updateExam(@RequestBody ExamDTO examDTO) {
         Exam exam = examService.findOne(examDTO.getId());
@@ -77,7 +82,8 @@ public class ExamController {
         exam = examService.save(exam);
         return new ResponseEntity<>(new ExamDTO(exam), HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteExam(@PathVariable Integer id) {
         Exam exam = examService.findOne(id);

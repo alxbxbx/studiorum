@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tseo.studiorum.annotations.Permission;
 import com.tseo.studiorum.entities.Professor;
 import com.tseo.studiorum.entities.ProfessorRole;
 import com.tseo.studiorum.service.ProfessorRoleService;
@@ -29,7 +30,8 @@ public class ProfessorController {
     
     @Autowired
     ProfessorRoleService prService;
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<ProfessorDTO>> getProfessors() {
         List<Professor> professors = professorService.findAll();
@@ -38,8 +40,9 @@ public class ProfessorController {
             professorsDTO.add(new ProfessorDTO(professor));
         }
         return new ResponseEntity<>(professorsDTO, HttpStatus.OK);
-    }
-
+    }	
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ProfessorDTO> getProfessor(@PathVariable Integer id) {
         Professor professor = professorService.findOne(id);
@@ -48,7 +51,8 @@ public class ProfessorController {
         else
             return new ResponseEntity<>(new ProfessorDTO(professor), HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user"})
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<ProfessorDTO> saveProfessor(@RequestBody ProfessorDTO professorDTO) {
         Professor professor = new Professor();
@@ -66,7 +70,8 @@ public class ProfessorController {
         professor = professorService.save(professor);
         return new ResponseEntity<>(new ProfessorDTO(professor), HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<ProfessorDTO> updateProfessor(@RequestBody ProfessorDTO professorDTO) {
         Professor professor = professorService.findOne(professorDTO.getId());
@@ -85,7 +90,8 @@ public class ProfessorController {
         professor = professorService.save(professor);
         return new ResponseEntity<>(new ProfessorDTO(professor), HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user"})
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteProfessor(@PathVariable Integer id) {
         Professor professor = professorService.findOne(id);
@@ -100,7 +106,8 @@ public class ProfessorController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(value = "/{id}/roles", method = RequestMethod.GET)
     public ResponseEntity<List<ProfessorRoleDTO>> getRoles(@PathVariable Integer id) {
         Professor professor = professorService.findOne(id);

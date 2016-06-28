@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tseo.studiorum.annotations.Permission;
 import com.tseo.studiorum.entities.Professor;
 import com.tseo.studiorum.entities.ProfessorRole;
 import com.tseo.studiorum.entities.Subject;
@@ -32,8 +33,8 @@ public class ProfessorRoleController {
 
     @Autowired
     ProfessorService professorService;
-
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<ProfessorRoleDTO>> getProfessorRoles() {
         List<ProfessorRole> professorRoles = prService.findAll();
@@ -45,7 +46,8 @@ public class ProfessorRoleController {
         return new ResponseEntity<>(profesorRolesDTO, HttpStatus.OK);
 
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ProfessorRoleDTO> saveProfessorRole(@RequestBody ProfessorRoleDTO professorRoleDTO) {
         if (professorRoleDTO.getProfessorDTO() == null)
@@ -71,7 +73,8 @@ public class ProfessorRoleController {
 
 
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<ProfessorRoleDTO> updateProfessorRole(@RequestBody ProfessorRoleDTO professorRoleDTO) {
         ProfessorRole professorRole = prService.findOne(professorRoleDTO.getId());
@@ -84,7 +87,8 @@ public class ProfessorRoleController {
 
         return new ResponseEntity<>(new ProfessorRoleDTO(professorRole), HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteResponsePayment(@PathVariable Integer id) {
         ProfessorRole professorRole = prService.findOne(id);

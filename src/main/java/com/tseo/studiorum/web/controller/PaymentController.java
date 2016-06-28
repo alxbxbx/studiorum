@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tseo.studiorum.annotations.Permission;
 import com.tseo.studiorum.entities.Payment;
 import com.tseo.studiorum.entities.Student;
 import com.tseo.studiorum.service.PaymentService;
@@ -26,7 +27,8 @@ public class PaymentController {
 
     @Autowired
     StudentService studentService;
-
+    
+    @Permission(roles = {"user", "student"})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<PaymentDTO>> getPayments() {
         List<Payment> payments = paymentService.findaAll();
@@ -38,7 +40,8 @@ public class PaymentController {
         return new ResponseEntity<>(paymentsDTO, HttpStatus.OK);
 
     }
-
+    
+    @Permission(roles = {"user", "student"})
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<PaymentDTO> savePayment(@RequestBody PaymentDTO paymentDTO) {
         if (paymentDTO.getStudentDTO() == null)
@@ -57,7 +60,8 @@ public class PaymentController {
         return new ResponseEntity<>(new PaymentDTO(payment), HttpStatus.OK);
 
     }
-
+    
+    @Permission(roles = {"user", "student"})
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<PaymentDTO> updatePayment(@RequestBody PaymentDTO paymentDTO) {
         Payment payment = paymentService.findOne(paymentDTO.getId());
@@ -71,7 +75,8 @@ public class PaymentController {
         return new ResponseEntity<>(new PaymentDTO(), HttpStatus.OK);
 
     }
-
+    
+    @Permission(roles = {"user", "student"})
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deletePayment(@PathVariable Integer id) {
         Payment payment = paymentService.findOne(id);

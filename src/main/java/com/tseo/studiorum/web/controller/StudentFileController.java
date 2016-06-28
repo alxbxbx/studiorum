@@ -1,5 +1,6 @@
 package com.tseo.studiorum.web.controller;
 
+import com.tseo.studiorum.annotations.Permission;
 import com.tseo.studiorum.entities.Document;
 import com.tseo.studiorum.service.DocumentService;
 import com.tseo.studiorum.service.StudentService;
@@ -30,7 +31,8 @@ public class StudentFileController {
 
     @Autowired
     StudentService studentService;
-
+    
+    @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(value = "{fileId}", method = RequestMethod.GET)
     public ResponseEntity<Document> getAllDocuments(HttpServletResponse response, @PathVariable Integer studentId, @PathVariable Integer fileId) {
 
@@ -49,13 +51,15 @@ public class StudentFileController {
         }
         return new ResponseEntity<>(document, HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<Document>> getAllDocuments(@PathVariable Integer studentId) {
         List<Document> documents = documentService.findByStudentId(studentId);
         return new ResponseEntity<>(documents, HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(value = "{fileId}", method = RequestMethod.DELETE)
     public ResponseEntity<HttpStatus> deleteDocument(@PathVariable Integer fileId) {
         Document document = documentService.findOne(fileId);
@@ -64,7 +68,8 @@ public class StudentFileController {
         documentService.remove(fileId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Document> getStudents(HttpServletRequest req, @PathVariable Integer studentId,
                                                 @RequestParam("file") MultipartFile tempFile) {

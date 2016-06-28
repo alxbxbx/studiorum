@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.tseo.studiorum.annotations.Permission;
 import com.tseo.studiorum.entities.Duty;
 import com.tseo.studiorum.entities.ProfessorRole;
 import com.tseo.studiorum.entities.Student;
@@ -34,7 +35,8 @@ public class SubjectController {
     
     @Autowired
     ProfessorRoleService prService;
-
+    
+    @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<SubjectDTO>> getSubjects() {
         List<Subject> subjects = subjectService.findAll();
@@ -44,7 +46,8 @@ public class SubjectController {
         }
         return new ResponseEntity<>(subjectsDTO, HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<SubjectDTO> getSubject(@PathVariable Integer id) {
         Subject subject = subjectService.findOne(id);
@@ -52,7 +55,8 @@ public class SubjectController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(new SubjectDTO(subject), HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<SubjectDTO> saveSubject(@RequestBody SubjectDTO subjectDTO) {
         Subject subject = new Subject();
@@ -63,7 +67,8 @@ public class SubjectController {
         subject = subjectService.save(subject);
         return new ResponseEntity<>(new SubjectDTO(subject), HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<SubjectDTO> updateSubject(@RequestBody SubjectDTO subjectDTO) {
         Subject subject = subjectService.findOne(subjectDTO.getId());
@@ -78,7 +83,8 @@ public class SubjectController {
         subject = subjectService.save(subject);
         return new ResponseEntity<>(new SubjectDTO(subject), HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteSubject(@PathVariable Integer id) {
         Subject subject = subjectService.findOne(id);
@@ -100,7 +106,8 @@ public class SubjectController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
-
+    
+    @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(value = "/{id}/duties", method = RequestMethod.GET)
     public ResponseEntity<List<DutyDTO>> getDuties(@PathVariable Integer id) {
         Subject subject = subjectService.findOne(id);
@@ -113,7 +120,8 @@ public class SubjectController {
         }
         return new ResponseEntity<>(dutiesDTO, HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(value = "/{id}/professorRoles", method = RequestMethod.GET)
     public ResponseEntity<List<ProfessorRoleDTO>> getProfessorRoles(@PathVariable Integer id) {
         Subject subject = subjectService.findOne(id);
@@ -127,7 +135,8 @@ public class SubjectController {
         return new ResponseEntity<>(professorRolesDTO, HttpStatus.OK);
 
     }
-
+    
+    @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(value = "/{id}/students", method = RequestMethod.GET)
     public ResponseEntity<List<StudentDTO>> getStudents(@PathVariable Integer id) {
         Subject subject = subjectService.findOne(id);
@@ -140,7 +149,8 @@ public class SubjectController {
         }
         return new ResponseEntity<>(studentsDTO, HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(value = "/{subjectId}/students", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> saveStudents(@PathVariable Integer subjectId, @RequestBody String studentIds) {
         if (studentIds == null) {

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tseo.studiorum.annotations.Permission;
 import com.tseo.studiorum.entities.User;
 import com.tseo.studiorum.service.UserService;
 import com.tseo.studiorum.web.dto.UserDTO;
@@ -22,7 +23,8 @@ public class UserController {
 
     @Autowired
     UserService userService;
-
+    
+    @Permission(roles = {"user"})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> getUsers() {
         List<User> users = userService.findAll();
@@ -32,7 +34,8 @@ public class UserController {
         }
         return new ResponseEntity<>(usersDTO, HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user"})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<UserDTO> getUser(@PathVariable Integer id) {
         User user = userService.findOne(id);
@@ -42,7 +45,8 @@ public class UserController {
         return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
 
     }
-
+    
+    @Permission(roles = {"user"})
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
         User user = new User();
@@ -55,7 +59,8 @@ public class UserController {
         return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
 
     }
-
+    
+    @Permission(roles = {"user"})
     @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) {
         User user = userService.findOne(userDTO.getId());
@@ -69,7 +74,8 @@ public class UserController {
         return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
 
     }
-
+    
+    @Permission(roles = {"user"})
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteStudent(@PathVariable Integer id) {
         User user = userService.findOne(id);

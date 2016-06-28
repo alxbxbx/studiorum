@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tseo.studiorum.annotations.Permission;
 import com.tseo.studiorum.entities.Document;
 import com.tseo.studiorum.entities.Student;
 import com.tseo.studiorum.service.DocumentService;
@@ -27,7 +28,8 @@ public class DocumentController {
 
     @Autowired
     StudentService studentService;
-
+    
+    @Permission(roles = {"user", "student"})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<DocumentDTO>> getDocuments() {
         List<Document> documents = documentService.findAll();
@@ -37,7 +39,8 @@ public class DocumentController {
         }
         return new ResponseEntity<>(documentsDTO, HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "student"})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<DocumentDTO> getDocument(@PathVariable Integer id) {
         Document document = documentService.findOne(id);
@@ -45,7 +48,8 @@ public class DocumentController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(new DocumentDTO(document), HttpStatus.OK);
     }
-
+    
+    @Permission(roles = {"user", "student"})
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<DocumentDTO> saveDocument(@RequestBody DocumentDTO documentDTO) {
         if (documentDTO.getStudentDTO() == null)
@@ -65,7 +69,8 @@ public class DocumentController {
         return new ResponseEntity<>(new DocumentDTO(document), HttpStatus.OK);
 
     }
-
+    
+    @Permission(roles = {"user", "student"})
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<DocumentDTO> updateDocument(@RequestBody DocumentDTO documentDTO) {
         Document document = documentService.findOne(documentDTO.getId());
@@ -76,7 +81,8 @@ public class DocumentController {
         return new ResponseEntity<>(new DocumentDTO(document), HttpStatus.OK);
 
     }
-
+    
+    @Permission(roles = {"user", "student"})
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteDocument(@PathVariable Integer id) {
         Document document = documentService.findOne(id);

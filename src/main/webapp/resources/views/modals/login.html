@@ -6,14 +6,14 @@
 <div class="modal-body">
 
 	<!-- Username -->
-   	<label for="username">Username</label>
+   	<label for="user-username">Username</label>
     <div class="input-group">
         <span class="input-group-addon" id="user-username-addon">
             <span class=" glyphicon glyphicon-user"></span>
         </span>
         <input ng-model="user.userName" type="username" id="user-username" name="userName" class="form-control" describedby="user-username-addon" placeholder="Username">
     </div>
-    
+
     <!-- Password -->
     <label for="user-password">Password</label>
     <div class="input-group">
@@ -23,7 +23,8 @@
         <input ng-model="user.password" type="password" id="user-password" name="password" class="form-control" describedby="user-password-addon" placeholder="Password">
     </div>
 
-   
+    <div class="alert alert-warning" role="alert" ng-if="error">{{ error }}</div>
+
 </div>
 <div class="modal-footer">
    <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>

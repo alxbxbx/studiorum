@@ -10,11 +10,10 @@ angular.module('studiorum').controller('LoginModalController', ['$http', '$scope
                 var token = "Bearer " + response.data.token;
                 $http.defaults.headers.common.Authorization = token;
                 localStorage.setItem("jwt_token", response.data.token);
+                $uibModalInstance.close('ok');
             }, function (error) {
                 $scope.error = error;
-                $log.info('Error during loggin in!');
             });
-            $uibModalInstance.close('ok');
         };
 
         $scope.cancel = function () {

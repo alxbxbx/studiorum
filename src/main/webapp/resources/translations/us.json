@@ -39,8 +39,8 @@
 	"ARESUREDEL": "Are you sure you want to delete?",
 	"ADDPROFESSOR": "Add professor",
 	"ADDSTUDENT": "Add student",
-	"FIRSTNAME": "First Name",
-	"LASTNAME": "Last Name",
+	"FIRSTNAME": "First name",
+	"LASTNAME": "Last name",
 	"PASSAGAIN": "Password again",
 	"MALE": "Male",
 	"FEMALE": "Female",
@@ -48,14 +48,14 @@
 	"DEVTEAM": "Development team",
 	"PROF": "Professors",
 	"CREATENEW": "Create new",
-	"ID": "ID",
 	"DELETE": "Delete",
 	"EDIT": "Edit",
 	"SAVE": "Save",
 	"STUDENTS": "Students",
 	"CDETAILS": "Course details",
 	"DESCR": "Description",
-	"ATTENDINGSTUDENTS": "Attending Students",
+	"ATTENDINGSTUDENTS": "Attending students",
 	"SUBJECTS": "Subjects",
+	"SEARCH": "Search"
 	
 }

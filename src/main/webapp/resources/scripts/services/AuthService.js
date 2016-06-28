@@ -13,6 +13,7 @@ angular.module('studiorum').service('authService', ['$http', 'jwtHelper', '$root
             $http.defaults.headers.common.Authorization = '';
             localStorage.removeItem('jwt_token');
             $rootScope.loggedUserData = null;
+            window.location = "/#/";
         };
 
         service.isLoggedIn = function () {

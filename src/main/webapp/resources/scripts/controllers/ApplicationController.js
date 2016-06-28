@@ -11,9 +11,6 @@ angular.module('studiorum').controller('ApplicationController', ['$rootScope', '
                 templateUrl: '/static/views/modals/languages.html',
                 controller: 'LanguagesModalController',
                 resolve: {
-                    user: function () {
-                        return null;
-                    }
                 }
             });
             modalInstance.result.then(function (value) {
@@ -27,9 +24,6 @@ angular.module('studiorum').controller('ApplicationController', ['$rootScope', '
                 templateUrl: '/static/views/modals/login.html',
                 controller: 'LoginModalController',
                 resolve: {
-                    user: function () {
-                        return null;
-                    }
                 }
             });
             modalInstance.result.then(function (value) {

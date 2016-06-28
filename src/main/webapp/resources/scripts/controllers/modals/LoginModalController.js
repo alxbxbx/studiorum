@@ -11,6 +11,7 @@ angular.module('studiorum').controller('LoginModalController', ['$http', '$scope
                 $http.defaults.headers.common.Authorization = token;
                 localStorage.setItem("jwt_token", response.data.token);
                 $uibModalInstance.close('ok');
+                window.location = "/#/";
             }, function (error) {
                 $scope.error = error;
             });

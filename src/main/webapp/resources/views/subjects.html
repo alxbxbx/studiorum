@@ -10,16 +10,16 @@
 			<table class="table table-striped">
 			  <tr>
 			    <th>ID</th>
-			    <th translate="DESCR"></th>
 			    <th translate="NAME"></th>
+			    <th translate="DESCR"></th>
 			    <th translate="SEMESTER"></th>
 			    <th></th>
 			    <th></th>
 			  </tr>
 			  <tr ng-repeat="subject in subjects">
 			    <td>{{subject.id}}</td>
+			    <td class="oneStudent" ng-click="singleSubject(subject.id)">{{subject.name}}</td>
 			    <td>{{subject.description}}</td>
-			    <td>{{subject.name}}</td>
 			    <td>{{subject.semester}}</td>
 				<td style="width:100px;text-align:right;">
 			        <a href="" class="btn btn-danger btn-xs" role="button" ng-click="clickDeleteSubject(subject.id)">

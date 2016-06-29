@@ -7,8 +7,12 @@ angular.module('studiorum').controller('UserModalController', ['$scope', '$uibMo
 
         $scope.ok = function () {
             if ($scope.user.id) {
-                Restangular.all('students').customPUT($scope.user).then(function (data) {
+                Restangular.all('users').customPUT($scope.user).then(function (data) {
                 });
+            }else{
+            	console.log("HEYOO");
+            	 Restangular.all('users').post($scope.user).then(function (data) {
+                 });
             }
             $uibModalInstance.close('ok');
         };

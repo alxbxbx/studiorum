@@ -17,6 +17,22 @@ angular.module('studiorum').controller('ApplicationController', ['$rootScope', '
             }, function (value) {
             });
         }
+        
+        $scope.addUserModal = function() {
+        	var modalInstance = $uibModal.open({
+                animation: false,
+                templateUrl: '/static/views/modals/user.html',
+                controller: 'UserModalController',
+                resolve: {
+                	user: function () {
+                        return $scope.user;
+                    }
+                }
+            });
+            modalInstance.result.then(function (value) {
+            }, function (value) {
+            });
+        }
 
         $scope.openLoginModal = function () {
             var modalInstance = $uibModal.open({

@@ -1,8 +1,8 @@
-'use strict';
+ 'use strict';
 
 angular.module('studiorum')
-    .controller('StudentController', ['$scope', 'Restangular', '$uibModal', '$log', '_', '$routeParams', 'Upload', '$timeout', '$http',
-        function ($scope, Restangular, $uibModal, $log, _, $routeParams, Upload, $timeout, $http) {
+    .controller('StudentController', ['$scope', 'Restangular', '$uibModal', '$log', '_', '$routeParams', 'Upload', '$timeout', '$http', '$location',
+        function ($scope, Restangular, $uibModal, $log, _, $routeParams, Upload, $timeout, $http, $location) {
 
             // Initialization
             $scope.user = {};
@@ -14,6 +14,15 @@ angular.module('studiorum')
                     $scope.files = files;
                 });
             };
+            
+            $scope.getSubjects = function() {
+            	Restangular.one("students/" + $routeParams.id + "/subjects").get().then(function (subjects) {
+                    $scope.subjects = subjects;
+                });
+            }
+            $scope.goTo = function(id){
+            	$location.path("/subjects/" + id);
+            }
 
             $scope.getStudent = function () {
                 Restangular.one("students", $routeParams.id).get().then(function (user) {
@@ -73,5 +82,6 @@ angular.module('studiorum')
             // Pull data
             $scope.getStudent();
             $scope.getFiles();
+            $scope.getSubjects();
 
         }]);

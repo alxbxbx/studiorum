@@ -22,7 +22,7 @@
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> &nbsp;&nbsp;{{ 'STUDENTS' | translate }}
                     </a>
                 </li>
-                <li ng-if="hasRole(['user])">
+                <li ng-if="hasRole(['user'])">
                     <a href="/#/professors">
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> &nbsp;&nbsp;{{ 'PROFESSORS' | translate }}
                     </a>
@@ -39,7 +39,7 @@
                     </a>
                 </li>
                 <li ng-if="hasRole(['user'])">
-                    <a href="">
+                    <a href="" ng-click="addUserModal()">
                         <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> &nbsp;&nbsp;{{ 'ADDNEWUSER' | translate }}
                     </a>
                 </li>

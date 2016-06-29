@@ -1,5 +1,5 @@
 'use strict';
-angular.module('studiorum').controller('SubjectsController', ['$scope', 'Restangular', '$uibModal', '$log', '_', function ($scope, Restangular, $uibModal, $log, _) {
+angular.module('studiorum').controller('SubjectsController', ['$scope', 'Restangular', '$uibModal', '$log', '_', '$location', function ($scope, Restangular, $uibModal, $log, _, $location) {
 
 
     // Initialization
@@ -99,5 +99,9 @@ angular.module('studiorum').controller('SubjectsController', ['$scope', 'Restang
 
 
         }];
+    
+    $scope.singleSubject = function (id){
+    	$location.path("/subjects/" + id);
+    }
 
 }]);

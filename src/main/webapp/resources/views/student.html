@@ -84,10 +84,10 @@
     <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="glyphicon glyphicon-calendar"></span> {{ 'SUBJECTS' | translate }}
+                <span class="glyphicon glyphicon-calendar"></span> {{ 'OBLIGATIONS' | translate }}
             </div>
             <div class="panel-body">
-                <p translate="STUDENTSEXAMS"></p>
+                <p>{{ 'STUDENTSEXAMS' | translate }}</p>
             </div>
             <ul class="list-group">
                 <li class="list-group-item">Cras justo odio <span style="float:right;color:#00A000" class="glyphicon glyphicon-ok-sign"></span></li>
@@ -98,5 +98,20 @@
             </ul>
         </div>
     </div>
+</div>
+<div class="row">
+	<div class="col-lg-6">
+		<div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-book"></span> {{ 'SUBJECTS' | translate }}
+            </div>
+            <div class="panel-body">
+                <p>{{ 'ATTENDINGSUBJECTS' | translate }}</p>
+            </div>
+            <ul class="list-group">
+                <li ng-click="goTo(subject.id)" ng-repeat="subject in subjects" class="list-group-item oneStudent"><span>{{ subject.name }}</span></li>
+            </ul>
+        </div>
+	</div>
 </div>
 </div>

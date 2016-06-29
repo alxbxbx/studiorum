@@ -57,7 +57,7 @@
         <input ng-model="user.passwordAgain" type="password" class="form-control" placeholder="Password Again">
     </div>
 
-    <div class="row">
+    <div ng-if="hasRole(['student']) || hasRole(['professor'])" class="row">
         <!-- Date of Birth -->
         <div class="col-lg-6">
             <label translate="DATEOFBIRTH"></label>
@@ -85,8 +85,8 @@
     </div>
 
     <!-- Address -->
-    <label translate="ADRESS"></label>
-    <div class="input-group">
+    <label ng-if="hasRole(['student']) || hasRole(['professor'])" translate="ADRESS"></label>
+    <div ng-if="hasRole(['student']) || hasRole(['professor'])" class="input-group">
       <span class="input-group-addon">
           <span class=" glyphicon glyphicon-home"></span>
       </span>
@@ -94,8 +94,8 @@
     </div>
 
     <!-- JMBG -->
-    <label translate="UNIQUEID"></label>
-    <div class="input-group">
+    <label ng-if="hasRole(['student']) || hasRole(['professor'])" translate="UNIQUEID"></label>
+    <div ng-if="hasRole(['student']) || hasRole(['professor'])" class="input-group">
       <span class="input-group-addon">
           <span class=" glyphicon glyphicon-edit"></span>
       </span>
@@ -103,7 +103,7 @@
     </div>
 
     <!-- Student ID -->
-    <div ng-if="user.isStudent">
+    <div ng-if="hasRole(['student'])">
         <label translate="STUDENTID"></label>
         <div class="input-group">
 	      <span class="input-group-addon">
@@ -114,7 +114,7 @@
     </div>
 
     <!-- Professor title -->
-    <div ng-if="user.isProfessor">
+    <div ng-if="hasRole(['professor'])">
         <label translate="PROFTITLE"></label>
         <div class="input-group">
             <span class="input-group-addon" id="user-student-id-addon">

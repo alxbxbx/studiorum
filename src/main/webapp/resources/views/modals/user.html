@@ -57,7 +57,7 @@
         <input ng-model="user.passwordAgain" type="password" class="form-control" placeholder="Password Again">
     </div>
 
-    <div ng-if="hasRole(['student']) || hasRole(['professor'])" class="row">
+    <div ng-if="hasRole(['student']) || hasRole(['professor']) || user.isStudent || user.isProfessor" class="row">
         <!-- Date of Birth -->
         <div class="col-lg-6">
             <label translate="DATEOFBIRTH"></label>
@@ -85,8 +85,8 @@
     </div>
 
     <!-- Address -->
-    <label ng-if="hasRole(['student']) || hasRole(['professor'])" translate="ADRESS"></label>
-    <div ng-if="hasRole(['student']) || hasRole(['professor'])" class="input-group">
+    <label ng-if="hasRole(['student']) || hasRole(['professor']) || user.isStudent || user.isProfessor" translate="ADRESS"></label>
+    <div ng-if="hasRole(['student']) || hasRole(['professor']) || user.isStudent || user.isProfessor" class="input-group">
       <span class="input-group-addon">
           <span class=" glyphicon glyphicon-home"></span>
       </span>
@@ -94,8 +94,8 @@
     </div>
 
     <!-- JMBG -->
-    <label ng-if="hasRole(['student']) || hasRole(['professor'])" translate="UNIQUEID"></label>
-    <div ng-if="hasRole(['student']) || hasRole(['professor'])" class="input-group">
+    <label ng-if="hasRole(['student']) || hasRole(['professor']) || user.isStudent || user.isProfessor" translate="UNIQUEID"></label>
+    <div ng-if="hasRole(['student']) || hasRole(['professor']) || user.isStudent || user.isProfessor" class="input-group">
       <span class="input-group-addon">
           <span class=" glyphicon glyphicon-edit"></span>
       </span>
@@ -103,7 +103,7 @@
     </div>
 
     <!-- Student ID -->
-    <div ng-if="hasRole(['student'])">
+    <div ng-if="hasRole(['student']) || user.isStudent">
         <label translate="STUDENTID"></label>
         <div class="input-group">
 	      <span class="input-group-addon">
@@ -114,7 +114,7 @@
     </div>
 
     <!-- Professor title -->
-    <div ng-if="hasRole(['professor'])">
+    <div ng-if="hasRole(['professor']) || user.isProfessor">
         <label translate="PROFTITLE"></label>
         <div class="input-group">
             <span class="input-group-addon" id="user-student-id-addon">

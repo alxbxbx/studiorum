@@ -58,6 +58,14 @@
 	"SUBJECTS": "Subjects",
 	"SEARCH": "Search",
 	"OBLIGATIONS": "Obligations",
-	"ATTENDINGSUBJECTS": "List of current or attended subjects"
+	"ATTENDINGSUBJECTS": "List of current or attended subjects",
+	"DUTIES": "Duties",
+	"TYPEOFDUTY": "Type of duty",
+	"MAXPOINTS": "Max points",
+	"DATE": "Date",
+	"DUTY": "Duty",
+	"FIRSTTEST": "First test",
+	"ORALEXAM": "Oral exam",
+	"TEST": "Test"
 	
 }

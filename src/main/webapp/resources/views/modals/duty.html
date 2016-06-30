@@ -1,0 +1,44 @@
+<div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span
+               aria-hidden="true">&times;</span></button>
+       <h4 class="modal-title" translate="DUTY"></h4>
+</div>
+<div class="modal-body">
+	<label translate="GENDER"></label>
+    <div class="input-group">
+	  <span class="input-group-addon">
+	      <span class="glyphicon glyphicon-link"></span>
+	  </span>
+      <select ng-model="duty.typeOfDuty" name="typeOfDuty" class="form-control"
+              describedby="duty-type-addon">
+          <option value="First test"> {{ 'FIRSTTEST' | translate }} </option>
+          <option value="Oral exam">{{ 'ORALEXAM' | translate }}</option>
+          <option value="Test">{{ 'TEST' | translate}} </option>
+      </select>
+    </div>
+	<div class="row">
+        <!-- Date -->
+        <div class="col-lg-6">
+            <label translate="DATE"></label>
+            <div class="input-group">
+		        <span class="input-group-addon">
+		            <span class=" glyphicon glyphicon-calendar"></span>
+		        </span>
+                <input ng-model="duty.date" type="datetime-local" class="form-control" placeholder="{{ 'DATE' | translate }}">
+            </div>
+        </div>
+        <!-- Max points -->
+	    <label translate="MAXPOINTS"></label>
+	    <div class="input-group">
+	      <span class="input-group-addon">
+	          <span class=" glyphicon glyphicon-edit"></span>
+	      </span>
+	        <input ng-model="duty.maxPoints" type="number" name="jmbg" class="form-control" placeholder="{{ 'MAXPOINTS' | translate }}">
+	    </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+   <button type="button" class="btn btn-default" ng-click="cancel()">{{ 'CLOSE' | translate }}</button>
+   <button type="button" class="btn btn-primary" ng-click="ok()">{{ 'SAVE' | translate }}</button>
+</div>

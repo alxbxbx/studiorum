@@ -50,7 +50,7 @@ public class DutyController {
     }
     
     @Permission(roles = {"user", "professor"})
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<DutyDTO> saveDuty(@RequestBody DutyDTO dutyDTO) {
         if (dutyDTO.getSubjectDTO() == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -63,6 +63,8 @@ public class DutyController {
         duty.setSubject(subject);
         duty.setTypeOfDuty(dutyDTO.getTypeOfDuty());
         duty = dutyService.save(duty);
+        subject.getDuties().add(duty);
+        subjectService.save(subject);
         return new ResponseEntity<>(new DutyDTO(duty), HttpStatus.OK);
     }
     
@@ -86,6 +88,9 @@ public class DutyController {
         if (duty == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {
+        	Subject subject = duty.getSubject();
+            subject.getDuties().remove(duty);
+            subjectService.save(subject);
             dutyService.remove(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }

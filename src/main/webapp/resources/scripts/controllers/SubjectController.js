@@ -5,6 +5,7 @@ angular.module('studiorum')
         function ($scope, Restangular, $uibModal, $log, _, $routeParams) {
 
             $scope.subject = {};
+            $scope.duty = {};
             $scope.searchText = "";
             $scope.dnd = {
                 selectedStudent: null,
@@ -18,6 +19,13 @@ angular.module('studiorum')
                     $scope.subject = subject;
                 });
             };
+            
+            $scope.getDuties = function () {
+            	Restangular.one("subjects", $routeParams.id).all("duties").getList().then(function (duties) {
+                    $scope.duties = duties;
+                    console.log($scope.duties);
+                });
+            }
 
             $scope.getStudents = function () {
                 Restangular.one("subjects", $routeParams.id).all("students").getList().then(function (entries) {
@@ -99,8 +107,86 @@ angular.module('studiorum')
                     });
             	}
             }
+            
+            $scope.openModal = function (duty) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '/static/views/modals/duty.html',
+                    controller: DutyModalCtrl,
+                    scope: $scope,
+                    resolve: {
+                        duty: function () {
+                            return duty;
+                        }
+                    }
+                });
+                modalInstance.result.then(function (value) {
+                    $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+                }, function (value) {
+                    $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+                });
+            };
+            var DutyModalCtrl = ['$scope', '$uibModalInstance', 'duty', 'Restangular', '$log', '_',
+                function ($scope, $uibModalInstance, duty, Restangular, $log, _) {
+                    $scope.duty = duty;
+                    $scope.duty.subjectDTO = $scope.subject;
+                    $scope.ok = function () {
+                        if ($scope.duty.id) {
+                            Restangular.all('duties').customPUT($scope.duty).then(function (data) {
+                            	$scope.getDuties();  
+                            });
+                        } else {
+                            Restangular.all('duties').post($scope.duty).then(function (data) {
+                            	
+                            	$scope.getDuties();
+                                },
+                                // callback za gresku sa servera
+                                function (response) {
+                                	console.log(response);
+                                });
+                        }
+                        $uibModalInstance.close('ok');
+                    };
+
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+
+
+            }];
+            
+            $scope.deleteDuty = function (id) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '/static/views/modals/delete.html',
+                    controller: StudentDeleteCtrl,
+                    scope: $scope,
+                    resolve: {
+                        id: function () {
+                            return id;
+                        }
+                    }
+                });
+                modalInstance.result.then(function (value) {
+                    $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+                }, function (value) {
+                    $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+                });
+            }
+            var StudentDeleteCtrl = ['$scope', '$uibModalInstance', 'id', 'Restangular', '$log', '_',
+	     	    function ($scope, $uibModalInstance, id, Restangular, $log, _) {
+	     	        $scope.ok = function () {
+	     	        	Restangular.one("duties", id).remove().then(function () {
+	     	        		$scope.getDuties();
+	     	            });
+	     	            $uibModalInstance.close('ok');
+	     	        };
+	     	        $scope.cancel = function () {
+	     	            $uibModalInstance.dismiss('cancel');
+	     	        };
+	     	
+	     	}];
 
             $scope.getSubject();
             $scope.getStudents();
+            $scope.getDuties();
 
         }]);

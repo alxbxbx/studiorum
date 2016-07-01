@@ -44,8 +44,16 @@ angular.module('studiorum')
                     var file = new Blob([data], {type: 'application/pdf'});
                     var fileURL = URL.createObjectURL(file);
                     window.open(fileURL);
-             });
+                });
             };
+            $scope.downloadFile = function(fileId){
+            	var path = '/api/students/' + $routeParams.id + "/files/" + fileId + "/download";
+                $http.get(path)
+                .success(function (data) {
+                	var uriString = parseReturn(data);
+                	window.open(uriString);
+                });
+            }
 
             $scope.uploadFile = function (file) {
                 $scope.file = file;

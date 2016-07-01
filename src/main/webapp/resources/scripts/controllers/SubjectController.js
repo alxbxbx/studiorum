@@ -58,7 +58,7 @@ angular.module('studiorum')
                 
                 var path = "subjects/" + $routeParams.id + "/students";
                 Restangular.all(path).post(allIds).then(function (data) {
-                	console.log("Success");
+                	$scope.successModal();
                 }, function(response){
                 	console.log(response);
                 });
@@ -184,6 +184,29 @@ angular.module('studiorum')
 	     	        };
 	     	
 	     	}];
+            $scope.successModal = function () {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '/static/views/modals/success.html',
+                    controller: SuccessCtrl,
+                    scope: $scope,
+                    resolve: {
+                    }
+                });
+                modalInstance.result.then(function (value) {
+                    $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+                }, function (value) {
+                    $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+                });
+            }
+            var SuccessCtrl = ['$scope', '$uibModalInstance', 'Restangular', '$log', '_',
+ 	     	    function ($scope, $uibModalInstance, Restangular, $log, _) {
+ 	     	        $scope.ok = function () {
+ 	     	            $uibModalInstance.close('ok');
+ 	     	        };
+ 	     	        $scope.cancel = function () {
+ 	     	            $uibModalInstance.dismiss('cancel');
+ 	     	        };
+ 	     	}];
 
             $scope.getSubject();
             $scope.getStudents();

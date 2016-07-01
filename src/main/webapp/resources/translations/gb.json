@@ -68,6 +68,15 @@
 	"ORALEXAM": "Oral exam",
 	"TEST": "Test",
 	"DOWNLOAD": "Download",
-	"PREVIEW": "Preview"
+	"PREVIEW": "Preview",
+	"SUCCESS": "Success",
+	"SAVEDSTUDENTS": "You successfully saved new list of students",
+	"OK": "Ok",
+	"BTNSRBL": "Srpski",
+	"BTNSRBC": "Српски",
+	"BTNJP": "日本語",
+	"BTNENG": "English",
+	"BTNAR": "العربية",
+	"BTNFR": "Français"
 	
 }

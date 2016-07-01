@@ -5,6 +5,7 @@ import com.tseo.studiorum.entities.Document;
 import com.tseo.studiorum.service.DocumentService;
 import com.tseo.studiorum.service.StudentService;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -61,6 +62,23 @@ public class StudentFileController {
                 .headers(headers)
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
                 .body(new InputStreamResource(is));
+    }
+    @Permission(roles = {"user", "professor", "student"})
+    @RequestMapping(value = "/{fileId}/download", method = RequestMethod.GET)
+    public void downloadFile(HttpServletResponse response, @PathVariable Integer studentId, @PathVariable Integer fileId) {
+
+        Document document = null;
+        InputStream is = null;
+        try {
+            document = documentService.findOne(fileId);
+            File file = new File(env.getProperty("storage") + document.getPath());
+            is = new FileInputStream(file);
+            IOUtils.copy(is, response.getOutputStream());
+            response.flushBuffer();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     @Permission(roles = {"user", "professor", "student"})

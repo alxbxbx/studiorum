@@ -9,7 +9,8 @@ angular.module('studiorum', [
     'lodash',
     'dndLists',
     'pascalprecht.translate',
-    'angular-jwt'
+    'angular-jwt',
+    'pdf'
 ]).config(['$httpProvider', '$routeProvider', '$translateProvider', 'jwtInterceptorProvider',
     function ($httpProvider, $routeProvider, $translateProvider, jwtInterceptorProvider) {
 

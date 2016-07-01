@@ -1,17 +1,23 @@
  'use strict';
 
 angular.module('studiorum')
-    .controller('StudentController', ['$scope', 'Restangular', '$uibModal', '$log', '_', '$routeParams', 'Upload', '$timeout', '$http', '$location',
-        function ($scope, Restangular, $uibModal, $log, _, $routeParams, Upload, $timeout, $http, $location) {
-
+    .controller('StudentController', ['$scope', 'Restangular', '$uibModal', '$log', '_', '$routeParams', 'Upload', '$timeout', '$http', '$location', 'pdfDelegate',
+        function ($scope, Restangular, $uibModal, $log, _, $routeParams, Upload, $timeout, $http, $location, pdfDelegate) {
+    		
             // Initialization
             $scope.user = {};
             $scope.loading = false;
             $scope.user.isStudent = true;
+          
 
             $scope.getFiles = function () {
                 Restangular.one("students/" + $routeParams.id + "/files").get().then(function (files) {
                     $scope.files = files;
+                    for(var i = 0; i < $scope.files.length; i++){
+                    	if($scope.files[i].name.indexOf("pdf") > - 1){
+                    		$scope.files[i].isPdf = true;
+                    	}
+                    }
                 });
             };
             
@@ -30,17 +36,13 @@ angular.module('studiorum')
                 });
             };
 
-            $scope.removeFile = function (fileId) {
-                Restangular.one('students', $routeParams.id).one('files', fileId).remove().then(function () {
-                    $scope.getFiles();
-                });
-            };
 
-            $scope.downloadFile = function (fileId) {
-                Restangular.one('students', $routeParams.id).one('files', fileId).get().then(function (result) {
-                    // Fix this
-                    window.location.href = result;
-                });
+            $scope.previewFile = function (fileId) {
+                Restangular.one('students', $routeParams.id).one('files', fileId).get().then(function (data) {
+                	var file = new Blob([data], {type: 'application/pdf'});
+                    var fileURL = URL.createObjectURL(file);
+                    window.open(fileURL);
+                }); 
             };
 
             $scope.uploadFile = function (file) {
@@ -78,6 +80,40 @@ angular.module('studiorum')
                 }, function (value) {
                 });
             };
+            
+            $scope.deleteModal = function (id) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '/static/views/modals/delete.html',
+                    controller: DocumentDeleteCtrl,
+                    scope: $scope,
+                    resolve: {
+                    	id: function () {
+                            return id;
+                        }
+                    }
+                });
+                modalInstance.result.then(function (value) {
+                    $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+                }, function (value) {
+                    $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+                });
+            };
+            
+            var DocumentDeleteCtrl = ['$scope', '$uibModalInstance', 'id', 'Restangular', '$log', '_',
+                function ($scope, $uibModalInstance, id, Restangular, $log, _) {
+                    $scope.ok = function () {
+                    	Restangular.one('students', $routeParams.id).one('files', id).remove().then(function () {
+                            $scope.getFiles();
+                        });
+                        $uibModalInstance.close('ok');
+                    };
+
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+
+
+                }];
 
             // Pull data
             $scope.getStudent();

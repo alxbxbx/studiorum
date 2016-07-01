@@ -4,11 +4,14 @@ import com.tseo.studiorum.annotations.Permission;
 import com.tseo.studiorum.entities.Document;
 import com.tseo.studiorum.service.DocumentService;
 import com.tseo.studiorum.service.StudentService;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,23 +36,26 @@ public class StudentFileController {
     StudentService studentService;
     
     @Permission(roles = {"user", "professor", "student"})
-    @RequestMapping(value = "{fileId}", method = RequestMethod.GET)
-    public ResponseEntity<Document> getAllDocuments(HttpServletResponse response, @PathVariable Integer studentId, @PathVariable Integer fileId) {
+    @RequestMapping(value = "{fileId}", method = RequestMethod.GET, produces="application/pdf")
+    public ResponseEntity<byte[]> getAllDocuments(HttpServletResponse response, @PathVariable Integer studentId, @PathVariable Integer fileId) {
 
         Document document = null;
+        HttpHeaders headers = new HttpHeaders();
+        byte[] contents = null;
         try {
             document = documentService.findOne(fileId);
-            response.setContentType("application/octet-stream");
-            response.setHeader("Content-Description", "File Transfer");
-            response.setHeader("Content-Disposition", "attachment; filename=" + document.getName());
             File file = new File(env.getProperty("storage") + document.getPath());
             InputStream is = new FileInputStream(file);
-            IOUtils.copy(is, response.getOutputStream());
-            response.flushBuffer();
+            headers.setContentType(MediaType.parseMediaType("application/pdf"));
+            String filename = document.getName();
+            headers.setContentDispositionFormData(filename, filename);
+
+            contents = IOUtils.toByteArray(is);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<>(document, HttpStatus.OK);
+        return new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);
     }
     
     @Permission(roles = {"user", "professor", "student"})

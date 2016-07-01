@@ -43,7 +43,9 @@ module.exports = function (grunt) {
             'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
             'bower_components/angular-jwt/dist/angular-jwt.js',
             'bower_components/ng-file-upload/ng-file-upload.min.js',
-            'bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js'
+            'bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js',
+            'bower_components/angular-pdf-viewer/dist/angular-pdf-viewer.min.js',
+            'bower_components/pdfjs-dist/build/pdf.js'
         ],
         css: [],
         assets: [

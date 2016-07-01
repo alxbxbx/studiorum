@@ -47,12 +47,8 @@ angular.module('studiorum')
                 });
             };
             $scope.downloadFile = function(fileId){
-            	var path = '/api/students/' + $routeParams.id + "/files/" + fileId + "/download";
-                $http.get(path)
-                .success(function (data) {
-                	var uriString = parseReturn(data);
-                	window.open(uriString);
-                });
+            	var path = "/download/" + $routeParams.id + "/" + fileId;
+            	window.open(path);
             }
 
             $scope.uploadFile = function (file) {

@@ -5,10 +5,10 @@ import com.tseo.studiorum.entities.Document;
 import com.tseo.studiorum.service.DocumentService;
 import com.tseo.studiorum.service.StudentService;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,26 +36,31 @@ public class StudentFileController {
     StudentService studentService;
     
     @Permission(roles = {"user", "professor", "student"})
-    @RequestMapping(value = "{fileId}", method = RequestMethod.GET, produces="application/pdf")
-    public ResponseEntity<byte[]> getAllDocuments(HttpServletResponse response, @PathVariable Integer studentId, @PathVariable Integer fileId) {
+    @RequestMapping(value = "{fileId}", method = RequestMethod.GET, produces = "application/pdf")
+    public ResponseEntity<InputStreamResource> getAllDocuments(HttpServletResponse response, @PathVariable Integer studentId, @PathVariable Integer fileId) {
 
         Document document = null;
         HttpHeaders headers = new HttpHeaders();
-        byte[] contents = null;
+        //byte[] contents = null;
+        InputStream is = null;
         try {
             document = documentService.findOne(fileId);
             File file = new File(env.getProperty("storage") + document.getPath());
-            InputStream is = new FileInputStream(file);
-            headers.setContentType(MediaType.parseMediaType("application/pdf"));
-            String filename = document.getName();
-            headers.setContentDispositionFormData(filename, filename);
-
-            contents = IOUtils.toByteArray(is);
+            is = new FileInputStream(file);
+            
+            headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+            headers.add("Pragma", "no-cache");
+            headers.add("Expires", "0");
+            //contents = IOUtils.toByteArray(is);
             
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .body(new InputStreamResource(is));
     }
     
     @Permission(roles = {"user", "professor", "student"})

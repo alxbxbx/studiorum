@@ -38,11 +38,13 @@ angular.module('studiorum')
 
 
             $scope.previewFile = function (fileId) {
-                Restangular.one('students', $routeParams.id).one('files', fileId).get().then(function (data) {
-                	var file = new Blob([data], {type: 'application/pdf'});
+                var path = '/api/students/' + $routeParams.id + "/files/" + fileId;
+                $http.get(path, {responseType: 'arraybuffer'})
+                .success(function (data) {
+                    var file = new Blob([data], {type: 'application/pdf'});
                     var fileURL = URL.createObjectURL(file);
                     window.open(fileURL);
-                }); 
+             });
             };
 
             $scope.uploadFile = function (file) {

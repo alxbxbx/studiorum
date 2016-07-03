@@ -16,7 +16,7 @@ public class Payment {
     private String purpose;
     private String bankAcc;
     private double price;
-    private String to;
+    private String recipient;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private Student student;
@@ -26,13 +26,13 @@ public class Payment {
 
     }
 
-    public Payment(Integer id, String purpose, String bankAcc, double price, String to, Student student) {
+    public Payment(Integer id, String purpose, String bankAcc, double price, String recipient, Student student) {
         super();
         this.id = id;
         this.purpose = purpose;
         this.bankAcc = bankAcc;
         this.price = price;
-        this.to = to;
+        this.recipient = recipient;
         this.student = student;
     }
 
@@ -68,15 +68,16 @@ public class Payment {
         this.price = price;
     }
 
-    public String getTo() {
-        return to;
-    }
 
-    public void setTo(String to) {
-        this.to = to;
-    }
+    public String getRecipient() {
+		return recipient;
+	}
 
-    public Student getStudent() {
+	public void setRecipient(String recipient) {
+		this.recipient = recipient;
+	}
+
+	public Student getStudent() {
         return student;
     }
 

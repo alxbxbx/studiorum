@@ -8,8 +8,14 @@ angular.module('studiorum')
             $scope.user = {};
             $scope.loading = false;
             $scope.user.isStudent = true;
-          
-
+            
+            $scope.getPayments = function(){
+            	Restangular.one("students/" + $routeParams.id + "/payments").get().then(function (payments) {
+                    $scope.payments = payments;
+                });
+            }
+            
+            
             $scope.getFiles = function () {
                 Restangular.one("students/" + $routeParams.id + "/files").get().then(function (files) {
                     $scope.files = files;
@@ -120,10 +126,88 @@ angular.module('studiorum')
 
 
                 }];
+            
+            $scope.paymentModal = function (payment) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '/static/views/modals/payment.html',
+                    controller: PaymentModalCtrl,
+                    scope: $scope,
+                    resolve: {
+                    	payment: function () {
+                            return payment;
+                        }
+                    }
+                });
+                modalInstance.result.then(function (value) {
+                }, function (value) {
+                });
+            };
+            var PaymentModalCtrl = ['$scope', '$uibModalInstance', 'payment', 'Restangular', '$log', '_',
+              function ($scope, $uibModalInstance, payment, Restangular, $log, _) {
+            	  $scope.payment = payment;
+            	  if($scope.payment == null){
+            		  $scope.payment = {};
+            	  }
+            	  $scope.payment.studentDTO = $scope.user;
+                  $scope.ok = function () {
+                	  if ($scope.payment.id) {
+                          Restangular.all('payments').customPUT($scope.payment).then(function (data) {
+                              $scope.getPayments();
+                          });
+                      } else {
+                          Restangular.all('payments').post($scope.payment).then(function (data) {
+                                  $scope.getPayments();
+                              },
+                              // callback za gresku sa servera
+                              function () {
+                                  $log.info('something went wrong!');
+                              });
+                      }
+                  $uibModalInstance.close('ok');
+                  };
+
+                  $scope.cancel = function () {
+                      $uibModalInstance.dismiss('cancel');
+                  };
+              }];
+            
+            $scope.deletePayment = function (id) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '/static/views/modals/delete.html',
+                    controller: PaymentDeleteCtrl,
+                    scope: $scope,
+                    resolve: {
+                    	id: function () {
+                            return id;
+                        }
+                    }
+                });
+                modalInstance.result.then(function (value) {
+                    $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+                }, function (value) {
+                    $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+                });
+            };
+            var PaymentDeleteCtrl = ['$scope', '$uibModalInstance', 'id', 'Restangular', '$log', '_',
+              function ($scope, $uibModalInstance, id, Restangular, $log, _) {
+                  $scope.ok = function () {
+                	  Restangular.one("payments", id).remove().then(function () {
+      	                $scope.getPayments();
+      	            });
+                      $uibModalInstance.close('ok');
+                  };
+
+                  $scope.cancel = function () {
+                      $uibModalInstance.dismiss('cancel');
+                  };
+
+
+              }];
 
             // Pull data
             $scope.getStudent();
             $scope.getFiles();
             $scope.getSubjects();
+            $scope.getPayments();
 
         }]);

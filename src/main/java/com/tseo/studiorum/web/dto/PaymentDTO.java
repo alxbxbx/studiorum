@@ -8,7 +8,7 @@ public class PaymentDTO {
 	private String purpose;
 	private String bankAcc;
 	private double price;
-	private String to;
+	private String recipient;
 	private StudentDTO studentDTO;
 	
 	public PaymentDTO(Payment payment){
@@ -16,7 +16,7 @@ public class PaymentDTO {
 		this.purpose = payment.getPurpose();
 		this.bankAcc = payment.getBankAcc();
 		this.price = payment.getPrice();
-		this.to = payment.getTo();
+		this.recipient = payment.getRecipient();
 		this.studentDTO = new StudentDTO(payment.getStudent());
 	}
 	
@@ -45,13 +45,16 @@ public class PaymentDTO {
 	}
 	public void setPrice(double price) {
 		this.price = price;
+	}	
+	
+	public String getRecipient() {
+		return recipient;
 	}
-	public String getTo() {
-		return to;
+
+	public void setRecipient(String recipient) {
+		this.recipient = recipient;
 	}
-	public void setTo(String to) {
-		this.to = to;
-	}
+
 	public StudentDTO getStudentDTO() {
 		return studentDTO;
 	}

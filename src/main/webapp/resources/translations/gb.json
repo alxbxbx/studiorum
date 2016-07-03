@@ -77,6 +77,15 @@
 	"BTNJP": "日本語",
 	"BTNENG": "English",
 	"BTNAR": "العربية",
-	"BTNFR": "Français"
+	"BTNFR": "Français",
+	"PAYMENTS": "Payments",
+	"ADDNEWPAYMENT": "Add new payment",
+	"TO": "To",
+	"PAYMENT": "Payment",
+	"PRICE": "Price",
+	"PURPOSE": "Purpose",
+	"BANKACCOUNT": "Bank account",
+	"RECIPIENT": "Recipient",
+	"RSD": "rsd"
 	
 }

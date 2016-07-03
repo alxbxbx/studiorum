@@ -53,10 +53,13 @@ public class PaymentController {
         Payment payment = new Payment();
         payment.setPurpose(paymentDTO.getPurpose());
         payment.setBankAcc(paymentDTO.getBankAcc());
+        payment.setPrice(paymentDTO.getPrice());
         payment.setStudent(student);
-        payment.setTo(paymentDTO.getTo());
+        payment.setRecipient(paymentDTO.getRecipient());
 
         payment = paymentService.save(payment);
+        student.getPayments().add(payment);
+        studentService.save(student);
         return new ResponseEntity<>(new PaymentDTO(payment), HttpStatus.OK);
 
     }
@@ -70,9 +73,10 @@ public class PaymentController {
         payment.setBankAcc(paymentDTO.getBankAcc());
         payment.setPrice(paymentDTO.getPrice());
         payment.setPurpose(paymentDTO.getPurpose());
-        payment.setTo(paymentDTO.getTo());
-
-        return new ResponseEntity<>(new PaymentDTO(), HttpStatus.OK);
+        payment.setRecipient(paymentDTO.getRecipient());
+        
+        paymentService.save(payment);
+        return new ResponseEntity<>(new PaymentDTO(payment), HttpStatus.OK);
 
     }
     
@@ -80,9 +84,13 @@ public class PaymentController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deletePayment(@PathVariable Integer id) {
         Payment payment = paymentService.findOne(id);
+        
         if (payment == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {
+        	Student student = payment.getStudent();
+        	student.getPayments().remove(payment);
+        	studentService.save(student);
             paymentService.remove(id);
             return new ResponseEntity<>(HttpStatus.OK);
 

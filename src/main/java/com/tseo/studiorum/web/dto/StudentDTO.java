@@ -17,6 +17,7 @@ public class StudentDTO {
 	private String address;
 	private String JMBG;
 	private String studentId;
+	private String picturePath;
 	
 	public StudentDTO(Student student){
 		this.gender = student.getGender();
@@ -27,12 +28,19 @@ public class StudentDTO {
 		this.id = student.getId();
 		this.role = student.getRole();
 		this.name = student.getName();
+		this.picturePath = student.getPicturePath();
 		this.lastName = student.getLastName();
 		this.userName = student.getUserName();
 		this.password = student.getPassword();
 	}
 	public StudentDTO(){}
 	
+	public String getPicturePath() {
+		return picturePath;
+	}
+	public void setPicturePath(String picturePath) {
+		this.picturePath = picturePath;
+	}
 	public String getGender() {
 		return gender;
 	}

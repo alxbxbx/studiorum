@@ -11,7 +11,13 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-3">
-                        <img class="img-responsive img-thumbnail" src="/static/images/profile.png"/>
+                        <img ng-if="!user.picturePath" class="img-responsive img-thumbnail" src="/static/images/profile.png"/>
+                        <img ng-if="user.picturePath" class="img-responsive img-thumbnail" src="{{user.picturePath}}"/>
+                        <a href="" style="float:right" ngf-select="uploadPicture($file)" accept="*/*" class="btn btn-success btn-xs" role="button">
+		                    <i class="fa fa-spinner fa-spin fa-fw" ng-if="loading"></i>
+		                    <i class="fa fa-edit fa-fw" ng-if="!loading"></i>
+		                    {{ 'UPLOADNEWPICTURE' | translate }}
+		                </a>
                     </div>
                     <div class="col-lg-9">
                         <table class="table table-striped">

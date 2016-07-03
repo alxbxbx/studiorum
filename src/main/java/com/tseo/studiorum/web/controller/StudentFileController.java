@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.*;
 import java.util.List;
 
@@ -42,7 +43,6 @@ public class StudentFileController {
 
         Document document = null;
         HttpHeaders headers = new HttpHeaders();
-        //byte[] contents = null;
         InputStream is = null;
         try {
             document = documentService.findOne(fileId);
@@ -52,7 +52,6 @@ public class StudentFileController {
             headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
             headers.add("Pragma", "no-cache");
             headers.add("Expires", "0");
-            //contents = IOUtils.toByteArray(is);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -125,5 +124,31 @@ public class StudentFileController {
 
         return new ResponseEntity<>(document, HttpStatus.OK);
     }
+    
+	
+    /*
+    @Permission(roles = {"user", "professor", "student"})
+    @RequestMapping(value = "/pictures", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> getPicture(HttpServletResponse response, @PathVariable Integer studentId) {
 
+    	Student student = studentService.findOne(studentId);
+        HttpHeaders headers = new HttpHeaders();
+        InputStream is = null;
+        try {
+            File file = new File(env.getProperty(student.getPicturePath()));
+            is = new FileInputStream(file);
+            
+            headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+            headers.add("Pragma", "no-cache");
+            headers.add("Expires", "0");
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .body(new InputStreamResource(is));
+    }*/
 }

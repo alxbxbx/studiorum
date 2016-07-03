@@ -42,7 +42,6 @@ angular.module('studiorum')
                 });
             };
 
-
             $scope.previewFile = function (fileId) {
                 var path = '/api/students/' + $routeParams.id + "/files/" + fileId;
                 $http.get(path, {responseType: 'arraybuffer'})
@@ -67,6 +66,25 @@ angular.module('studiorum')
                     }).then(function (response) {
                         $timeout(function () {
                             $scope.getFiles();
+                            $scope.loading = false;
+                        });
+                    }, function (response) {
+                        $scope.loading = false;
+                    }, function (evt) {
+                        $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                    });
+                }
+            };
+            $scope.uploadPicture = function (file) {
+                $scope.file = file;
+                if (file) {
+                    $scope.loading = true;
+                    Upload.upload({
+                        url: '/api/students/' + $scope.user.id + '/pictures',
+                        data: {file: file}
+                    }).then(function (response) {
+                        $timeout(function () {
+                        	$scope.getStudent();
                             $scope.loading = false;
                         });
                     }, function (response) {

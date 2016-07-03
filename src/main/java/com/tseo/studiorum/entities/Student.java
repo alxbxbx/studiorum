@@ -21,6 +21,7 @@ public class Student extends User {
     private String address;
     private String JMBG;
     private String studentId;
+    private String picturePath;
 
     @ManyToMany(targetEntity = Subject.class, fetch = FetchType.LAZY)
     private Set<Subject> subjects = new HashSet<Subject>();
@@ -38,7 +39,7 @@ public class Student extends User {
     public Student() {
     }
 
-    public Student(String gender, Date dateOfBirth, String address, String jMBG, String studentId,
+    public Student(String gender, Date dateOfBirth, String address, String jMBG, String studentId, String picturePath,
                    Set<Subject> subjects, Set<Document> documents, Set<Payment> payments, Set<Exam> exams) {
         super();
         this.gender = gender;
@@ -46,13 +47,22 @@ public class Student extends User {
         this.address = address;
         JMBG = jMBG;
         this.studentId = studentId;
+        this.picturePath = picturePath;
         this.subjects = subjects;
         this.documents = documents;
         this.payments = payments;
         this.exams = exams;
     }
+    
+    public String getPicturePath() {
+		return picturePath;
+	}
 
-    public String getGender() {
+	public void setPicturePath(String picturePath) {
+		this.picturePath = picturePath;
+	}
+
+	public String getGender() {
         return gender;
     }
 

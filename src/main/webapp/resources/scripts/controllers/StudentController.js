@@ -1,8 +1,8 @@
  'use strict';
 
 angular.module('studiorum')
-    .controller('StudentController', ['$scope', 'Restangular', '$uibModal', '$log', '_', '$routeParams', 'Upload', '$timeout', '$http', '$location', 'pdfDelegate',
-        function ($scope, Restangular, $uibModal, $log, _, $routeParams, Upload, $timeout, $http, $location, pdfDelegate) {
+    .controller('StudentController', ['$scope', 'Restangular', '$uibModal', '$log', '_', '$routeParams', 'Upload', '$timeout', '$http', '$location',
+        function ($scope, Restangular, $uibModal, $log, _, $routeParams, Upload, $timeout, $http, $location) {
     		
             // Initialization
             $scope.user = {};

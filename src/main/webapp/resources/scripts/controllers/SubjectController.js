@@ -243,7 +243,7 @@ angular.module('studiorum')
                          }
                          if ($scope.exam.id) {
                              Restangular.all('exams').customPUT($scope.exam).then(function (data) {
-                            	 $scope.exam.studentDTO = null;
+
                              });
                          } else {
                         	 console.log("Broj studenta je: " + $scope.studentId);

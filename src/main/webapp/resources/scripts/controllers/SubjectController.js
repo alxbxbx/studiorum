@@ -6,11 +6,14 @@ angular.module('studiorum')
 
             $scope.subject = {};
             $scope.duty = {};
+            $scope.exam = {};
             $scope.searchText = "";
             $scope.dnd = {
                 selectedStudent: null,
                 listOfAllStudents: [],
-                listOfAttendingStudents: []
+                listOfAttendingStudents: [],
+                // prevent user to add student on one exam more than once
+                availableStudents: []
             };
 
 
@@ -23,7 +26,6 @@ angular.module('studiorum')
             $scope.getDuties = function () {
             	Restangular.one("subjects", $routeParams.id).all("duties").getList().then(function (duties) {
                     $scope.duties = duties;
-                    console.log($scope.duties);
                 });
             }
 
@@ -206,6 +208,138 @@ angular.module('studiorum')
  	     	        $scope.cancel = function () {
  	     	            $uibModalInstance.dismiss('cancel');
  	     	        };
+ 	     	}];
+            
+            $scope.dutyExam = function(duty){
+            	$scope.exam.dutyDTO = duty;
+            	$scope.examModal($scope.exam);
+            }
+            
+            $scope.examModal = function (exam) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '/static/views/modals/exam.html',
+                    controller: ExamModalCtrl,
+                    scope: $scope,
+                    resolve: {
+                    	exam: function () {
+                            return exam;
+                        }
+                    }
+                });
+                modalInstance.result.then(function (value) {
+                    $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+                }, function (value) {
+                    $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+                });
+            }
+            
+            var ExamModalCtrl = ['$scope', '$uibModalInstance', 'exam', 'Restangular', '$log', '_',
+                 function ($scope, $uibModalInstance, exam, Restangular, $log, _) {
+                     $scope.exam = exam;
+                     
+                     $scope.ok = function () {
+                         if(!$scope.exam.pass){
+                        	 $scope.exam.pass = false;
+                         }
+                         if ($scope.exam.id) {
+                             Restangular.all('exams').customPUT($scope.exam).then(function (data) {
+                            	 $scope.exam.studentDTO = null;
+                             });
+                         } else {
+                        	 console.log("Broj studenta je: " + $scope.studentId);
+                        	 var index = _.findIndex($scope.dnd.listOfAttendingStudents, function(student) { return student.id == parseInt($scope.studentId)});
+                        	 console.log("INDEKS JE: " + index);
+                        	 $scope.exam.studentDTO = $scope.dnd.listOfAttendingStudents[index];
+                             Restangular.all('exams').post($scope.exam).then(function (data) {
+                            	 $scope.exam.pass = null;
+                            	 $scope.exam.points = null;
+                            	 $scope.getStudents();
+                                 },
+                                 // callback za gresku sa servera
+                                 function (response) {
+                                 	console.log(response);
+                                 });
+                         }
+                         $uibModalInstance.close('ok');
+                     };
+
+                     $scope.cancel = function () {
+                         $uibModalInstance.dismiss('cancel');
+                     };
+
+
+             	}
+            ];
+            
+            $scope.findExams = function(duty){
+            	var path = "/exams/duty/" + duty.id;
+            	Restangular.all(path).customGETLIST('', {
+            		
+            	}).then(function (exams) {
+                	$scope.exams = exams;
+                	$scope.examStudents($scope.exams);
+                });
+                
+            }
+            $scope.examStudents = function (exams) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '/static/views/modals/examStudents.html',
+                    controller: ExamStudentModalCtrl,
+                    scope: $scope,
+                    resolve: {
+                    	exams: function () {
+                            return exams;
+                        }
+                    }
+                });
+                modalInstance.result.then(function (value) {
+                    $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+                }, function (value) {
+                    $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+                });
+            }
+            var ExamStudentModalCtrl = ['$scope', '$uibModalInstance', 'exams', 'Restangular', '$log', '_',
+	     	    function ($scope, $uibModalInstance, exams, Restangular, $log, _) {
+	     	        $scope.ok = function () {
+	     	            $uibModalInstance.close('ok');
+	     	        };
+	     	        $scope.cancel = function () {
+	     	            $uibModalInstance.dismiss('cancel');
+	     	        };
+	     	}];
+            
+            $scope.deleteExam = function (id) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '/static/views/modals/delete.html',
+                    controller: ExamDeleteCtrl,
+                    scope: $scope,
+                    resolve: {
+                        id: function () {
+                            return id;
+                        }
+                    }
+                });
+                modalInstance.result.then(function (value) {
+                    $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+                }, function (value) {
+                    $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+                });
+            }
+            
+            var ExamDeleteCtrl = ['$scope', '$uibModalInstance', 'id', 'Restangular', '$log', '_',
+ 	     	    function ($scope, $uibModalInstance, id, Restangular, $log, _) {
+ 	     	        $scope.ok = function () {
+ 	     	        	Restangular.one("exams", id).remove().then(function () {
+ 	     	        		_.remove($scope.exams, {
+ 	     	                  id: id
+ 	     	                });
+ 	     	            });
+ 	     	            $uibModalInstance.close('ok');
+ 	     	        };
+ 	     	        $scope.cancel = function () {
+ 	     	            $uibModalInstance.dismiss('cancel');
+ 	     	        };
+ 	     	
  	     	}];
 
             $scope.getSubject();

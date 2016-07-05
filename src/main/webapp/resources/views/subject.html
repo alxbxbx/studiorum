@@ -32,12 +32,23 @@
                 		<th>{{ 'TYPEOFDUTY' | translate }}</th>
                 		<th>{{ 'MAXPOINTS' | translate  }}</th>
                 		<th>{{ 'DATE' | translate }}</th>
-                		<th colspan="2"></th>
+                		<th colspan="4"></th>
                 	</tr>
                     <tr ng-repeat="duty in duties | orderBy : 'date'">
 						<td>{{ duty.typeOfDuty }}</td>
 						<td>{{ duty.maxPoints }}</td>
 						<td>{{ duty.date | date:'yyyy-MM-dd HH:mm' }}</td>
+						
+						<td>
+							<a href="" ng-click="findExams(duty)" style="float:right" class="btn btn-info btn-xs" role="button">
+			                    <span class="glyphicon glyphicon-folder-open"></span> {{ 'RESULTS' | translate }}
+			                </a>
+						</td>
+						<td>
+							<a href="" ng-click="dutyExam(duty)" style="float:right" class="btn btn-success btn-xs" role="button">
+			                    <span class="glyphicon glyphicon-plus"></span> {{ 'ADDRESULT' | translate }}
+			                </a>
+						</td>
 						
 						<td style="width:100px;text-align:right;">
                         <a class="btn btn-danger btn-xs" role="button" ng-click="deleteDuty(duty.id)">
@@ -50,7 +61,6 @@
 	                        </a>
 	                    </td>
 					</tr>
-				
                 </table>
             </div>
         </div>	

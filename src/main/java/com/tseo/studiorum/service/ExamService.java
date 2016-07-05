@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tseo.studiorum.entities.Duty;
 import com.tseo.studiorum.entities.Exam;
 import com.tseo.studiorum.repository.ExamRepository;
 
@@ -28,6 +29,10 @@ public class ExamService {
 
     public void remove(Integer id) {
         examRepository.delete(id);
+    }
+    
+    public List<Exam> findByDuty(Duty duty){
+    	return examRepository.findByDuty(duty);
     }
 
 }

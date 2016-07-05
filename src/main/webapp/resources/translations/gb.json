@@ -87,6 +87,12 @@
 	"BANKACCOUNT": "Bank account",
 	"RECIPIENT": "Recipient",
 	"RSD": "rsd",
-	"UPLOADNEWPICTURE": "Upload Profile Picture"
+	"UPLOADNEWPICTURE": "Upload Profile Picture",
+	"ADDRESULT": "Add result",
+	"EXAM": "Exam",
+	"POINTS": "Points",
+	"PASS": "Pass",
+	"STUDENT": "Student",
+	"RESULTS": "Results"
 	
 }

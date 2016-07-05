@@ -1,0 +1,38 @@
+<div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span
+               aria-hidden="true">&times;</span></button>
+       <h4 class="modal-title" translate="STUDENTS"></h4>
+</div>
+<div class="modal-body">
+	<table class="table table-striped">
+        <tr>
+            <th translate="NAME"></th>
+            <th translate="STUDENTID"></th>
+            <th translate="POINTS"></th>
+            <th translate="PASS"></th>
+            <th colspan="2"></th>
+        </tr>
+        <tr ng-repeat="exam in exams">
+            <td>{{ exam.studentDTO.lastName }} {{ exam.studentDTO.name }}</td>
+            <td>{{ exam.studentDTO.studentId }}</td>
+            <td>{{ exam.points }}</td>
+            <td ng-if="exam.pass">true</td>
+            <td ng-if="!exam.pass">false</td>
+
+            <td style="width:100px;text-align:right;">
+                <a class="btn btn-danger btn-xs" role="button" ng-click="deleteExam(exam.id)">
+                    <span class="glyphicon glyphicon-remove"></span> {{ 'DELETE' | translate }}
+                </a>
+            </td>
+            <td style="width:65px;text-align:right;">
+                <a class="btn btn-primary btn-xs" role="button" ng-click="examModal(exam)">
+                    <span class="glyphicon glyphicon-pencil"></span> {{ 'EDIT' | translate }}
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="modal-footer">
+   <button type="button" class="btn btn-default" ng-click="cancel()">{{ 'CLOSE' | translate }}</button>
+   <button type="button" class="btn btn-primary" ng-click="ok()">{{ 'SAVE' | translate }}</button>
+</div>

@@ -6,7 +6,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 
@@ -19,7 +18,7 @@ public class Exam {
 
     private Integer points;
 
-    @OneToOne(optional = false)
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn(name = "DUTY_ID")
     private Duty duty;
 

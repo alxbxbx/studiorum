@@ -1,0 +1,40 @@
+<div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span
+               aria-hidden="true">&times;</span></button>
+       <h4 class="modal-title" translate="EXAM">FOR {{ exam.dutyDTO.typeOfDuty }}</h4>
+</div>
+<div class="modal-body">
+	<label ng-show="!exam.studentDTO" translate="STUDENT"></label>
+    <div ng-show="!exam.studentDTO" class="input-group">
+	  <span class="input-group-addon">
+	      <span class="glyphicon glyphicon-link"></span>
+	  </span>
+      <select ng-model="studentId" name="typeOfDuty" class="form-control"
+              describedby="duty-type-addon">
+          <option ng-repeat="student in dnd.listOfAttendingStudents" value="{{ student.id }}"> {{student.lastName}} {{student.name}} {{ student.studentId }} </option>
+      </select>
+    </div>
+    
+    
+    <!-- Points -->
+    <label translate="POINTS"></label>
+    <div class="input-group">
+      <span class="input-group-addon">
+          <span class=" glyphicon glyphicon-edit"></span>
+      </span>
+        <input ng-model="exam.points" type="number" name="points" class="form-control" placeholder="{{ 'POINTS' | translate }}">
+    </div>
+    
+    <!-- Pass -->
+    <label translate="PASS"></label>
+    <div class="input-group">
+      <span class="input-group-addon">
+          <span class=" glyphicon glyphicon-edit"></span>
+      </span>
+        <input ng-model="exam.pass" type="checkbox" name="points" class="form-control" placeholder="{{ 'POINTS' | translate }}">
+    </div>
+</div>
+<div class="modal-footer">
+   <button type="button" class="btn btn-default" ng-click="cancel()">{{ 'CLOSE' | translate }}</button>
+   <button type="button" class="btn btn-primary" ng-click="ok()">{{ 'SAVE' | translate }}</button>
+</div>

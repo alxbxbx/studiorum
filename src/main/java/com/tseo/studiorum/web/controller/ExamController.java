@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.tseo.studiorum.web.dto.ExamDTO;
 import com.tseo.studiorum.annotations.Permission;
 import com.tseo.studiorum.entities.Duty;
@@ -53,6 +54,19 @@ public class ExamController {
         return new ResponseEntity<>(new ExamDTO(exam), HttpStatus.OK);
     }
     
+    @Permission(roles = {"user", "professor", "student"})
+    @RequestMapping(value="/duty/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<ExamDTO>> getExamsByDuty(@PathVariable Integer id) {
+    	Duty duty = dutyService.findOne(id);
+        List<Exam> exams = examService.findByDuty(duty);
+        List<ExamDTO> examsDTO = new ArrayList<ExamDTO>();
+        for (Exam exam : exams) {
+            examsDTO.add(new ExamDTO(exam));
+        }
+        return new ResponseEntity<>(examsDTO, HttpStatus.OK);
+    }
+    
+    
     @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ExamDTO> saveExam(@RequestBody ExamDTO examDTO) {
@@ -68,6 +82,8 @@ public class ExamController {
         exam.setStudent(student);
         exam.setPoints(examDTO.getPoints());
         exam = examService.save(exam);
+        student.getExams().add(exam);
+        studentService.save(student);
         return new ResponseEntity<>(new ExamDTO(exam), HttpStatus.OK);
     }
     
@@ -90,6 +106,9 @@ public class ExamController {
         if (exam == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {
+        	Student student = studentService.findOne(exam.getStudent().getId());
+        	student.getExams().remove(exam);
+        	studentService.save(student);
             examService.remove(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }

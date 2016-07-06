@@ -3,7 +3,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<i class="fa fa-university fa-fw"></i> {{ 'CDETAILS' | translate }}
-				<a href="" ng-click="editSubject(subject)" style="float:right" class="btn btn-primary btn-xs" role="button">
+				<a ng-if="hasRole(['student']) || hasRole(['user'])" href="" ng-click="editSubject(subject)" style="float:right" class="btn btn-primary btn-xs" role="button">
                     <span class="glyphicon glyphicon-pencil"></span> {{ 'EDIT' | translate }}
                 </a>
 			</div>

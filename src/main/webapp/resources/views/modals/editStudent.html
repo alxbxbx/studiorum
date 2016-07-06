@@ -47,51 +47,6 @@
         <input ng-model="user.passwordAgain" type="password" class="form-control" placeholder="Password Again">
     </div>
 
-    <div ng-if="hasRole(['student']) || hasRole(['professor']) || user.isStudent || user.isProfessor" class="row">
-        <!-- Date of Birth -->
-        <div class="col-lg-6">
-            <label translate="DATEOFBIRTH"></label>
-            <div class="input-group">
-		        <span class="input-group-addon">
-		            <span class=" glyphicon glyphicon-calendar"></span>
-		        </span>
-                <input ng-model="user.dateOfBirth" type="date" class="form-control" placeholder="Date of Birth">
-            </div>
-        </div>
-        <!-- Gender -->
-        <div class="col-lg-6">
-            <label translate="GENDER"></label>
-            <div class="input-group">
-		        <span class="input-group-addon">
-		            <span class="glyphicon glyphicon-link"></span>
-		        </span>
-                <select ng-model="user.gender" id="user-date-of-birth" name="dateOfBirth" class="form-control"
-                        describedby="user-gender-addon">
-                    <option value="male"> male </option>
-                    <option value="female"> female </option>
-                </select>
-            </div>
-        </div>
-    </div>
-
-    <!-- Address -->
-    <label ng-if="hasRole(['student']) || hasRole(['professor']) || user.isStudent || user.isProfessor" translate="ADRESS"></label>
-    <div ng-if="hasRole(['student']) || hasRole(['professor']) || user.isStudent || user.isProfessor" class="input-group">
-      <span class="input-group-addon">
-          <span class=" glyphicon glyphicon-home"></span>
-      </span>
-        <input ng-model="user.address" type="text" class="form-control" placeholder="Address">
-    </div>
-
-    <!-- JMBG -->
-    <label ng-if="hasRole(['student']) || hasRole(['professor']) || user.isStudent || user.isProfessor" translate="UNIQUEID"></label>
-    <div ng-if="hasRole(['student']) || hasRole(['professor']) || user.isStudent || user.isProfessor" class="input-group">
-      <span class="input-group-addon">
-          <span class=" glyphicon glyphicon-edit"></span>
-      </span>
-        <input ng-model="user.jmbg" type="text" name="jmbg" class="form-control" placeholder="Enter JMBG">
-    </div>
-
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" ng-click="cancel()">{{ 'CLOSE' | translate }}</button>

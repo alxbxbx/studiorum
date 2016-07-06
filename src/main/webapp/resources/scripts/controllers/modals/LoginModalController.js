@@ -13,7 +13,7 @@ angular.module('studiorum').controller('LoginModalController', ['$http', '$scope
                 $uibModalInstance.close('ok');
                 window.location = "/#/";
             }, function (error) {
-                $scope.error = error;
+                $scope.error = error.data.message;
             });
         };
 

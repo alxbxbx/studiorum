@@ -84,7 +84,7 @@
             		<th>{{ 'PASS' | translate }}</th>
             	</tr>
 				<tr ng-repeat="exam in exams">
-					<td>{{ exam.dutyDTO.subjectDTO.name }}</td>	
+					<td>{{ exam.dutyDTO.subjectDTO.name }}</td>
 					<td>{{ exam.dutyDTO.typeOfDuty }}</td>
 					<td>{{ exam.points }}</td>
 					<td>{{ exam.dutyDTO.maxPoints }}</td>
@@ -160,7 +160,7 @@
                             </tr>
                             <tr ng-repeat="payment in payments">
                                 <td>{{ payment.recipient }}</td>
-								<td>{{ payment.purpose }}</td>	
+								<td>{{ payment.purpose }}</td>
 								<td>{{ payment.price }} {{ 'RSD' | translate}}</td>
 								<td>{{ payment.bankAcc }}</td>
 								<td style="width:65px;text-align:right;">

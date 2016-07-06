@@ -2,8 +2,8 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="glyphicon glyphicon-list"></span> {{ professor.name }}'s {{ 'DETAILS' | translate }}
-                <a href="" style="float:right" ng-click="openModal(professor)" class="btn btn-primary btn-xs"
+                <span class="glyphicon glyphicon-list"></span> {{ user.name }}'s {{ 'DETAILS' | translate }}
+                <a href="" style="float:right" ng-click="openModal(user)" class="btn btn-primary btn-xs"
                    role="button">
                     <span class="glyphicon glyphicon-pencil"></span> {{ 'EDITPROFILEDATA' | translate }}
                 </a>
@@ -11,10 +11,10 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-3">
-                        <img ng-if="!professor.picturePath" class="img-responsive img-thumbnail"
+                        <img ng-if="!user.picturePath" class="img-responsive img-thumbnail"
                              src="/static/images/profile.png"/>
-                        <img ng-if="professor.picturePath" class="img-responsive img-thumbnail"
-                             src="{{professor.picturePath}}"/>
+                        <img ng-if="user.picturePath" class="img-responsive img-thumbnail"
+                             src="{{user.picturePath}}"/>
                         <a href="" style="float:right" ngf-select="uploadPicture($file)" accept="*/*"
                            class="btn btn-success btn-xs" role="button">
                             <i class="fa fa-spinner fa-spin fa-fw" ng-if="loading"></i>
@@ -26,35 +26,35 @@
                         <table class="table table-striped">
                             <tr>
                                 <th>{{ 'NAME' | translate }}:</th>
-                                <td>{{ professor.lastName }} {{ professor.name }}</td>
+                                <td>{{ user.lastName }} {{ user.name }}</td>
                             </tr>
                             <tr>
                                 <th>{{ 'USERNAME' | translate }}:</th>
-                                <td>{{ professor.userName }}</td>
+                                <td>{{ user.userName }}</td>
                             </tr>
                             <tr>
                                 <th>{{ 'GENDER' | translate }}:</th>
-                                <td>{{ professor.gender }}</td>
+                                <td>{{ user.gender }}</td>
                             </tr>
                             <tr>
                                 <th>{{ 'DATEOFBIRTH' | translate }}:</th>
-                                <td>{{ professor.dateOfBirth | date:'yyyy-MM-dd'}}</td>
+                                <td>{{ user.dateOfBirth | date:'yyyy-MM-dd'}}</td>
                             </tr>
                             <tr>
                                 <th>{{ 'ADRESS' | translate }}:</th>
-                                <td>{{ professor.address }}</td>
+                                <td>{{ user.address }}</td>
                             </tr>
                             <tr>
                                 <th>{{ 'UNIQUEID' | translate }}:</th>
-                                <td>{{ professor.jmbg }}</td>
+                                <td>{{ user.jmbg }}</td>
                             </tr>
                             <tr>
                                 <th>{{ 'PROFESSORID' | translate }}:</th>
-                                <td>{{ professor.id }}</td>
+                                <td>{{ user.id }}</td>
                             </tr>
                             <tr>
                                 <th>{{ 'PROFESSORTITLE' | translate }}:</th>
-                                <td>{{ professor.title }}</td>
+                                <td>{{ user.title }}</td>
                             </tr>
                         </table>
                     </div>

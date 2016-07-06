@@ -341,6 +341,38 @@ angular.module('studiorum')
  	     	        };
  	     	
  	     	}];
+            
+            $scope.editSubject = function(subject){
+            	var modalInstance = $uibModal.open({
+                    templateUrl: '/static/views/modals/subject.html',
+                    controller: EditSubjectCtrl,
+                    scope: $scope,
+                    resolve: {
+                    	subject: function () {
+                            return subject;
+                        }
+                    }
+                });
+                modalInstance.result.then(function (value) {
+                    $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+                }, function (value) {
+                    $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+                });
+            }
+            var EditSubjectCtrl = ['$scope', '$uibModalInstance', 'subject', 'Restangular', '$log', '_',
+   	     	    function ($scope, $uibModalInstance, subject, Restangular, $log, _) {
+            		$scope.subject = subject;
+   	     	        $scope.ok = function () {
+	   	     	        Restangular.all('subjects').customPUT($scope.subject).then(function (data) {
+	                        
+	                    });
+   	     	            $uibModalInstance.close('ok');
+   	     	        };
+   	     	        $scope.cancel = function () {
+   	     	            $uibModalInstance.dismiss('cancel');
+   	     	        };
+   	     	
+   	     	}];
 
             $scope.getSubject();
             $scope.getStudents();

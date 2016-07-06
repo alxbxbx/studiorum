@@ -93,6 +93,10 @@
 	"POINTS": "Points",
 	"PASS": "Pass",
 	"STUDENT": "Student",
-	"RESULTS": "Results"
+	"RESULTS": "Results",
+	"SUBJECT": "Subject",
+	"PASSNOTMATCH": "Passwords did not match!",
+	"WARNING": "Warning",
+	"FILLALLFIELDS": "You didn't fill all fields"
 	
 }

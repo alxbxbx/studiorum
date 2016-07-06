@@ -1,8 +1,8 @@
  'use strict';
 
 angular.module('studiorum')
-    .controller('StudentController', ['$scope', 'Restangular', '$uibModal', '$log', '_', '$routeParams', 'Upload', '$timeout', '$http', '$location',
-        function ($scope, Restangular, $uibModal, $log, _, $routeParams, Upload, $timeout, $http, $location) {
+    .controller('StudentController', ['$rootScope','$scope', 'Restangular', '$uibModal', '$log', '_', '$routeParams', 'Upload', '$timeout', '$http', '$location',
+        function ($rootScope, $scope, Restangular, $uibModal, $log, _, $routeParams, Upload, $timeout, $http, $location) {
     		
             // Initialization
             $scope.user = {};
@@ -41,6 +41,12 @@ angular.module('studiorum')
                     $scope.user = user;
                 });
             };
+            
+            $scope.getExams = function(){
+            	Restangular.one("students/" + $routeParams.id + "/exams").get().then(function (exams) {
+                    $scope.exams = exams;
+                });
+            }
 
             $scope.previewFile = function (fileId) {
                 var path = '/api/students/' + $routeParams.id + "/files/" + fileId;
@@ -97,17 +103,19 @@ angular.module('studiorum')
 
             $scope.openModal = function (user) {
                 var modalInstance = $uibModal.open({
-                    templateUrl: '/static/views/modals/studentModal.html',
+                    templateUrl: '/static/views/modals/editStudent.html',
                     controller: 'UserModalController',
                     scope: $scope,
                     resolve: {
-                        user: function () {
+                    	user: function () {
                             return user;
                         }
                     }
                 });
                 modalInstance.result.then(function (value) {
+                	$scope.getStudent();
                 }, function (value) {
+                	$scope.getStudent();
                 });
             };
             
@@ -227,5 +235,6 @@ angular.module('studiorum')
             $scope.getFiles();
             $scope.getSubjects();
             $scope.getPayments();
+            $scope.getExams();
 
         }]);

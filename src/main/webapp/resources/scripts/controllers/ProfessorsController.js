@@ -35,6 +35,7 @@ angular.module('studiorum').controller('ProfessorsController', ['$scope', 'Resta
         modalInstance.result.then(function (value) {
             $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
         }, function (value) {
+        	loadListOfProfessors();
             $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
         });
     };

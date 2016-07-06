@@ -102,7 +102,7 @@ public class StudentController {
         return new ResponseEntity<>(new StudentDTO(student), HttpStatus.OK);
     }
     
-    @Permission(roles = {"user", "professor"})
+    @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO studentDTO) {
         Student student = studentService.findOne(studentDTO.getId());

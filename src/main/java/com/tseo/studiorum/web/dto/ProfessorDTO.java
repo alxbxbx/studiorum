@@ -17,6 +17,7 @@ public class ProfessorDTO {
 	private String address;
 	private String JMBG;
 	private String title;
+	private String picturePath;
 	
 	public ProfessorDTO(Professor professor){
 		this.id = professor.getId();
@@ -30,10 +31,19 @@ public class ProfessorDTO {
 		this.address = professor.getAddress();
 		this.JMBG = professor.getJMBG();
 		this.title = professor.getTitle();
+		this.picturePath = professor.getPicturePath();
 	}
 	
 	public ProfessorDTO(){}
 	
+	public String getPicturePath() {
+		return picturePath;
+	}
+
+	public void setPicturePath(String picturePath) {
+		this.picturePath = picturePath;
+	}
+
 	public String getGender() {
 		return gender;
 	}

@@ -52,5 +52,25 @@ angular.module('studiorum')
                     };
 
                 }];
+            
+            $scope.uploadPicture = function (file) {
+                $scope.file = file;
+                if (file) {
+                    $scope.loading = true;
+                    Upload.upload({
+                        url: '/api/professors/' + $scope.user.id + '/pictures',
+                        data: {file: file}
+                    }).then(function (response) {
+                        $timeout(function () {
+                        	$scope.getUser();
+                            $scope.loading = false;
+                        });
+                    }, function (response) {
+                        $scope.loading = false;
+                    }, function (evt) {
+                        $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                    });
+                }
+            };
 
         }]);

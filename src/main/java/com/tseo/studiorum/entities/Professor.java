@@ -17,6 +17,7 @@ public class Professor extends User {
     private String address;
     private String JMBG;
     private String title;
+    private String picturePath;
 
     @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     private Set<ProfessorRole> roles = new HashSet<ProfessorRole>();
@@ -25,18 +26,27 @@ public class Professor extends User {
 
     }
 
-    public Professor(String gender, Date dateOfBirth, String address, String jMBG, String title,
+    public Professor(String gender, Date dateOfBirth, String address, String picturePath, String jMBG, String title,
                      Set<ProfessorRole> roles) {
         super();
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
+        this.picturePath = picturePath;
         JMBG = jMBG;
         this.title = title;
         this.roles = roles;
     }
 
-    public Set<ProfessorRole> getRoles() {
+    public String getPicturePath() {
+		return picturePath;
+	}
+
+	public void setPicturePath(String picturePath) {
+		this.picturePath = picturePath;
+	}
+
+	public Set<ProfessorRole> getRoles() {
         return roles;
     }
 

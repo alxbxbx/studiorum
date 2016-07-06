@@ -105,7 +105,7 @@ angular.module('studiorum')
             $scope.openModal = function (user) {
                 var modalInstance = $uibModal.open({
                     templateUrl: '/static/views/modals/editStudent.html',
-                    controller: 'UserModalController',
+                    controller: StudentEditCtrl,
                     scope: $scope,
                     resolve: {
                         user: function () {
@@ -119,6 +119,56 @@ angular.module('studiorum')
                     $scope.getStudent();
                 });
             };
+            
+            var StudentEditCtrl = ['$scope', '$uibModalInstance', 'user', 'Restangular', '$log', '_',
+             function ($scope, $uibModalInstance, user, Restangular, $log, _) {
+                 $scope.ok = function () {
+                 	if($scope.user.password != $scope.user.passwordAgain){
+                 		$scope.passwordModal();
+                 	}else if(($scope.user.name == "") || ($scope.user.lastName == "") || ($scope.user.username == "")){
+                 		$scope.wrongModal();
+                 	}
+                 	else{
+                 		if ($scope.user.id) {
+                             Restangular.all('students').customPUT($scope.user).then(function (data) {
+                             });
+                         }
+                 		$uibModalInstance.close('ok');  
+                         
+                 	}
+                 };
+
+                 $scope.cancel = function () {
+                     $uibModalInstance.dismiss('cancel');
+                 };
+
+
+             }];
+            $scope.passwordModal = function () {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '/static/views/modals/noPassword.html',
+                    controller: 'PasswordModalController',
+                    scope: $scope,
+                    resolve: {
+                    }
+                });
+                modalInstance.result.then(function (value) {
+                }, function (value) {
+                });
+            };
+            $scope.wrongModal = function () {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '/static/views/modals/wrongData.html',
+                    controller: 'PasswordModalController',
+                    scope: $scope,
+                    resolve: {
+                    }
+                });
+                modalInstance.result.then(function (value) {
+                }, function (value) {
+                });
+            };
+            
 
             $scope.deleteModal = function (id) {
                 var modalInstance = $uibModal.open({

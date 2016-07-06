@@ -3,7 +3,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<i class="fa fa-university fa-fw"></i> {{ 'CDETAILS' | translate }}
-				<a ng-if="hasRole(['student']) || hasRole(['user'])" href="" ng-click="editSubject(subject)" style="float:right" class="btn btn-primary btn-xs" role="button">
+				<a ng-if="hasRole(['professor']) || hasRole(['user'])" href="" ng-click="editSubject(subject)" style="float:right" class="btn btn-primary btn-xs" role="button">
                     <span class="glyphicon glyphicon-pencil"></span> {{ 'EDIT' | translate }}
                 </a>
 			</div>
@@ -23,7 +23,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <i class="fa fa-calendar fa-fw"></i> {{ 'DUTIES' | translate }}
-                <a href="" ng-click="openModal(duty)" style="float:right" class="btn btn-success btn-xs" role="button">
+                <a ng-if="hasRole(['professor']) || hasRole(['user'])" href="" ng-click="openModal(duty)" style="float:right" class="btn btn-success btn-xs" role="button">
                     <span class="glyphicon glyphicon-plus"></span> {{ 'CREATENEW' | translate }}
                 </a>
             </div>
@@ -40,17 +40,17 @@
                         <td>{{ duty.maxPoints }}</td>
                         <td>{{ duty.date | date:'yyyy-MM-dd HH:mm' }}</td>
                         <td style="text-align:right">
-                            <a href="" ng-click="findExams(duty)" class="btn btn-info btn-xs" role="button">
+                            <a ng-if="hasRole(['professor']) || hasRole(['user'])" href="" ng-click="findExams(duty)" class="btn btn-info btn-xs" role="button">
                                 <i class="fa fa-bars fa-fw"></i> {{ 'RESULTS' | translate }}
                             </a>
 
-                            <a href="" ng-click="dutyExam(duty)" class="btn btn-success btn-xs" role="button">
+                            <a ng-if="hasRole(['professor']) || hasRole(['user'])" href="" ng-click="dutyExam(duty)" class="btn btn-success btn-xs" role="button">
                                 <span class="glyphicon glyphicon-plus"></span> {{ 'ADDRESULT' | translate }}
                             </a>
-                            <a class="btn btn-danger btn-xs" role="button" ng-click="deleteDuty(duty.id)">
+                            <a ng-if="hasRole(['professor']) || hasRole(['user'])" class="btn btn-danger btn-xs" role="button" ng-click="deleteDuty(duty.id)">
                                 <span class="glyphicon glyphicon-remove"></span> {{ 'DELETE' | translate }}
                             </a>
-                            <a class="btn btn-primary btn-xs" role="button" ng-click="openModal(duty)">
+                            <a ng-if="hasRole(['professor']) || hasRole(['user'])" class="btn btn-primary btn-xs" role="button" ng-click="openModal(duty)">
                                 <span class="glyphicon glyphicon-pencil"></span> {{ 'EDIT' | translate }}
                             </a>
                         </td>
@@ -66,7 +66,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <i class="fa fa-users fa-fw"></i> {{ 'PROFESSORS' | translate }}
-                <a href="" ng-click="openModalAddProfessor(subject)" style="float:right" class="btn btn-success btn-xs" role="button">
+                <a ng-if="hasRole(['professor']) || hasRole(['user'])" href="" ng-click="openModalAddProfessor(subject)" style="float:right" class="btn btn-success btn-xs" role="button">
                     <span class="glyphicon glyphicon-plus"></span> {{ 'CREATENEW' | translate }}
                 </a>
             </div>
@@ -81,7 +81,7 @@
                         <td><a href="/#/professors/{{ professorRole.professorDTO.id }}">{{ professorRole.professorDTO.title }} {{ professorRole.professorDTO.name }} {{ professorRole.professorDTO.lastName }}</a></td>
                         <td>{{ professorRole.role }}</td>
                         <td style="width:100px;text-align:right;">
-                            <a class="btn btn-danger btn-xs" role="button" ng-click="deleteProfessorRole(professorRole.id)">
+                            <a ng-if="hasRole(['professor']) || hasRole(['user'])" class="btn btn-danger btn-xs" role="button" ng-click="deleteProfessorRole(professorRole.id)">
                                 <span class="glyphicon glyphicon-remove"></span> {{ 'DELETE' | translate }}
                             </a>
                         </td>
@@ -97,7 +97,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <i class="fa fa-check fa-fw"></i> {{ 'ATTENDINGSTUDENTS' | translate }}
-                <button type="hidden" style="float:right" class="btn btn-xs btn-primary" style="float: right" ng-click="save()"><i class="fa fa-save fa-fw"></i> {{ 'SAVE' | translate }}</button>
+                <button ng-if="hasRole(['professor']) || hasRole(['user'])" type="hidden" style="float:right" class="btn btn-xs btn-primary" style="float: right" ng-click="save()"><i class="fa fa-save fa-fw"></i> {{ 'SAVE' | translate }}</button>
             </div>
             <div class="panel-body">
                 <ul class="dragAndDrop" dnd-list="dnd.listOfAttendingStudents">
@@ -113,7 +113,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6">
+    <div ng-if="hasRole(['professor']) || hasRole(['user'])" class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="input-group" style="margin-bottom: 0px;">

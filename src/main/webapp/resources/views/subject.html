@@ -17,54 +17,79 @@
         </div>
     </div>
 </div>
+
 <div class="row">
-	<div class="col-sm-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<i class="fa fa-calendar fa-fw"></i> {{ 'DUTIES' | translate }}
-				<a href="" ng-click="openModal(duty)" style="float:right" class="btn btn-success btn-xs" role="button">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-calendar fa-fw"></i> {{ 'DUTIES' | translate }}
+                <a href="" ng-click="openModal(duty)" style="float:right" class="btn btn-success btn-xs" role="button">
                     <span class="glyphicon glyphicon-plus"></span> {{ 'CREATENEW' | translate }}
                 </a>
-			</div>
+            </div>
             <div class="panel-body">
                 <table class="table table-striped">
-                	<tr>
-                		<th>{{ 'TYPEOFDUTY' | translate }}</th>
-                		<th>{{ 'MAXPOINTS' | translate  }}</th>
-                		<th>{{ 'DATE' | translate }}</th>
-                		<th colspan="4"></th>
-                	</tr>
+                    <tr>
+                        <th>{{ 'TYPEOFDUTY' | translate }}</th>
+                        <th>{{ 'MAXPOINTS' | translate  }}</th>
+                        <th>{{ 'DATE' | translate }}</th>
+                        <th></th>
+                    </tr>
                     <tr ng-repeat="duty in duties | orderBy : 'date'">
-						<td>{{ duty.typeOfDuty }}</td>
-						<td>{{ duty.maxPoints }}</td>
-						<td>{{ duty.date | date:'yyyy-MM-dd HH:mm' }}</td>
-						
-						<td>
-							<a href="" ng-click="findExams(duty)" style="float:right" class="btn btn-info btn-xs" role="button">
-			                    <span class="glyphicon glyphicon-folder-open"></span> {{ 'RESULTS' | translate }}
-			                </a>
-						</td>
-						<td>
-							<a href="" ng-click="dutyExam(duty)" style="float:right" class="btn btn-success btn-xs" role="button">
-			                    <span class="glyphicon glyphicon-plus"></span> {{ 'ADDRESULT' | translate }}
-			                </a>
-						</td>
-						
-						<td style="width:100px;text-align:right;">
-                        <a class="btn btn-danger btn-xs" role="button" ng-click="deleteDuty(duty.id)">
-                            <span class="glyphicon glyphicon-remove"></span> {{ 'DELETE' | translate }}
-                        </a>
-	                    </td>
-	                    <td style="width:65px;text-align:right;">
-	                        <a class="btn btn-primary btn-xs" role="button" ng-click="openModal(duty)">
-	                            <span class="glyphicon glyphicon-pencil"></span> {{ 'EDIT' | translate }}
-	                        </a>
-	                    </td>
-					</tr>
+                        <td>{{ duty.typeOfDuty }}</td>
+                        <td>{{ duty.maxPoints }}</td>
+                        <td>{{ duty.date | date:'yyyy-MM-dd HH:mm' }}</td>
+                        <td style="text-align:right">
+                            <a href="" ng-click="findExams(duty)" class="btn btn-info btn-xs" role="button">
+                                <i class="fa fa-bars fa-fw"></i> {{ 'RESULTS' | translate }}
+                            </a>
+
+                            <a href="" ng-click="dutyExam(duty)" class="btn btn-success btn-xs" role="button">
+                                <span class="glyphicon glyphicon-plus"></span> {{ 'ADDRESULT' | translate }}
+                            </a>
+                            <a class="btn btn-danger btn-xs" role="button" ng-click="deleteDuty(duty.id)">
+                                <span class="glyphicon glyphicon-remove"></span> {{ 'DELETE' | translate }}
+                            </a>
+                            <a class="btn btn-primary btn-xs" role="button" ng-click="openModal(duty)">
+                                <span class="glyphicon glyphicon-pencil"></span> {{ 'EDIT' | translate }}
+                            </a>
+                        </td>
+                    </tr>
                 </table>
             </div>
-        </div>	
-	</div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-users fa-fw"></i> {{ 'PROFESSORS' | translate }}
+                <a href="" ng-click="openModalAddProfessor(subject)" style="float:right" class="btn btn-success btn-xs" role="button">
+                    <span class="glyphicon glyphicon-plus"></span> {{ 'CREATENEW' | translate }}
+                </a>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>{{ 'PROFESSOR' | translate }}</th>
+                        <th>{{ 'ROLE' | translate }}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="professorRole in professorRoles">
+                        <td><a href="/#/professors/{{ professorRole.professorDTO.id }}">{{ professorRole.professorDTO.title }} {{ professorRole.professorDTO.name }} {{ professorRole.professorDTO.lastName }}</a></td>
+                        <td>{{ professorRole.role }}</td>
+                        <td style="width:100px;text-align:right;">
+                            <a class="btn btn-danger btn-xs" role="button" ng-click="deleteProfessorRole(professorRole.id)">
+                                <span class="glyphicon glyphicon-remove"></span> {{ 'DELETE' | translate }}
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row">
@@ -72,7 +97,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <i class="fa fa-check fa-fw"></i> {{ 'ATTENDINGSTUDENTS' | translate }}
-                <button type="hidden" style="float:right" class="btn btn-xs btn-primary" style="float: right" ng-click="save()">{{ 'SAVE' | translate }}</button>
+                <button type="hidden" style="float:right" class="btn btn-xs btn-primary" style="float: right" ng-click="save()"><i class="fa fa-save fa-fw"></i> {{ 'SAVE' | translate }}</button>
             </div>
             <div class="panel-body">
                 <ul class="dragAndDrop" dnd-list="dnd.listOfAttendingStudents">

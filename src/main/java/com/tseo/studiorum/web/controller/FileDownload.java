@@ -23,12 +23,12 @@ import com.tseo.studiorum.service.DocumentService;
 public class FileDownload {
 	@Autowired
     Environment env;
-	
+
 	@Autowired
     DocumentService documentService;
-	
+
 	private static final int BUFFER_SIZE = 4096;
-	
+
 	@RequestMapping(value = "/download/{studentId}/{fileId}", method = RequestMethod.GET)
 	public void doGet(HttpServletResponse response, @PathVariable Integer studentId, @PathVariable Integer fileId){
 		Document document = null;
@@ -37,7 +37,7 @@ public class FileDownload {
             document = documentService.findOne(fileId);
             File file = new File(env.getProperty("storage") + document.getPath());
             is = new FileInputStream(file);
-            
+
             String mimeType = "application/octet-stream";
             response.setContentType(mimeType);
             response.setContentLength((int) file.length());
@@ -45,22 +45,22 @@ public class FileDownload {
             String headerValue = String.format("attachment; filename=\"%s\"",
                     file.getName());
             response.setHeader(headerKey, headerValue);
-            
+
             OutputStream outStream = response.getOutputStream();
-            
+
             byte[] buffer = new byte[BUFFER_SIZE];
             int bytesRead = -1;
-     
+
             while ((bytesRead = is.read(buffer)) != -1) {
                 outStream.write(buffer, 0, bytesRead);
             }
-            
+
             is.close();
             outStream.flush();
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 	}
-	
+
 }

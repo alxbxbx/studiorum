@@ -19,7 +19,7 @@
                 </tr>
                 <tr ng-repeat="professor in professors">
                     <td>{{ professor.id }}</td>
-                    <td>{{ professor.lastName }} {{ professor.name }}</td>
+                    <td><a href="/#/professors/{{ professor.id }}">{{ professor.lastName }} {{ professor.name }}</a></td>
                     <td>{{ professor.jmbg }}</td>
                     <td>{{ professor.address }}</td>
                     <td>{{ professor.dateOfBirth | date:'yyyy-MM-dd'}}</td>

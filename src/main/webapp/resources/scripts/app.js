@@ -46,6 +46,11 @@ angular.module('studiorum', [
                 controller: 'SubjectController',
                 controllerAs: 'subjectCtrl'
             })
+            .when('/professors/:id', {
+                templateUrl: '/static/views/professor.html',
+                controller: 'ProfessorController',
+                controllerAs: 'professorCtrl'
+            })
             .when('/about', {
                 templateUrl: '/static/views/about.html',
                 controller: 'AboutController',

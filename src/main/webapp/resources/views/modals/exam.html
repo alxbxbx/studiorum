@@ -14,8 +14,8 @@
           <option ng-repeat="student in dnd.listOfAttendingStudents" value="{{ student.id }}"> {{student.lastName}} {{student.name}} {{ student.studentId }} </option>
       </select>
     </div>
-    
-    
+
+
     <!-- Points -->
     <label translate="POINTS"></label>
     <div class="input-group">
@@ -24,15 +24,15 @@
       </span>
         <input ng-model="exam.points" type="number" name="points" class="form-control" placeholder="{{ 'POINTS' | translate }}">
     </div>
-    
+
     <!-- Pass -->
-    <label translate="PASS"></label>
     <div class="input-group">
       <span class="input-group-addon">
-          <span class=" glyphicon glyphicon-edit"></span>
+        <input ng-model="exam.pass" type="checkbox" aria-label="...">
       </span>
-        <input ng-model="exam.pass" type="checkbox" name="points" class="form-control" placeholder="{{ 'POINTS' | translate }}">
+        <input type="text" class="form-control" value="{{ 'PASS' | translate }}" readonly="readonly">
     </div>
+
 </div>
 <div class="modal-footer">
    <button type="button" class="btn btn-default" ng-click="cancel()">{{ 'CLOSE' | translate }}</button>

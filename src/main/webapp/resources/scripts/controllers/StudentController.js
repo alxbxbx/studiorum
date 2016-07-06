@@ -3,19 +3,19 @@
 angular.module('studiorum')
     .controller('StudentController', ['$scope', 'Restangular', '$uibModal', '$log', '_', '$routeParams', 'Upload', '$timeout', '$http', '$location',
         function ($scope, Restangular, $uibModal, $log, _, $routeParams, Upload, $timeout, $http, $location) {
-    		
+
             // Initialization
             $scope.user = {};
             $scope.loading = false;
             $scope.user.isStudent = true;
-            
+
             $scope.getPayments = function(){
             	Restangular.one("students/" + $routeParams.id + "/payments").get().then(function (payments) {
                     $scope.payments = payments;
                 });
             }
-            
-            
+
+
             $scope.getFiles = function () {
                 Restangular.one("students/" + $routeParams.id + "/files").get().then(function (files) {
                     $scope.files = files;
@@ -26,7 +26,7 @@ angular.module('studiorum')
                     }
                 });
             };
-            
+
             $scope.getSubjects = function() {
             	Restangular.one("students/" + $routeParams.id + "/subjects").get().then(function (subjects) {
                     $scope.subjects = subjects;
@@ -51,10 +51,11 @@ angular.module('studiorum')
                     window.open(fileURL);
                 });
             };
+            
             $scope.downloadFile = function(fileId){
             	var path = "/download/" + $routeParams.id + "/" + fileId;
             	window.open(path);
-            }
+            };
 
             $scope.uploadFile = function (file) {
                 $scope.file = file;
@@ -110,7 +111,7 @@ angular.module('studiorum')
                 }, function (value) {
                 });
             };
-            
+
             $scope.deleteModal = function (id) {
                 var modalInstance = $uibModal.open({
                     templateUrl: '/static/views/modals/delete.html',
@@ -128,7 +129,7 @@ angular.module('studiorum')
                     $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
                 });
             };
-            
+
             var DocumentDeleteCtrl = ['$scope', '$uibModalInstance', 'id', 'Restangular', '$log', '_',
                 function ($scope, $uibModalInstance, id, Restangular, $log, _) {
                     $scope.ok = function () {
@@ -144,7 +145,7 @@ angular.module('studiorum')
 
 
                 }];
-            
+
             $scope.paymentModal = function (payment) {
                 var modalInstance = $uibModal.open({
                     templateUrl: '/static/views/modals/payment.html',
@@ -188,7 +189,7 @@ angular.module('studiorum')
                       $uibModalInstance.dismiss('cancel');
                   };
               }];
-            
+
             $scope.deletePayment = function (id) {
                 var modalInstance = $uibModal.open({
                     templateUrl: '/static/views/modals/delete.html',

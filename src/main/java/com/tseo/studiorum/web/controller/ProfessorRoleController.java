@@ -33,7 +33,7 @@ public class ProfessorRoleController {
 
     @Autowired
     ProfessorService professorService;
-    
+
     @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<ProfessorRoleDTO>> getProfessorRoles() {
@@ -42,11 +42,21 @@ public class ProfessorRoleController {
         for (ProfessorRole professorRole : professorRoles) {
             profesorRolesDTO.add(new ProfessorRoleDTO(professorRole));
         }
-
         return new ResponseEntity<>(profesorRolesDTO, HttpStatus.OK);
-
     }
-    
+
+    @Permission(roles = {"user", "professor"})
+    @RequestMapping(method = RequestMethod.GET, value = "/subjects/{id}")
+    public ResponseEntity<List<ProfessorRoleDTO>> getProfessorRolesForSubject(@PathVariable Integer id) {
+        Subject subject = subjectService.findOne(id);
+        List<ProfessorRole> professorRoles = prService.findBySubject(subject);
+        List<ProfessorRoleDTO> profesorRolesDTO = new ArrayList<ProfessorRoleDTO>();
+        for (ProfessorRole professorRole : professorRoles) {
+            profesorRolesDTO.add(new ProfessorRoleDTO(professorRole));
+        }
+        return new ResponseEntity<>(profesorRolesDTO, HttpStatus.OK);
+    }
+
     @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ProfessorRoleDTO> saveProfessorRole(@RequestBody ProfessorRoleDTO professorRoleDTO) {
@@ -73,7 +83,7 @@ public class ProfessorRoleController {
 
 
     }
-    
+
     @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<ProfessorRoleDTO> updateProfessorRole(@RequestBody ProfessorRoleDTO professorRoleDTO) {
@@ -87,7 +97,7 @@ public class ProfessorRoleController {
 
         return new ResponseEntity<>(new ProfessorRoleDTO(professorRole), HttpStatus.OK);
     }
-    
+
     @Permission(roles = {"user", "professor"})
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteResponsePayment(@PathVariable Integer id) {

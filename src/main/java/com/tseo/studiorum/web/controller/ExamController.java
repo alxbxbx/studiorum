@@ -66,6 +66,18 @@ public class ExamController {
         return new ResponseEntity<>(examsDTO, HttpStatus.OK);
     }
     
+    @Permission(roles = {"user", "professor", "student"})
+    @RequestMapping(value="/student/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<ExamDTO>> getExamsByStudent(@PathVariable Integer id) {
+    	Student student = studentService.findOne(id);
+        List<Exam> exams = examService.findByStudent(student);
+        List<ExamDTO> examsDTO = new ArrayList<ExamDTO>();
+        for (Exam exam : exams) {
+            examsDTO.add(new ExamDTO(exam));
+        }
+        return new ResponseEntity<>(examsDTO, HttpStatus.OK);
+    }
+    
     
     @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.POST)

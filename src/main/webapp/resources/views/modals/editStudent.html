@@ -1,0 +1,99 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span
+        aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title" translate="STUDENT"></h4>
+</div>
+<div class="modal-body">
+
+    <div class="row">
+        <!-- First Name -->
+        <div class="col-lg-6">
+            <label translate="FIRSTNAME"></label>
+            <div class="input-group">
+                <span class="input-group-addon" id="user-first-name-addon">
+                    <span class=" glyphicon glyphicon-edit"></span>
+                </span>
+                <input ng-model="user.name" type="username" class="form-control" placeholder="First Name">
+            </div>
+        </div>
+
+        <!-- Last Name -->
+        <div class="col-lg-6">
+            <label translate="LASTNAME"></label>
+            <div class="input-group">
+               <span class="input-group-addon" id="user-last-name-addon">
+                   <span class=" glyphicon glyphicon-edit"></span>
+               </span>
+                <input ng-model="user.lastName" type="username" class="form-control" placeholder="Last Name">
+            </div>
+        </div>
+    </div>
+
+    <!-- Password -->
+    <label translate="PASS"></label>
+    <div class="input-group">
+       <span class="input-group-addon">
+           <span class=" glyphicon glyphicon-lock"></span>
+       </span>
+        <input ng-model="user.password" type="password" class="form-control" placeholder="Password">
+    </div>
+
+    <!-- Password Again -->
+    <label translate="PASSAGAIN"></label>
+    <div class="input-group">
+       <span class="input-group-addon">
+           <span class=" glyphicon glyphicon-lock"></span>
+       </span>
+        <input ng-model="user.passwordAgain" type="password" class="form-control" placeholder="Password Again">
+    </div>
+
+    <div ng-if="hasRole(['student']) || hasRole(['professor']) || user.isStudent || user.isProfessor" class="row">
+        <!-- Date of Birth -->
+        <div class="col-lg-6">
+            <label translate="DATEOFBIRTH"></label>
+            <div class="input-group">
+		        <span class="input-group-addon">
+		            <span class=" glyphicon glyphicon-calendar"></span>
+		        </span>
+                <input ng-model="user.dateOfBirth" type="date" class="form-control" placeholder="Date of Birth">
+            </div>
+        </div>
+        <!-- Gender -->
+        <div class="col-lg-6">
+            <label translate="GENDER"></label>
+            <div class="input-group">
+		        <span class="input-group-addon">
+		            <span class="glyphicon glyphicon-link"></span>
+		        </span>
+                <select ng-model="user.gender" id="user-date-of-birth" name="dateOfBirth" class="form-control"
+                        describedby="user-gender-addon">
+                    <option value="male"> male </option>
+                    <option value="female"> female </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Address -->
+    <label ng-if="hasRole(['student']) || hasRole(['professor']) || user.isStudent || user.isProfessor" translate="ADRESS"></label>
+    <div ng-if="hasRole(['student']) || hasRole(['professor']) || user.isStudent || user.isProfessor" class="input-group">
+      <span class="input-group-addon">
+          <span class=" glyphicon glyphicon-home"></span>
+      </span>
+        <input ng-model="user.address" type="text" class="form-control" placeholder="Address">
+    </div>
+
+    <!-- JMBG -->
+    <label ng-if="hasRole(['student']) || hasRole(['professor']) || user.isStudent || user.isProfessor" translate="UNIQUEID"></label>
+    <div ng-if="hasRole(['student']) || hasRole(['professor']) || user.isStudent || user.isProfessor" class="input-group">
+      <span class="input-group-addon">
+          <span class=" glyphicon glyphicon-edit"></span>
+      </span>
+        <input ng-model="user.jmbg" type="text" name="jmbg" class="form-control" placeholder="Enter JMBG">
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()">{{ 'CLOSE' | translate }}</button>
+    <button type="button" class="btn btn-primary" ng-click="ok()">{{ 'SAVE' | translate }}</button>
+</div>

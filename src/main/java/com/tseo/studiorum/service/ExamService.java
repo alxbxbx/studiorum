@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.tseo.studiorum.entities.Duty;
 import com.tseo.studiorum.entities.Exam;
+import com.tseo.studiorum.entities.Student;
 import com.tseo.studiorum.repository.ExamRepository;
 
 @Service
@@ -33,6 +34,10 @@ public class ExamService {
     
     public List<Exam> findByDuty(Duty duty){
     	return examRepository.findByDuty(duty);
+    }
+    
+    public List<Exam> findByStudent(Student student){
+    	return examRepository.findByStudent(student);
     }
 
 }

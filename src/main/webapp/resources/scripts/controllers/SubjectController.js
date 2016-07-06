@@ -116,7 +116,7 @@ angular.module('studiorum')
             };
 
             $scope.getProfessorRoles = function () {
-                Restangular.all("professorRoles/subjects/" + $routeParams.id).getList().then(function(data) {
+                Restangular.all("professorRoles/subjects/" + $routeParams.id).getList().then(function (data) {
                     $scope.professorRoles = data;
                 });
             };
@@ -158,9 +158,6 @@ angular.module('studiorum')
                     };
                 }];
 
-            /* ODJE BURAZERU, ODJE */
-            /* ODJE BURAZERU, ODJE */
-
             $scope.deleteProfessorRole = function (id) {
                 var modalInstance = $uibModal.open({
                     templateUrl: '/static/views/modals/delete.html',
@@ -192,9 +189,6 @@ angular.module('studiorum')
                     };
 
                 }];
-
-            /* ODJE BURAZERU, ODJE */
-            /* ODJE BURAZERU, ODJE */
 
             $scope.openModal = function (duty) {
                 var modalInstance = $uibModal.open({
@@ -259,7 +253,8 @@ angular.module('studiorum')
                 }, function (value) {
                     $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
                 });
-            }
+            };
+
             var StudentDeleteCtrl = ['$scope', '$uibModalInstance', 'id', 'Restangular', '$log', '_',
                 function ($scope, $uibModalInstance, id, Restangular, $log, _) {
                     $scope.ok = function () {
@@ -285,7 +280,8 @@ angular.module('studiorum')
                 }, function (value) {
                     $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
                 });
-            }
+            };
+
             var SuccessCtrl = ['$scope', '$uibModalInstance', 'Restangular', '$log', '_',
                 function ($scope, $uibModalInstance, Restangular, $log, _) {
                     $scope.ok = function () {
@@ -299,7 +295,7 @@ angular.module('studiorum')
             $scope.dutyExam = function (duty) {
                 $scope.exam.dutyDTO = duty;
                 $scope.examModal($scope.exam);
-            }
+            };
 
             $scope.examModal = function (exam) {
                 var modalInstance = $uibModal.open({
@@ -317,7 +313,7 @@ angular.module('studiorum')
                 }, function (value) {
                     $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
                 });
-            }
+            };
 
             var ExamModalCtrl = ['$scope', '$uibModalInstance', 'exam', 'Restangular', '$log', '_',
                 function ($scope, $uibModalInstance, exam, Restangular, $log, _) {
@@ -366,7 +362,8 @@ angular.module('studiorum')
                     $scope.examStudents($scope.exams);
                 });
 
-            }
+            };
+
             $scope.examStudents = function (exams) {
                 var modalInstance = $uibModal.open({
                     templateUrl: '/static/views/modals/examStudents.html',
@@ -383,7 +380,8 @@ angular.module('studiorum')
                 }, function (value) {
                     $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
                 });
-            }
+            };
+
             var ExamStudentModalCtrl = ['$scope', '$uibModalInstance', 'exams', 'Restangular', '$log', '_',
                 function ($scope, $uibModalInstance, exams, Restangular, $log, _) {
                     $scope.ok = function () {
@@ -410,7 +408,7 @@ angular.module('studiorum')
                 }, function (value) {
                     $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
                 });
-            }
+            };
 
             var ExamDeleteCtrl = ['$scope', '$uibModalInstance', 'id', 'Restangular', '$log', '_',
                 function ($scope, $uibModalInstance, id, Restangular, $log, _) {
@@ -419,6 +417,39 @@ angular.module('studiorum')
                             _.remove($scope.exams, {
                                 id: id
                             });
+                        });
+                        $uibModalInstance.close('ok');
+                    };
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+
+                }];
+
+            $scope.editSubject = function (subject) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '/static/views/modals/subject.html',
+                    controller: EditSubjectCtrl,
+                    scope: $scope,
+                    resolve: {
+                        subject: function () {
+                            return subject;
+                        }
+                    }
+                });
+                modalInstance.result.then(function (value) {
+                    $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+                }, function (value) {
+                    $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+                });
+            };
+
+            var EditSubjectCtrl = ['$scope', '$uibModalInstance', 'subject', 'Restangular', '$log', '_',
+                function ($scope, $uibModalInstance, subject, Restangular, $log, _) {
+                    $scope.subject = subject;
+                    $scope.ok = function () {
+                        Restangular.all('subjects').customPUT($scope.subject).then(function (data) {
+
                         });
                         $uibModalInstance.close('ok');
                     };

@@ -124,6 +124,7 @@ angular.module('studiorum').controller('StudentsController', ['$scope', 'Restang
         modalInstance.result.then(function (value) {
             $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
         }, function (value) {
+        	loadListOfStudents(pageNumber);
             $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
         });
     };

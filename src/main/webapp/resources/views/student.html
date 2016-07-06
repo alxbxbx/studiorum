@@ -67,18 +67,31 @@
             </ul>
         </div>
 	</div>
-	<div class="col-lg-6">
+</div>
+<div class="row">
+	<div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-calendar"></span> {{ 'OBLIGATIONS' | translate }}
             </div>
-            <ul class="list-group">
-                <li class="list-group-item">Cras justo odio <span style="float:right;color:#00A000" class="glyphicon glyphicon-ok-sign"></span></li>
-                <li class="list-group-item">Dapibus ac facilisis in <span style="float:right;color:#A00000" class="glyphicon glyphicon-remove-sign"></span></li>
-                <li class="list-group-item">Morbi leo risus <span style="float:right;color:#ba9d37" class="glyphicon glyphicon-question-sign"></span></li>
-                <li class="list-group-item">Porta ac consectetur ac <span style="float:right;color:#00A000" class="glyphicon glyphicon-ok-sign"></span></li>
-                <li class="list-group-item">Vestibulum at eros <span style="float:right;color:#00A000" class="glyphicon glyphicon-ok-sign"></span></li>
-            </ul>
+            <table class="table table-striped">
+            	<tr>
+            		<th>{{ 'SUBJECT' | translate }}</th>
+            		<th>{{ 'TYPEOFDUTY' | translate }}</th>
+            		<th>{{ 'POINTS' | translate }}</th>
+            		<th>{{ 'MAXPOINTS' | translate }}</th>
+            		<th>{{ 'DATE' | translate }}</th>
+            		<th>{{ 'PASS' | translate }}</th>
+            	</tr>
+				<tr ng-repeat="exam in exams">
+					<td>{{ exam.dutyDTO.subjectDTO.name }}</td>	
+					<td>{{ exam.dutyDTO.typeOfDuty }}</td>
+					<td>{{ exam.points }}</td>
+					<td>{{ exam.dutyDTO.maxPoints }}</td>
+					<td>{{ exam.dutyDTO.date | date:'yyyy-MM-dd'}}</td>
+					<td><span style="color:{{exam.pass ? '#00A000' : '#A00000'}}" class="glyphicon glyphicon-{{ exam.pass ? 'ok' : 'remove' }}-sign"></span></td>
+				</tr>
+            </table>
         </div>
     </div>
 </div>

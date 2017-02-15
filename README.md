@@ -7,8 +7,8 @@ This is e-learning application developed by students for Facutly of Technical Sc
   - *gem install compass*
 - Install Node.js
 - Install Node.js's modul grunt-cli and bower globaly
-  - *npm install grunt-cli  -g*
-  - *npm install bower -g*
+  - *npm install grunt-cli  -g* (globally)
+  - *npm install bower -g* (globally)
 - In project root folder, install bower dependencies and Node.js local modules
   - *bower install*
   - *npm install* 

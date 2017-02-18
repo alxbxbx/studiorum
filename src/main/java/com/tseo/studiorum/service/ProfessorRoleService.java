@@ -2,12 +2,11 @@ package com.tseo.studiorum.service;
 
 import java.util.List;
 
-import com.tseo.studiorum.entities.Professor;
-import com.tseo.studiorum.entities.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tseo.studiorum.entities.ProfessorRole;
+import com.tseo.studiorum.entities.Subject;
 import com.tseo.studiorum.repository.ProfessorRoleRepository;
 
 @Service

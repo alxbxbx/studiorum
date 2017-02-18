@@ -13,27 +13,27 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <li ng-if="hasRole(['professor'])">
-                    <a href="/#/professors/{{ loggedUserData.id }}">
+                    <a href="/#!/professors/{{ loggedUserData.id }}">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span> &nbsp;&nbsp; {{ loggedUserData.username }}
                     </a>
                 </li>
                 <li ng-if="hasRole(['student'])">
-                    <a href="/#/students/{{ loggedUserData.id }}">
+                    <a href="/#!/students/{{ loggedUserData.id }}">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span> &nbsp;&nbsp; {{ loggedUserData.username }}
                     </a>
                 </li>
                 <li ng-if="hasRole(['user', 'professor'])">
-                    <a href="/#/students">
+                    <a href="/#!/students">
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> &nbsp;&nbsp;{{ 'STUDENTS' | translate }}
                     </a>
                 </li>
                 <li ng-if="hasRole(['user'])">
-                    <a href="/#/professors">
+                    <a href="/#!/professors">
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> &nbsp;&nbsp;{{ 'PROFESSORS' | translate }}
                     </a>
                 </li>
                 <li ng-if="hasRole(['user', 'professor'])">
-                    <a href="/#/subjects">
+                    <a href="/#!/subjects">
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> &nbsp;&nbsp;{{ 'SUBJECTS' | translate }}
                     </a>
                 </li>

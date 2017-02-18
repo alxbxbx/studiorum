@@ -2,6 +2,8 @@
 This is e-learning application developed by students for Facutly of Technical Science, Novi Sad.
 
 # Developer Environment Setup
+- Install Java
+- Install Maven
 - Install Ruby
 - Install Ruby's gem compass
   - *gem install compass*
@@ -14,3 +16,6 @@ This is e-learning application developed by students for Facutly of Technical Sc
   - *npm install* 
 - Run Grunt to generate static files for development
   - *grunt --force buildDev*
+- Create application.properties in src/main/resources relative to application.properties.dist
+  - *set storage path (destination for uploaded documents)
+  - *set picture_storage path (destination for uploaded pictures)

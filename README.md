@@ -17,5 +17,5 @@ This is e-learning application developed by students for Facutly of Technical Sc
 - Run Grunt to generate static files for development
   - *grunt --force buildDev*
 - Create application.properties in src/main/resources relative to application.properties.dist
-  - set storage path (destination for uploaded documents)
-  - set picture_storage path (destination for uploaded pictures)
+  - *set storage path (destination for uploaded documents)*
+  - *set picture_storage path (destination for uploaded pictures)*

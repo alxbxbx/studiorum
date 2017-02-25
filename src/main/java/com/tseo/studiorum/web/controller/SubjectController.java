@@ -5,18 +5,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.tseo.studiorum.service.ProfessorRoleService;
-import com.tseo.studiorum.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.tseo.studiorum.annotations.Permission;
 import com.tseo.studiorum.entities.Duty;
 import com.tseo.studiorum.entities.ProfessorRole;
 import com.tseo.studiorum.entities.Student;
+import com.tseo.studiorum.entities.StudentSubject;
 import com.tseo.studiorum.entities.Subject;
+import com.tseo.studiorum.service.ProfessorRoleService;
+import com.tseo.studiorum.service.StudentService;
+import com.tseo.studiorum.service.StudentSubjectService;
 import com.tseo.studiorum.service.SubjectService;
 import com.tseo.studiorum.web.dto.DutyDTO;
 import com.tseo.studiorum.web.dto.ProfessorRoleDTO;
@@ -28,13 +34,16 @@ import com.tseo.studiorum.web.dto.SubjectDTO;
 public class SubjectController {
 
     @Autowired
-    StudentService studentService;
+    private StudentService studentService;
 
     @Autowired
-    SubjectService subjectService;
+    private SubjectService subjectService;
     
     @Autowired
-    ProfessorRoleService prService;
+    private ProfessorRoleService prService;
+    
+    @Autowired
+    private StudentSubjectService studentSubjectService;
     
     @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(method = RequestMethod.GET)
@@ -88,6 +97,9 @@ public class SubjectController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteSubject(@PathVariable Integer id) {
         Subject subject = subjectService.findOne(id);
+        if(subject == null)
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        
         //Because of foreign keys we need to delete this subject from every student attending on it
         for (Student student : subject.getStudents()){
         	student.getSubjects().remove(subject);
@@ -99,12 +111,9 @@ public class SubjectController {
         	//Delete ProfessorRole
         	prService.remove(pr.getId());
         }
-        if (subject == null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        else {
-            subjectService.remove(id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
+        
+        subjectService.remove(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     
     @Permission(roles = {"user", "professor", "student"})
@@ -180,6 +189,13 @@ public class SubjectController {
             studentService.save(student);
             //Adding student to set of new students
             newStudents.add(student);
+            
+            //Trying to find if student and subject are in relationship, if not - make new relationship
+            //so we can track if student has passed subject
+            StudentSubject studentSubject = studentSubjectService.findByStudentAndSubject(student, subject);
+            if(studentSubject == null){
+            	studentSubject = studentSubjectService.saveStudentSubject(student, subject);
+            }
         }
 
         //New set of students for this subject

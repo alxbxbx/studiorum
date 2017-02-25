@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class SubjectDependency {
@@ -13,8 +15,10 @@ public class SubjectDependency {
 	@GeneratedValue
 	private Integer id;
 	
+	@OneToOne
 	private Subject subject;
 	
+	@OneToMany
 	private List<Subject> requiredSubjects;
 	
 	

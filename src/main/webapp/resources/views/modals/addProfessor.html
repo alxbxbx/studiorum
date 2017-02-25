@@ -10,7 +10,7 @@
         <span class="input-group-addon">
             <span class="glyphicon glyphicon-link"></span>
         </span>
-        <select ng-model="professorRole.professorDTO.id" name="typeOfDuty" class="form-control"
+        <select ng-model="professorRole.professorDTO.id" name="professor" class="form-control"
                 describedby="duty-type-addon">
             <option ng-repeat="professor in professors" value="{{ professor.id }}">{{ professor.title }} {{ professor.lastName }} {{ professor.name }}</option>
         </select>
@@ -21,10 +21,10 @@
         <span class="input-group-addon">
             <span class="glyphicon glyphicon-link"></span>
         </span>
-        <select ng-model="professorRole.role" class="form-control" describedby="duty-type-addon">
-            <option ng-value="Professor"> {{ 'PROFESSOR' | translate }}</option>
-            <option ng-value="Assistent">{{ 'ASSISTENT' | translate }}</option>
-            <option ng-value="Demonstrator">{{ 'DEMONSTRATOR' | translate}}</option>
+        <select ng-model="professorRole.role" name="role" class="form-control" describedby="duty-type-addon">
+            <option value="Professor"> {{ 'PROFESSOR' | translate }}</option>
+            <option value="Assistent">{{ 'ASSISTENT' | translate }}</option>
+            <option value="Demonstrator">{{ 'DEMONSTRATOR' | translate}}</option>
         </select>
     </div>
 

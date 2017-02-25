@@ -143,10 +143,12 @@ angular.module('studiorum')
                 function ($scope, subject, $uibModalInstance, Restangular, $log, _) {
 
                     $scope.professorRole = {};
+                    $scope.professorRole.role = "prof";
                     $scope.professorRole.professorDTO = {};
                     $scope.professorRole.subjectDTO = subject;
 
                     $scope.ok = function () {
+                    	console.log($scope.professorRole);
                         Restangular.all('professorRoles').post($scope.professorRole).then(function (data) {
                             $scope.getProfessorRoles();
                             $uibModalInstance.close('ok');

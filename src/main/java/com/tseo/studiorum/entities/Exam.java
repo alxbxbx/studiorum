@@ -22,7 +22,7 @@ public class Exam {
     @PrimaryKeyJoinColumn(name = "DUTY_ID")
     private Duty duty;
 
-    private Boolean pass;
+    private boolean pass;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private Student student;
@@ -30,7 +30,7 @@ public class Exam {
     public Exam() {
     }
 
-    public Exam(Integer id, Integer points, Duty duty, Boolean pass, Student student) {
+    public Exam(Integer id, Integer points, Duty duty, boolean pass, Student student) {
         super();
         this.id = id;
         this.points = points;
@@ -55,15 +55,15 @@ public class Exam {
         this.points = points;
     }
 
-    public Boolean getPass() {
-        return pass;
-    }
+    public boolean isPass() {
+		return pass;
+	}
 
-    public void setPass(Boolean pass) {
-        this.pass = pass;
-    }
+	public void setPass(boolean pass) {
+		this.pass = pass;
+	}
 
-    public Student getStudent() {
+	public Student getStudent() {
         return student;
     }
 

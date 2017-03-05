@@ -11,4 +11,5 @@ import com.tseo.studiorum.entities.Student;
 public interface ExamRepository extends JpaRepository<Exam, Integer>{
 	List<Exam> findByDuty(Duty duty);
 	List<Exam> findByStudent(Student student);
+	Exam findByStudentAndDuty(Student student, Duty duty);
 }

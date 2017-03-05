@@ -4,14 +4,14 @@
        <h4 class="modal-title" translate="EXAM">FOR {{ exam.dutyDTO.typeOfDuty }}</h4>
 </div>
 <div class="modal-body">
-	<label ng-show="!exam.studentDTO" translate="STUDENT"></label>
-    <div ng-show="!exam.studentDTO" class="input-group">
+	<label  translate="STUDENT"></label>
+    <div  class="input-group">
 	  <span class="input-group-addon">
 	      <span class="glyphicon glyphicon-link"></span>
 	  </span>
       <select ng-model="studentId" name="typeOfDuty" class="form-control"
               describedby="duty-type-addon">
-          <option ng-repeat="student in dnd.listOfAttendingStudents" value="{{ student.id }}"> {{student.lastName}} {{student.name}} {{ student.studentId }} </option>
+          <option ng-repeat="student in dnd.availableStudentsForExam" value="{{ student.id }}"> {{student.lastName}} {{student.name}} {{ student.studentId }} </option>
       </select>
     </div>
 

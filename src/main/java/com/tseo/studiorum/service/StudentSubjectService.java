@@ -1,13 +1,17 @@
 package com.tseo.studiorum.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tseo.studiorum.entities.Duty;
+import com.tseo.studiorum.entities.Exam;
 import com.tseo.studiorum.entities.Student;
 import com.tseo.studiorum.entities.StudentSubject;
 import com.tseo.studiorum.entities.Subject;
+import com.tseo.studiorum.entities.SubjectDependency;
 import com.tseo.studiorum.repository.StudentSubjectRepository;
 
 @Service
@@ -15,6 +19,12 @@ public class StudentSubjectService {
 	
 	@Autowired
 	private StudentSubjectRepository studentSubjectRepository;
+	
+	@Autowired
+	private SubjectDependencyService subjectDependencyService;
+	
+	@Autowired
+	private ExamService examService;
 	
 	public StudentSubject getStudentSubjectById(Integer id){
 		return studentSubjectRepository.getOne(id);
@@ -32,14 +42,64 @@ public class StudentSubjectService {
 		return studentSubjectRepository.save(studentSubject);
 	}
 	
+	/**
+	 * 
+	 * Method for saving student subject relationship dependency
+	 * Method also check if particular subject can be passed because of 
+	 * required subjects in subjectDependency object
+	 * 
+	 * @param student
+	 * @param subject
+	 * 
+	 * @return studentSubject object
+	 */
 	public StudentSubject saveStudentSubject(Student student, Subject subject){
-		//TODO Implement logic to check if subject is available for student, set pass to FALSE
+		StudentSubject studentSubject = new StudentSubject();
+		studentSubject.setStudent(student);
+		studentSubject.setSubject(subject);
+		studentSubject.setPass(false);
+		studentSubject.setAvailable(true);
 		
-		return null;
+		//Check if subjects this subject depending on are passed
+		SubjectDependency subjectDependency = subjectDependencyService.findBySubject(subject);
+		if(subjectDependency.getRequiredSubjects() == null){
+			studentSubject.setAvailable(true);
+		}else{
+			subjectDependency.getRequiredSubjects().forEach(oneSubject -> {
+				StudentSubject current = studentSubjectRepository.findByStudentAndSubject(student, oneSubject);
+				if(!current.isPass()){
+					studentSubject.setAvailable(false);
+				}
+			});
+		}
+		
+		return studentSubjectRepository.save(studentSubject);
 	}
 	
+	/**
+	 * Method that iterates through set of duties and find exam with 
+	 * particular duty and student and check if exam is passed 
+	 * and calculates sum of points
+	 * If sum is greater than 54 points sets pass flag true
+	 * 
+	 * 
+	 * @param studentSubject
+	 */
 	public void checkIfPass(StudentSubject studentSubject){
-		//TODO Check every exam and sum them up, if sum > 54 pass = TRUE
+		int points = 0;
+		Set<Duty> duties = studentSubject.getSubject().getDuties();
+		
+		for(Duty duty : duties){
+			Exam exam = examService.findByStudentAndDuty(studentSubject.getStudent(), duty);
+			if(exam.isPass()){
+				points += exam.getPoints();
+			}
+		}
+		
+		if(points > 54){
+			studentSubject.setPass(true);
+			studentSubjectRepository.save(studentSubject);
+		}
 	}
 	
 	public void deleteStudentSubject(Integer id){

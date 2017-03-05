@@ -1,5 +1,6 @@
 package com.tseo.studiorum.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -22,7 +23,9 @@ public class SubjectDependency {
 	private List<Subject> requiredSubjects;
 	
 	
-	public SubjectDependency(){ }
+	public SubjectDependency(){
+		this.requiredSubjects = new ArrayList<Subject>();
+	}
 	
 	public SubjectDependency(Subject subject, List<Subject> requiredSubjects) {
 		super();

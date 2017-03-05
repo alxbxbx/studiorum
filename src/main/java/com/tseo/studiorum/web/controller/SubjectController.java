@@ -20,9 +20,11 @@ import com.tseo.studiorum.entities.ProfessorRole;
 import com.tseo.studiorum.entities.Student;
 import com.tseo.studiorum.entities.StudentSubject;
 import com.tseo.studiorum.entities.Subject;
+import com.tseo.studiorum.entities.SubjectDependency;
 import com.tseo.studiorum.service.ProfessorRoleService;
 import com.tseo.studiorum.service.StudentService;
 import com.tseo.studiorum.service.StudentSubjectService;
+import com.tseo.studiorum.service.SubjectDependencyService;
 import com.tseo.studiorum.service.SubjectService;
 import com.tseo.studiorum.web.dto.DutyDTO;
 import com.tseo.studiorum.web.dto.ProfessorRoleDTO;
@@ -45,6 +47,9 @@ public class SubjectController {
     @Autowired
     private StudentSubjectService studentSubjectService;
     
+    @Autowired
+    private SubjectDependencyService subjectDependencyService;
+    
     @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<SubjectDTO>> getSubjects() {
@@ -66,6 +71,28 @@ public class SubjectController {
     }
     
     @Permission(roles = {"user", "professor"})
+    @RequestMapping(value = "/available/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<SubjectDTO>> getAvailableForDependency(@PathVariable Integer id) {
+        Subject subject = subjectService.findOne(id);
+        if(subject == null)
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        List<Subject> subjects = subjectService.findPossibleDependency(subject);
+        List<SubjectDTO> subjectsDTO = new ArrayList<SubjectDTO>();
+        for (Subject oneSubject : subjects) {
+            subjectsDTO.add(new SubjectDTO(oneSubject));
+        }
+        return new ResponseEntity<>(subjectsDTO, HttpStatus.OK);
+    }
+    
+    /**
+     * 
+     * Method for saving new subject
+     * Method also creates new subjectDependency so we can add required subjects later
+     * 
+     * @param subjectDTO
+     * @return subjectDTO
+     */
+    @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<SubjectDTO> saveSubject(@RequestBody SubjectDTO subjectDTO) {
         Subject subject = new Subject();
@@ -74,6 +101,11 @@ public class SubjectController {
         subject.setDescription(subjectDTO.getDescription());
 
         subject = subjectService.save(subject);
+        
+        SubjectDependency subjectDependency = new SubjectDependency();
+        subjectDependency.setSubject(subject);
+        subjectDependencyService.saveSubjectDependency(subjectDependency);
+        
         return new ResponseEntity<>(new SubjectDTO(subject), HttpStatus.OK);
     }
     

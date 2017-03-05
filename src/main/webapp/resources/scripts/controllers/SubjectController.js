@@ -13,7 +13,9 @@ angular.module('studiorum')
                 listOfAllStudents: [],
                 listOfAttendingStudents: [],
                 // prevent user to add student on one exam more than once
-                availableStudents: []
+                availableStudents: [],
+                // prevent user to add student on same exam more than once
+                availableStudentsForExam: []
             };
 
             $scope.getSubject = function () {
@@ -295,8 +297,30 @@ angular.module('studiorum')
                 }];
 
             $scope.dutyExam = function (duty) {
-                $scope.exam.dutyDTO = duty;
-                $scope.examModal($scope.exam);
+            	$scope.dnd.availableStudentsForExam = [];
+                var path = "/exams/duty/" + duty.id;
+                Restangular.all(path).customGETLIST('', {}).then(function (exams) {
+                	//Exams for particular duty
+                    $scope.exams = exams;
+                    //Filtering new array with only available students for particular exam
+                    var isAvailable = true;
+                	for(var j=0; j<$scope.dnd.listOfAttendingStudents.length; j++){
+                		isAvailable = true;
+                		for(var i=0; i<exams.length; i++){
+                			if($scope.dnd.listOfAttendingStudents[j].id == exams[i].studentDTO.id){
+                				isAvailable = false;
+                				break;
+                			}
+                		}
+                		if(isAvailable){
+                			$scope.dnd.availableStudentsForExam.push($scope.dnd.listOfAttendingStudents[j]);
+                		}
+                	}
+                	
+                    $scope.exam.dutyDTO = duty;
+                    $scope.examModal($scope.exam);
+
+                });
             };
 
             $scope.examModal = function (exam) {

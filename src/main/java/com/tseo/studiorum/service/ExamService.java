@@ -39,5 +39,9 @@ public class ExamService {
     public List<Exam> findByStudent(Student student){
     	return examRepository.findByStudent(student);
     }
+    
+    public Exam findByStudentAndDuty(Student student, Duty duty){
+    	return examRepository.findByStudentAndDuty(student, duty);
+    }
 
 }

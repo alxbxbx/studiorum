@@ -17,22 +17,27 @@ import com.tseo.studiorum.annotations.Permission;
 import com.tseo.studiorum.entities.Duty;
 import com.tseo.studiorum.entities.Exam;
 import com.tseo.studiorum.entities.Student;
+import com.tseo.studiorum.entities.StudentSubject;
 import com.tseo.studiorum.service.DutyService;
 import com.tseo.studiorum.service.ExamService;
 import com.tseo.studiorum.service.StudentService;
+import com.tseo.studiorum.service.StudentSubjectService;
 
 @RestController
 @RequestMapping(value = "api/exams")
 public class ExamController {
 
     @Autowired
-    ExamService examService;
+    private ExamService examService;
 
     @Autowired
-    DutyService dutyService;
+    private DutyService dutyService;
 
     @Autowired
-    StudentService studentService;
+    private StudentService studentService;
+    
+    @Autowired
+    private StudentSubjectService studentSubjectService;
     	
     @Permission(roles = {"user", "professor", "student"})
     @RequestMapping(method = RequestMethod.GET)
@@ -78,7 +83,14 @@ public class ExamController {
         return new ResponseEntity<>(examsDTO, HttpStatus.OK);
     }
     
-    
+    /**
+     * Method for adding new exam 
+     * Method also checks if student passed subject
+     * after this exam being taken
+     * 
+     * @param examDTO
+     * @return ExamDTO
+     */
     @Permission(roles = {"user", "professor"})
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ExamDTO> saveExam(@RequestBody ExamDTO examDTO) {
@@ -89,14 +101,19 @@ public class ExamController {
         if (student == null || duty == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         Exam exam = new Exam();
-        exam.setPass(examDTO.getPass());
+        exam.setPass(examDTO.isPass());
         exam.setDuty(duty);
         exam.setStudent(student);
         exam.setPoints(examDTO.getPoints());
         exam = examService.save(exam);
         student.getExams().add(exam);
         studentService.save(student);
-        return new ResponseEntity<>(new ExamDTO(exam), HttpStatus.OK);
+        
+        //Check if subject is passed after this exam being taken
+        StudentSubject studentSubject = studentSubjectService.findByStudentAndSubject(student, duty.getSubject());
+        studentSubjectService.checkIfPass(studentSubject);
+        
+        return new ResponseEntity<ExamDTO>(new ExamDTO(exam), HttpStatus.OK);
     }
     
     @Permission(roles = {"user", "professor"})
@@ -105,7 +122,7 @@ public class ExamController {
         Exam exam = examService.findOne(examDTO.getId());
         if (exam == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        exam.setPass(examDTO.getPass());
+        exam.setPass(examDTO.isPass());
         exam.setPoints(examDTO.getPoints());
         exam = examService.save(exam);
         return new ResponseEntity<>(new ExamDTO(exam), HttpStatus.OK);

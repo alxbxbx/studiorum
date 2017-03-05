@@ -24,7 +24,7 @@ public class SubjectDependencyController {
 	@Permission(roles = {"user", "professor", "student"})
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<SubjectDependencyDTO> getOne(@PathVariable Integer id){
-		SubjectDependency subjectDependency = subjectDependencyService.getSubjectDependencyServiceById(id);
+		SubjectDependency subjectDependency = subjectDependencyService.getSubjectDependencyById(id);
 		
 		if(subjectDependency == null)
 			return new ResponseEntity<SubjectDependencyDTO>(HttpStatus.NOT_FOUND);
@@ -32,7 +32,7 @@ public class SubjectDependencyController {
 		return new ResponseEntity<SubjectDependencyDTO>(new SubjectDependencyDTO(subjectDependency), HttpStatus.OK);
 	}
 	
-	@Permission(roles = {"user", "professor", "student"})
+	@Permission(roles = {"user", "professor"})
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<SubjectDependencyDTO> save(@RequestBody SubjectDependencyDTO subjectDependencyDTO){
 		SubjectDependency subjectDependency = new SubjectDependency();
@@ -45,7 +45,7 @@ public class SubjectDependencyController {
 		return new ResponseEntity<SubjectDependencyDTO>(new SubjectDependencyDTO(subjectDependency), HttpStatus.CREATED);
 	}
 	
-	@Permission(roles = {"user", "professor", "student"})
+	@Permission(roles = {"user", "professor"})
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<SubjectDependencyDTO> update(@RequestBody SubjectDependencyDTO subjectDependencyDTO){
 		SubjectDependency subjectDependency = new SubjectDependency();
@@ -59,10 +59,10 @@ public class SubjectDependencyController {
 		return new ResponseEntity<SubjectDependencyDTO>(new SubjectDependencyDTO(subjectDependency), HttpStatus.CREATED);
 	}
 	
-	@Permission(roles = {"user", "professor", "student"})
+	@Permission(roles = {"user", "professor"})
 	@RequestMapping(method = RequestMethod.DELETE)
 	public ResponseEntity<Void>  delete(@PathVariable Integer id){
-		SubjectDependency subjectDependency = subjectDependencyService.getSubjectDependencyServiceById(id);
+		SubjectDependency subjectDependency = subjectDependencyService.getSubjectDependencyById(id);
 		if(subjectDependency == null)
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 			

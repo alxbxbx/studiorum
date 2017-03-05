@@ -88,10 +88,7 @@ public class DutyController {
         if (duty == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {
-        	Subject subject = duty.getSubject();
-            subject.getDuties().remove(duty);
-            subjectService.save(subject);
-            dutyService.remove(id);
+            dutyService.remove(duty);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }

@@ -6,14 +6,14 @@ public class ExamDTO {
 	
 	private Integer id;
 	private Integer points;
-	private Boolean pass;
+	private boolean pass;
 	private DutyDTO dutyDTO;
 	private StudentDTO studentDTO;
 	
 	public ExamDTO(Exam exam){
 		this.id = exam.getId();
 		this.points = exam.getPoints();
-		this.pass = exam.getPass();
+		this.pass = exam.isPass();
 		this.dutyDTO = new DutyDTO(exam.getDuty());
 		this.studentDTO = new StudentDTO(exam.getStudent());
 	}
@@ -30,10 +30,11 @@ public class ExamDTO {
 	public void setPoints(Integer points) {
 		this.points = points;
 	}
-	public Boolean getPass() {
+	
+	public boolean isPass() {
 		return pass;
 	}
-	public void setPass(Boolean pass) {
+	public void setPass(boolean pass) {
 		this.pass = pass;
 	}
 	public DutyDTO getDutyDTO() {

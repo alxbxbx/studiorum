@@ -6,13 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tseo.studiorum.entities.Duty;
+import com.tseo.studiorum.entities.Exam;
+import com.tseo.studiorum.entities.Subject;
 import com.tseo.studiorum.repository.DutyRepository;
 
 @Service
 public class DutyService {
 
 	@Autowired
-	DutyRepository dutyRepository;
+	private DutyRepository dutyRepository;
+	
+	@Autowired
+	private SubjectService subjectService;
+	
+	@Autowired
+	private ExamService examService;
 	
 	public Duty findOne(Integer id){
 		return dutyRepository.findOne(id);
@@ -26,8 +34,17 @@ public class DutyService {
 		return dutyRepository.save(duty);
 	}
 	
-	public void remove(Integer id){
-		dutyRepository.delete(id);
+	public void remove(Duty duty){
+		//Remove duty from subject
+		Subject subject = duty.getSubject();
+        subject.getDuties().remove(duty);
+        subjectService.save(subject);
+        
+        //Remove duty dependency from exams
+        List<Exam> exams = examService.findByDuty(duty);
+        exams.forEach(exam -> { examService.remove(exam.getId()); });
+        
+		dutyRepository.delete(duty.getId());
 	}
 	
 }

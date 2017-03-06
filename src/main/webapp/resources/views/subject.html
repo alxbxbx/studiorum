@@ -6,12 +6,22 @@
 				<a ng-if="hasRole(['professor']) || hasRole(['user'])" href="" ng-click="editSubject(subject)" style="float:right" class="btn btn-primary btn-xs" role="button">
                     <span class="glyphicon glyphicon-pencil"></span> {{ 'EDIT' | translate }}
                 </a>
+                <a ng-if="hasRole(['professor']) || hasRole(['user'])" href="" ng-click="addRequired(oneRequiredSubject)" style="float:right; margin-right:10px" class="btn btn-success btn-xs" role="button">
+                    <span class="glyphicon glyphicon-plus"></span> {{ 'ADDREQUIRED' | translate }}
+                </a>
 			</div>
             <div class="panel-body">
                 <table class="table table-striped">
-                    <tr><th>{{ 'NAME' | translate }}: </th><td>{{ subject.name }}</td></tr>
-                    <tr><th>{{ 'SEMESTER' | translate }}: </th><td>{{ subject.semester }}</td></tr>
-                    <tr><th>{{ 'DESCR' | translate }}: </th><td>{{ subject.description }}</td></tr>
+                    <tr><th>{{ 'NAME' | translate }}: </th><td>{{ subject.name }}</td><td></td></tr>
+                    <tr><th>{{ 'SEMESTER' | translate }}: </th><td>{{ subject.semester }}</td><td></td></tr>
+                    <tr><th>{{ 'DESCR' | translate }}: </th><td>{{ subject.description }}</td><td></td></tr>
+                    <tr ng-repeat="requiredSubject in subjectDependency.requiredSubjects">
+                    	<th>{{ 'REQUIREDSUBJECT' | translate }}: </th>
+                    	<td>{{ requiredSubject.name }}</td>
+                    	<td style="text-align:right">
+                            <a class="btn btn-danger btn-xs" ng-click="deleteRequiredSubject(requiredSubject)"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>

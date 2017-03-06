@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tseo.studiorum.annotations.Permission;
+import com.tseo.studiorum.entities.Subject;
 import com.tseo.studiorum.entities.SubjectDependency;
 import com.tseo.studiorum.service.SubjectDependencyService;
+import com.tseo.studiorum.service.SubjectService;
 import com.tseo.studiorum.web.dto.SubjectDependencyDTO;
 
 @RestController
@@ -21,10 +23,28 @@ public class SubjectDependencyController {
 	@Autowired
 	private SubjectDependencyService subjectDependencyService;
 	
+	@Autowired
+	private SubjectService subjectService;
+	
 	@Permission(roles = {"user", "professor", "student"})
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<SubjectDependencyDTO> getOne(@PathVariable Integer id){
 		SubjectDependency subjectDependency = subjectDependencyService.getSubjectDependencyById(id);
+		
+		if(subjectDependency == null)
+			return new ResponseEntity<SubjectDependencyDTO>(HttpStatus.NOT_FOUND);
+		
+		return new ResponseEntity<SubjectDependencyDTO>(new SubjectDependencyDTO(subjectDependency), HttpStatus.OK);
+	}
+	
+	@Permission(roles = {"user", "professor", "student"})
+	@RequestMapping(value = "/subject/{id}", method = RequestMethod.GET)
+	public ResponseEntity<SubjectDependencyDTO> getOneBySubject(@PathVariable Integer id){
+		Subject subject = subjectService.findOne(id);
+		if(subject == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		SubjectDependency subjectDependency = subjectDependencyService.findBySubject(subject);
 		
 		if(subjectDependency == null)
 			return new ResponseEntity<SubjectDependencyDTO>(HttpStatus.NOT_FOUND);
@@ -48,7 +68,9 @@ public class SubjectDependencyController {
 	@Permission(roles = {"user", "professor"})
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<SubjectDependencyDTO> update(@RequestBody SubjectDependencyDTO subjectDependencyDTO){
-		SubjectDependency subjectDependency = new SubjectDependency();
+		SubjectDependency subjectDependency = subjectDependencyService.getSubjectDependencyById(subjectDependencyDTO.getId());
+		if(subjectDependency == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
 		subjectDependency.setId(subjectDependencyDTO.getId());
 		subjectDependency.setSubject(subjectDependencyDTO.getSubject());

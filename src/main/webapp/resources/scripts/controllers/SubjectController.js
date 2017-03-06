@@ -3,8 +3,11 @@
 angular.module('studiorum')
     .controller('SubjectController', ['$scope', 'Restangular', '$uibModal', '$log', '_', '$routeParams',
         function ($scope, Restangular, $uibModal, $log, _, $routeParams) {
-
+    	
             $scope.subject = {};
+            $scope.subjectDependency = {};
+            $scope.availableSubjects = [];
+            $scope.oneRequiredSubject = {};
             $scope.duty = {};
             $scope.exam = {};
             $scope.searchText = "";
@@ -23,6 +26,18 @@ angular.module('studiorum')
                     $scope.subject = subject;
                 });
             };
+            
+            $scope.getRequiredSubjects = function() {
+            	Restangular.one("subjectdependency/subject", $routeParams.id).get().then(function(subjectDependency){
+            		$scope.subjectDependency = subjectDependency;
+            	});
+            }
+            
+            $scope.getAvailableSubjects = function() {
+            	Restangular.one("subjects", $routeParams.id).all("available").getList().then(function (availableSubjects) {
+            		$scope.availableSubjects = availableSubjects;
+                });
+            }
 
             $scope.getDuties = function () {
                 Restangular.one("subjects", $routeParams.id).all("duties").getList().then(function (duties) {
@@ -484,8 +499,51 @@ angular.module('studiorum')
                     };
 
                 }];
+            
+            $scope.addRequired = function(){
+            	var modalInstance = $uibModal.open({
+                    templateUrl: '/static/views/modals/subjectDependency.html',
+                    controller: AddRequiredSubjectCtrl,
+                    scope: $scope,
+                    resolve: {}
+                });
+                modalInstance.result.then(function (value) {
+                    $log.info('Modal finished its job at: ' + new Date() + ' with value: ' + value);
+                }, function (value) {
+                    $log.info('Modal dismissed at: ' + new Date() + ' with value: ' + value);
+                });
+            }
+            
+            var AddRequiredSubjectCtrl = ['$scope', '$uibModalInstance', 'Restangular', '$log', '_',
+                function ($scope, $uibModalInstance, Restangular, $log, _) {
+                    $scope.ok = function () {
+                    	$scope.oneRequiredSubject = JSON.parse($scope.oneRequiredSubject);
+                    	$scope.subjectDependency.requiredSubjects.push($scope.oneRequiredSubject);
+                    	_.remove($scope.availableSubjects, {id: $scope.oneRequiredSubject.id});
+                    	Restangular.all('subjectdependency').customPUT($scope.subjectDependency).then(function (subjectDependency) {
+                    		$scope.subjectDependency = subjectDependency;
+                            $uibModalInstance.close('ok');
+                        });
+                        $uibModalInstance.close('ok');
+                    };
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+
+                }];
+            
+            $scope.deleteRequiredSubject = function(requiredSubject) {
+            	$scope.oneRequiredSubject = requiredSubject;
+            	_.remove($scope.subjectDependency.requiredSubjects, {id: $scope.oneRequiredSubject.id});
+            	$scope.availableSubjects.push($scope.oneRequiredSubject);
+            	Restangular.all('subjectdependency').customPUT($scope.subjectDependency).then(function (subjectDependency) {
+            		$scope.subjectDependency = subjectDependency;
+                });
+			}
 
             $scope.getSubject();
+            $scope.getRequiredSubjects();
+            $scope.getAvailableSubjects();
             $scope.getStudents();
             $scope.getDuties();
             $scope.getProfessors();

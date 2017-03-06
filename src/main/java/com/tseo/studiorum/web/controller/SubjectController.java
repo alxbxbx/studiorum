@@ -71,7 +71,7 @@ public class SubjectController {
     }
     
     @Permission(roles = {"user", "professor"})
-    @RequestMapping(value = "/available/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/available", method = RequestMethod.GET)
     public ResponseEntity<List<SubjectDTO>> getAvailableForDependency(@PathVariable Integer id) {
         Subject subject = subjectService.findOne(id);
         if(subject == null)

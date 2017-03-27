@@ -1,7 +1,5 @@
 package com.tseo.studiorum.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,6 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tseo.studiorum.web.dto.SubjectDTO;
 
 @Entity
 public class Subject {
@@ -49,6 +50,13 @@ public class Subject {
         this.duties = duties;
         this.professorRole = professorRole;
         this.students = students;
+    }
+    
+    public Subject(SubjectDTO subjectDTO){
+    	this.id = subjectDTO.getId();
+    	this.name = subjectDTO.getName();
+    	this.semester = subjectDTO.getSemester();
+    	this.description = subjectDTO.getDescription();
     }
 
     public Integer getId() {

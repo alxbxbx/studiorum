@@ -57,8 +57,7 @@ public class SubjectDependencyController {
 	public ResponseEntity<SubjectDependencyDTO> save(@RequestBody SubjectDependencyDTO subjectDependencyDTO){
 		SubjectDependency subjectDependency = new SubjectDependency();
 		
-		subjectDependency.setSubject(subjectDependencyDTO.getSubject());
-		subjectDependency.setRequiredSubjects(subjectDependencyDTO.getRequiredSubjects());
+		subjectDependency = subjectDependencyService.DTOToDependency(subjectDependencyDTO);
 		
 		subjectDependency = subjectDependencyService.saveSubjectDependency(subjectDependency);
 		
@@ -72,9 +71,7 @@ public class SubjectDependencyController {
 		if(subjectDependency == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
-		subjectDependency.setId(subjectDependencyDTO.getId());
-		subjectDependency.setSubject(subjectDependencyDTO.getSubject());
-		subjectDependency.setRequiredSubjects(subjectDependencyDTO.getRequiredSubjects());
+		subjectDependency = subjectDependencyService.DTOToDependency(subjectDependencyDTO);
 		
 		subjectDependency = subjectDependencyService.saveSubjectDependency(subjectDependency);
 		

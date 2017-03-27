@@ -1,15 +1,18 @@
 package com.tseo.studiorum.configurations;
 
-import com.tseo.studiorum.annotations.Permission;
-import io.jsonwebtoken.Claims;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Method;
-import java.util.HashMap;
+import com.tseo.studiorum.annotations.Permission;
+
+import io.jsonwebtoken.Claims;
 
 public class CustomMethodInterceptor implements HandlerInterceptor {
 

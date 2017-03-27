@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class SubjectDependency {
 	
@@ -20,6 +22,7 @@ public class SubjectDependency {
 	private Subject subject;
 	
 	@OneToMany
+	@JsonBackReference
 	private List<Subject> requiredSubjects;
 	
 	

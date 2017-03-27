@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.tseo.studiorum.annotations.Permission;
 import com.tseo.studiorum.entities.Document;
 import com.tseo.studiorum.service.DocumentService;
 

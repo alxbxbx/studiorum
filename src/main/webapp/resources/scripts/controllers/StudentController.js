@@ -8,6 +8,9 @@ angular.module('studiorum')
             $scope.user = {};
             $scope.loading = false;
             $scope.user.isStudent = true;
+            $scope.studentSubjectList = [];
+            $scope.subjects = [];
+            $scope.payments = [];
 
             $scope.getPayments = function () {
                 Restangular.one("students/" + $routeParams.id + "/payments").get().then(function (payments) {
@@ -31,6 +34,13 @@ angular.module('studiorum')
                     $scope.subjects = subjects;
                 });
             };
+            
+            $scope.getStudentSubjectList = function() {
+            	var path = "studentsubject/student/" + $routeParams.id;
+            	Restangular.all(path).getList().then(function (studentsubjects){
+            		$scope.studentSubjectList = studentsubjects;
+            	});
+            }
 
             $scope.goTo = function (id) {
                 $location.path("/subjects/" + id);
@@ -282,6 +292,7 @@ angular.module('studiorum')
                 }];
 
             $scope.getStudent();
+            $scope.getStudentSubjectList();
             $scope.getFiles();
             $scope.getSubjects();
             $scope.getPayments();

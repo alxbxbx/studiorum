@@ -1,19 +1,19 @@
 package com.tseo.studiorum.web.controller;
 
-import com.github.javafaker.Faker;
-import com.tseo.studiorum.entities.Professor;
-import com.tseo.studiorum.entities.Student;
-import com.tseo.studiorum.entities.Subject;
-import com.tseo.studiorum.entities.User;
-import com.tseo.studiorum.service.ProfessorService;
-import com.tseo.studiorum.service.StudentService;
-import com.tseo.studiorum.service.UserService;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+import com.github.javafaker.Faker;
+import com.tseo.studiorum.entities.Professor;
+import com.tseo.studiorum.entities.Student;
+import com.tseo.studiorum.entities.User;
+import com.tseo.studiorum.service.ProfessorService;
+import com.tseo.studiorum.service.StudentService;
+import com.tseo.studiorum.service.UserService;
 
 @RestController
 @RequestMapping(value = "api/faker")

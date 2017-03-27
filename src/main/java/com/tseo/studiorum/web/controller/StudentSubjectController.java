@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +16,6 @@ import com.tseo.studiorum.entities.Student;
 import com.tseo.studiorum.entities.StudentSubject;
 import com.tseo.studiorum.service.StudentService;
 import com.tseo.studiorum.service.StudentSubjectService;
-import com.tseo.studiorum.web.dto.StudentDTO;
 import com.tseo.studiorum.web.dto.StudentSubjectDTO;
 
 @RestController
@@ -41,9 +39,12 @@ public class StudentSubjectController {
 	}
 	
 	@Permission(roles = {"user", "professor", "student"})
-    @RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<StudentSubjectDTO>> getByStudent(@RequestBody StudentDTO studentDTO){
-		Student student = studentService.findOne(studentDTO.getId());
+    @RequestMapping(value = "/student/{id}", method = RequestMethod.GET)
+	public ResponseEntity<List<StudentSubjectDTO>> getByStudent(@PathVariable Integer id){
+		Student student = studentService.findOne(id);
+		if(student == null)
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		
 		List<StudentSubject> studentSubjects = studentSubjectService.findByStudent(student);
 		List<StudentSubjectDTO> studentSubjectDTOs = new ArrayList<StudentSubjectDTO>();
 		studentSubjects.forEach(studentSubject -> {

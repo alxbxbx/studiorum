@@ -32,6 +32,8 @@ angular.module('studiorum')
             $scope.getSubjects = function () {
                 Restangular.one("students/" + $routeParams.id + "/subjects").get().then(function (subjects) {
                     $scope.subjects = subjects;
+                    console.log("SUBJECTS: ");
+                    console.log(subjects);
                 });
             };
             
@@ -39,6 +41,8 @@ angular.module('studiorum')
             	var path = "studentsubject/student/" + $routeParams.id;
             	Restangular.all(path).getList().then(function (studentsubjects){
             		$scope.studentSubjectList = studentsubjects;
+            		console.log("STUDENT SUBJECTS: ");
+            		console.log(studentsubjects);
             	});
             }
 

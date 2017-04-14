@@ -67,11 +67,15 @@
             		<th>{{ 'NAME' | translate }}</th>
             		<th>{{ 'SEMESTER' | translate }}</th>
             		<th>{{ 'DESCR' | translate }}</th>
+            		<th>{{ 'AVTT' | translate }}</th>
+            		<th>{{ 'PASSED' | translate }}</th>
             	</tr>
-				<tr ng-repeat="subject in subjects">
-					<td ng-click="goTo(subject.id)" class="oneStudent">{{ subject.name }}</td>	
-					<td>{{ subject.semester }}</td>
-					<td>{{ subject.description }}</td>
+				<tr ng-repeat="studentSubject in studentSubjectList">
+					<td ng-click="goTo(studentSubject.subjectDTO.id)" class="oneStudent">{{ studentSubject.subjectDTO.name }}</td>	
+					<td>{{ studentSubject.subjectDTO.semester }}</td>
+					<td>{{ studentSubject.subjectDTO.description }}</td>
+					<td><span style="color:{{studentSubject.available ? '#00A000' : '#A00000'}}" class="glyphicon glyphicon-{{ studentSubject.available ? 'ok' : 'remove' }}-sign"></span></td>
+					<td><span style="color:{{studentSubject.pass ? '#00A000' : '#A00000'}}" class="glyphicon glyphicon-{{ studentSubject.pass ? 'ok' : 'remove' }}-sign"></span></td>
 					</tr>
             </table>
         </div>
@@ -90,7 +94,7 @@
             		<th>{{ 'POINTS' | translate }}</th>
             		<th>{{ 'MAXPOINTS' | translate }}</th>
             		<th>{{ 'DATE' | translate }}</th>
-            		<th>{{ 'PASS' | translate }}</th>
+            		<th>{{ 'PASSED' | translate }}</th>
             	</tr>
 				<tr ng-repeat="exam in exams">
 					<td>{{ exam.dutyDTO.subjectDTO.name }}</td>

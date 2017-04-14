@@ -91,7 +91,7 @@
     "ADDRESULT": "Add result",
     "EXAM": "Exam",
     "POINTS": "Points",
-    "PASS": "Pass",
+    "PASSED": "Passed",
     "STUDENT": "Student",
     "RESULTS": "Results",
     "SUBJECT": "Subject",
@@ -106,5 +106,6 @@
     "DEMONSTRATOR": "Demonstrator",
     "ASSISTENT": "Assistent",
     "REQUIREDSUBJECT": "Required subject",
-    "ADDREQUIRED": "Add Dependency"
+    "ADDREQUIRED": "Add Dependency",
+    "AVTT": "Available to take"
 }

@@ -197,6 +197,7 @@ public class SubjectController {
         if (studentIds == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        System.out.println(studentIds);
         String[] ids = studentIds.split(",");
         Subject subject = subjectService.findOne(subjectId);
 
@@ -207,6 +208,7 @@ public class SubjectController {
         for (Student student : studentsOnCourse) {
             student.getSubjects().remove(subject);
             studentService.save(student);
+            studentSubjectService.deleteStudentSubject(studentSubjectService.findByStudentAndSubject(student, subject));
         }
 
         //Initializing new set of students

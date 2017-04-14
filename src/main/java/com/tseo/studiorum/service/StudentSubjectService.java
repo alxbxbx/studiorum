@@ -67,7 +67,7 @@ public class StudentSubjectService {
 		}else{
 			subjectDependency.getRequiredSubjects().forEach(oneSubject -> {
 				StudentSubject current = studentSubjectRepository.findByStudentAndSubject(student, oneSubject);
-				if(!current.isPass()){
+				if(current != null && current.isPass() == false){
 					studentSubject.setAvailable(false);
 				}
 			});

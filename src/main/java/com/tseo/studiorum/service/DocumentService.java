@@ -23,8 +23,9 @@ public class DocumentService {
         return documentRepository.findOne(id);
     }
 
-    public List<Document> findByStudentId(Integer studentId) {
-        List documents = em.createQuery("FROM Document document WHERE document.student.id = :studentId")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<Document> findByStudentId(Integer studentId) {
+		List documents = em.createQuery("FROM Document document WHERE document.student.id = :studentId")
             .setParameter("studentId", studentId)
             .getResultList();
         return documents;

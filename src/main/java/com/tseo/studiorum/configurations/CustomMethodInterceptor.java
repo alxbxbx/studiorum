@@ -24,7 +24,8 @@ public class CustomMethodInterceptor implements HandlerInterceptor {
 
         if (method.isAnnotationPresent(Permission.class)) {
             Claims claims = (Claims) request.getAttribute("claims");
-            HashMap<String, String> userData = (HashMap<String, String>) claims.get("userdata");
+            @SuppressWarnings("unchecked")
+			HashMap<String, String> userData = (HashMap<String, String>) claims.get("userdata");
             String userRole = userData.get("role");
             String[] roles = method.getAnnotation(Permission.class).roles();
             boolean denyAccess = true;

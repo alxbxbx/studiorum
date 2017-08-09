@@ -10,11 +10,17 @@ public class Document {
     @Id
     @GeneratedValue
     private Integer id;
+    
+    @Column(nullable = false)
     private String name;
+    
+    @Column(unique = true, nullable = false)
     private String path;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private Student student;
+    
+    //getters, setters, constructors
 
     public Document() {
 

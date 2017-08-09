@@ -62,6 +62,7 @@ public class SubjectService {
     public Subject save(Subject subject) {
         return subjectRepository.save(subject);
     }
+    
     /**
      * Method removes every dependency this subject had
      * 
@@ -75,7 +76,7 @@ public class SubjectService {
     		dutyService.remove(duty);
     	}
     	
-    	//Removing subject from every students
+    	//Removing subject from every student
     	for(Student student : subject.getStudents()){
     		student.getSubjects().remove(subject);
     		studentService.save(student);

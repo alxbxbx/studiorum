@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
@@ -15,12 +16,23 @@ import javax.persistence.OneToMany;
 @NamedQuery(name = "Student.findByFirstLastName", query = "from Student s where s.name LIKE CONCAT('%', :searchText, '%')" +
     "or s.lastName LIKE CONCAT('%', :searchText, '%')")
 public class Student extends User {
-
+	
+	@Column(nullable = false)
     private String gender;
+	
+	@Column(nullable = false)
     private Date dateOfBirth;
+	
+	@Column(nullable = false)
     private String address;
+	
+	@Column(unique = true, nullable = false)
     private String JMBG;
+	
+	@Column(unique = true, nullable = false)
     private String studentId;
+	
+	@Column(unique = true, nullable = false)
     private String picturePath;
 
     @ManyToMany(targetEntity = Subject.class, fetch = FetchType.LAZY)
@@ -34,6 +46,8 @@ public class Student extends User {
 
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     private Set<Exam> exams = new HashSet<Exam>();
+    
+    //getters, setters, constructors
 
 
     public Student() {

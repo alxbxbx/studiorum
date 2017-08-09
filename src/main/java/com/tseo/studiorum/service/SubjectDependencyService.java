@@ -32,18 +32,28 @@ public class SubjectDependencyService {
 	public void deleteSubjectDependency(Integer id) {
 		subjectDependencyRepository.delete(id);
 	}
-
+	
+	/**
+	 * Method for checking dependency between two subjects
+	 * 
+	 * @param one
+	 * @param two
+	 * @return boolean
+	 */
 	public boolean areDependent(Subject one, Subject two) {
 		SubjectDependency subjectDependencyOne = subjectDependencyRepository.findBySubject(one);
 		SubjectDependency subjectDependencyTwo = subjectDependencyRepository.findBySubject(two);
 
 		if (one.equals(two))
 			return true;
-
+		
+		//Check if subject two is required subject for subject one
 		for (Subject subject : subjectDependencyOne.getRequiredSubjects()) {
 			if (subject.equals(two))
 				return true;
 		}
+		
+		//Check if subject one is required subject for subject two
 		for (Subject subject : subjectDependencyTwo.getRequiredSubjects()) {
 			if (subject.equals(one))
 				return true;

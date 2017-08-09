@@ -62,9 +62,12 @@ public class StudentSubjectService {
 		
 		//Check if subjects this subject depending on are passed
 		SubjectDependency subjectDependency = subjectDependencyService.findBySubject(subject);
+		//If there is no required subjects set available true
 		if(subjectDependency.getRequiredSubjects() == null){
 			studentSubject.setAvailable(true);
 		}else{
+			//If there is any required subject, check and see if it is passed
+			//In case required subject is not passed, set availability of current subject to false
 			subjectDependency.getRequiredSubjects().forEach(oneSubject -> {
 				StudentSubject current = studentSubjectRepository.findByStudentAndSubject(student, oneSubject);
 				if(current != null && current.isPass() == false){

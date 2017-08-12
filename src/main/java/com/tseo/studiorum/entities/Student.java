@@ -26,13 +26,13 @@ public class Student extends User {
 	@Column(nullable = false)
     private String address;
 	
-	@Column(unique = true, nullable = false)
+	@Column(unique = true, nullable = true)
     private String JMBG;
 	
-	@Column(unique = true, nullable = false)
+	@Column(unique = true, nullable = true)
     private String studentId;
 	
-	@Column(unique = true, nullable = false)
+	@Column(unique = true, nullable = true)
     private String picturePath;
 
     @ManyToMany(targetEntity = Subject.class, fetch = FetchType.LAZY)

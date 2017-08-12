@@ -10,7 +10,6 @@ angular.module('studiorum')
             $scope.oneRequiredSubject = {};
             $scope.duty = {};
             $scope.exam = {};
-            $scope.searchText = "";
             $scope.dnd = {
                 selectedStudent: null,
                 listOfAllStudents: [],
@@ -83,12 +82,12 @@ angular.module('studiorum')
 
             };
 
-            $scope.search = function () {
-                if ($scope.searchText.length > 2) {
+            $scope.search = function (searchText) {
+                if (searchText.length > 2) {							
                     Restangular.all("students/search").customGETLIST('', {
                         page: "1",
                         size: "1000",
-                        searchText: $scope.searchText
+                        searchText: searchText
                     }).then(function (entries) {
                         var students = entries;
                         for (var i = 0, len = $scope.dnd.listOfAttendingStudents.length; i < len; i++) {

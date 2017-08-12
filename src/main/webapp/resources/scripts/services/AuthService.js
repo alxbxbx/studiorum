@@ -47,5 +47,4 @@ angular.module('studiorum').service('authService', ['$http', 'jwtHelper', '$root
         return service;
 
     }
-])
-;
+]);

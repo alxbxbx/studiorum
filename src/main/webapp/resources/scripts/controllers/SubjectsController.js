@@ -8,11 +8,8 @@ angular.module('studiorum').controller('SubjectsController', ['$scope', 'Restang
     $scope.baseSubjects = Restangular.all('subjects');
 
     loadListOfSubjects();
-
-
     
-
-
+    
     function loadListOfSubjects() {
         Restangular.all("subjects").getList().then(function (entries) {
             $scope.subjects = entries;

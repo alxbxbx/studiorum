@@ -9,6 +9,7 @@ angular.module('studiorum')
             $scope.loading = false;
             $scope.user.isStudent = true;
             $scope.studentSubjectList = [];
+            $scope.
             $scope.subjects = [];
             $scope.payments = [];
 
@@ -32,7 +33,6 @@ angular.module('studiorum')
             $scope.getSubjects = function () {
                 Restangular.one("students/" + $routeParams.id + "/subjects").get().then(function (subjects) {
                     $scope.subjects = subjects;
-                    console.log("SUBJECTS: ");
                     console.log(subjects);
                 });
             };

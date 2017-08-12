@@ -96,7 +96,7 @@
             		<th>{{ 'DATE' | translate }}</th>
             		<th>{{ 'PASSED' | translate }}</th>
             	</tr>
-				<tr ng-repeat="exam in exams">
+				<tr ng-repeat="exam in exams | orderBy:exam.dutyDTO.date">
 					<td>{{ exam.dutyDTO.subjectDTO.name }}</td>
 					<td>{{ exam.dutyDTO.typeOfDuty }}</td>
 					<td>{{ exam.points }}</td>
